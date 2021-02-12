@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container">
+    </div>
+
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+    <script src="MyComponent.js"></script>
+    <link rel="stylesheet" type="text/css" href="MyComponent.css" />
+
+    <script>
+        var companyNames = {
+            atlant: 'Atlant', 
+            samsung: 'Samsung', 
+            lg: 'LG', 
+            indesit: 'Indesit', 
+            xiaomi: 'Xiaomi', 
+            bosch: 'Bosch', 
+        };
+        var ishopItems = [
+            {
+                name: 'Fridge',
+                value: [
+                    { id: 1, name: companyNames.atlant,  price: 1, count: 10, img: 'https://shop.by/images/atlant_h_1401_100_icon.jpg', },
+                    { id: 2, name: companyNames.samsung, price: 1, count: 5,  img: 'https://shop.by/images/samsung_rb33j3200ww_icon.jpg', },
+                    { id: 3, name: companyNames.lg,      price: 1, count: 5,  img: 'https://shop.by/images/a_lg_ga_b419slgl_icon.jpg', },
+                    { id: 4, name: companyNames.indesit, price: 1, count: 7,  img: 'https://shop.by/images/indesit_df_4160_w_icon.jpg', },
+                ],
+            },
+            {
+                name: 'Vacuum cleaner',
+                value: [
+                    { id: 1, name: companyNames.bosch,   price: 1, count: 20, img: 'https://shop.by/images/a_bosch_bwd41720_icon.jpg', },
+                    { id: 2, name: companyNames.samsung, price: 1, count: 15, img: 'https://shop.by/images/samsung_vcc4520s3s_xev_icon.jpg', },
+                    { id: 3, name: companyNames.xiaomi,  price: 1, count: 12, img: 'https://shop.by/images/a_xiaomi_dreame_xr_premium_icon.jpg', },
+                ],
+            },
+            {
+                name: 'Washing machine',
+                value: [
+                    { id: 1, name: companyNames.lg,      price: 1, count: 8,  img: 'https://shop.by/images/lg_f1096nd3_icon.jpg', },
+                    { id: 2, name: companyNames.indesit, price: 1, count: 12, img: 'https://shop.by/images/a_indesit_iwub_40851_by_icon.jpg', },
+                    { id: 3, name: companyNames.samsung, price: 1, count: 5,  img: 'https://shop.by/images/a_samsung_wf60f1r1h0wdlp_icon.jpg', },
+                ],
+            },
+        ];
+
+        ReactDOM.render(
+            React.createElement(MyComponent, {
+                shopItems: ishopItems,
+            }),
+            document.getElementById('container')
+        );
+    </script>
+</body>
+
+</html>

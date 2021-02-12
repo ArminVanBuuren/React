@@ -1,0 +1,51 @@
+.MyComponent{
+    border: double gray 3px;
+    padding: 10px 7px;
+    background-color: #F0F0F0;
+    vertical-align: middle;
+}
+
+.MyComponent > .Group{
+    border: solid gray 1px;
+    background-color: #ffffff;
+    padding: 2px;
+}
+
+.MyComponent > .Group > .Item{
+    border: solid gray 1px; 
+    background-color: #F0F0F0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px;
+}
+
+.MyComponent > .Group > .Item > *{
+    flex:1;
+    padding: 0 10px;
+}
+
+.MyComponent > .Group > .Item > img{
+    flex:0;
+    max-height: 80px;
+    max-width: 80px;
+    vertical-align: middle;
+}
+
+.MyComponent > .Group > .Item > .Name::before{
+    content: 'Модель: ';
+    font-weight: bold;
+}
+
+.MyComponent > .Group > .Item > .Count::before{
+    content: 'Количество: ';
+    font-weight: bold;
+}
+
+.MyComponent > .Group > .Item > .Price::before{
+    content: 'Цена: ';
+    font-weight: bold;
+}
+.MyComponent > .Group > .Item > .Price::after{
+    content: '$';
+}
