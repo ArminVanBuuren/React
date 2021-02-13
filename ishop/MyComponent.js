@@ -30,12 +30,10 @@ var MyComponent = React.createClass({
             });
 
             bag.push(
-                React.DOM.div({className:'Group'}, React.DOM.h3({}, group.name), items)
+                React.DOM.div({key: group.name, className:'Group'}, React.DOM.h3({}, group.name), items)
             );
 
         });
-
-        console.log(bag);
 
         return React.DOM.div( {className:'MyComponent'}, bag );
     },
