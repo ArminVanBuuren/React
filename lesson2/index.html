@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="container">
+        <!-- <div class="MyComponent">
+            <input type="checkbox" class="Checkbox">
+            <input type="text" class="Text" >
+            <input type="button" class="Button" value="сброс">
+            <select size="7" class="Select">
+                <option class="Option" disabled>Выберите героя</option>
+                <option class="Option" value="Чебурашка">Чебурашка</option>
+                <option class="Option" selected value="Крокодил Гена">Крокодил Гена</option>
+                <option class="Option" value="Шапокляк">Шапокляк</option>
+                <option class="Option" value="Крыса Лариса">Крыса Лариса</option>
+            </select>
+        </div> -->
+    </div>
+
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="MyComponent.js"></script>
+    <link rel="stylesheet" type="text/css" href="MyComponent.css" />
+    <script>
+        var items = [
+            {id:1, text:"рентгеноэлектрокардиографический"},
+            {id:2, text:"частнопредпринимательский"},
+            {id:3, text:"субстанционализирующийся"},
+            {id:4, text:"человеконенавистничество"},
+            {id:5, text:"переосвидетельствоваться"},
+            {id:6, text:"сельскохозяйственно-машиностроительный"},
+            {id:7, text:"высокопревосходительство"},
+            {id:8, text:"достопримечательность"},
+        ];
+
+        ReactDOM.render(
+            React.createElement(MyComponent, {
+                comboItems: items,
+            }),
+            document.getElementById('container')
+        );
+    </script>
+</body>
+</html>

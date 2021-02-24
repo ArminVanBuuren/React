@@ -25,7 +25,7 @@ var MyComponent = React.createClass({
                     React.DOM.img({src:item.img}),
                     React.DOM.span({className:'Name'}, item.name),
                     React.DOM.span({className:'Count'}, item.count),
-                    React.DOM.span({className:'Price'}, item.price)
+                    React.DOM.span({className:'Price'}, item.price),
                 ));
             });
 
