@@ -36,9 +36,9 @@ var MyComponent = React.createClass({
         });
 
         return React.DOM.div({className:'MyComponent'}, 
-            React.DOM.input( {className:'Checkbox', type:'checkbox', onChange:this.onCbClicked}   ),
+            React.DOM.input( {className:'Checkbox', type:'checkbox', onChange:this.onCbClicked,   checked: this.state.isChecked }  ),
             React.DOM.input( {className:'Text',     type:'text',     onChange:this.onTextChanged, value: this.state.currentText} ),
-            React.DOM.input( {className:'Button',   type:'button',   onClick:this.onBtnClicked, value:'сброс'}, ),
+            React.DOM.input( {className:'Button',   type:'button',   onClick:this.onBtnClicked,   value:'сброс'}, ),
             React.DOM.select({className:'Select',   size:'7'}, bag )
         );
     },
