@@ -11,15 +11,17 @@ var MyComponent = React.createClass({
         })).isRequired, // обязательный пропс на вход
     },
 
+    getDefaultProps: function(){
+        return {
+            comboItems:[],
+        };
+    },
+
     getInitialState: function() {
         return { 
             isChecked: false,
             currentText: "",
         };
-    },
-
-    getDefaultProps: function(){
-        return [ [] ];
     },
 
     render: function(){
