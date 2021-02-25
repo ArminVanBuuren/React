@@ -20,17 +20,17 @@
 }
 
 .ShopProduct > .Name::before{
-    content: 'Модель: ';
+    content: 'Model: ';
     font-weight: bold;
 }
 
 .ShopProduct > .Count::before{
-    content: 'Количество: ';
+    content: 'Amount: ';
     font-weight: bold;
 }
 
 .ShopProduct > .Price::before{
-    content: 'Цена: ';
+    content: 'Price: ';
     font-weight: bold;
 }
 
