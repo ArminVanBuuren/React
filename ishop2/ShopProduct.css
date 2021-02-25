@@ -1,0 +1,43 @@
+.ShopProduct{
+    border: solid gray 1px; 
+    background-color: #F0F0F0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px;
+}
+
+.ShopProduct > *{
+    flex:1;
+    padding: 0 10px;
+}
+
+.ShopProduct > img{
+    flex:0;
+    max-height: 80px;
+    max-width: 80px;
+    vertical-align: middle;
+}
+
+.ShopProduct > .Name::before{
+    content: 'Модель: ';
+    font-weight: bold;
+}
+
+.ShopProduct > .Count::before{
+    content: 'Количество: ';
+    font-weight: bold;
+}
+
+.ShopProduct > .Price::before{
+    content: 'Цена: ';
+    font-weight: bold;
+}
+
+.ShopProduct > .Price::after{
+    content: '$';
+}
+
+.selected{
+    background-color: #14c0df;
+}
