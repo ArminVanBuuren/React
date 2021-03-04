@@ -1,0 +1,12 @@
+.ShopBasket{
+    border: double gray 3px;
+    padding: 10px 7px;
+    background-color: #F0F0F0;
+    vertical-align: middle;
+}
+
+.ShopBasket > .Group{
+    border: solid gray 1px;
+    background-color: #ffffff;
+    padding: 2px;
+}
