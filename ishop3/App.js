@@ -7,7 +7,9 @@ import ShopBasket from './components/ShopBasket';
 
 let basketItems = require('./basket-data.json');
 
+//console.log(basketItems.groups);
+
 ReactDOM.render(
-    <ShopBasket shopItems={basketItems} /> 
+    <ShopBasket shopItems={basketItems.groups} /> 
     , document.getElementById('container')
 );
