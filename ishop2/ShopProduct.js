@@ -10,7 +10,8 @@ var ShopProduct = React.createClass({
         count: React.PropTypes.number.isRequired,
         img: React.PropTypes.string.isRequired,
         isSelected: React.PropTypes.bool.isRequired,
-        cbItemClicked: React.PropTypes.func,
+        cbItemClicked: React.PropTypes.func.isRequired,
+        cbItemRemoved: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function(){
@@ -25,15 +26,11 @@ var ShopProduct = React.createClass({
     },
 
     getInitialState: function() {
-        return { 
-            isRemoved: false,
-        };
+        return { };
     },
 
     render: function(){
-        return this.state.isRemoved 
-        ? null
-        : React.DOM.div({className: this.props.isSelected ? 'ShopProduct selected' : 'ShopProduct', onClick: this.onItemClicked }, 
+        return React.DOM.div({className: this.props.isSelected ? 'ShopProduct selected' : 'ShopProduct', onClick: this.onItemClicked }, 
                     React.DOM.img({src:this.props.img}),
                     React.DOM.span({className:'Name'}, this.props.name),
                     React.DOM.span({className:'Count'}, this.props.count),
@@ -43,14 +40,12 @@ var ShopProduct = React.createClass({
     },
 
     onItemClicked : function(EO){
-        
         if (this.props.cbItemClicked)
             this.props.cbItemClicked(this.props.id);
     },
 
     onItemRemoved: function(EO){
-        this.setState( {isRemoved:true} );
+        if (this.props.cbItemRemoved)
+            this.props.cbItemRemoved(this.props.id);
     },
-
-
 });

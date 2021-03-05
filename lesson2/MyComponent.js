@@ -27,7 +27,7 @@ var MyComponent = React.createClass({
     render: function(){
 
         let collar = new Intl.Collator();
-        let curItems = this.props.comboItems.map(x => x);
+        let curItems = this.props.comboItems.slice();
         curItems = this.state.isChecked ? curItems.sort((x, y) => collar.compare(x.text, y.text)) : curItems;
 
         let bag = [];

@@ -17,6 +17,7 @@ var MyComponent = React.createClass({
     getInitialState: function() {
         return { 
             selectedItem: "-1",
+            removedItems: {},
         };
     },
 
@@ -25,13 +26,18 @@ var MyComponent = React.createClass({
         let bag = [];
         let curSelectedItem = this.state.selectedItem;
         let curOnItemClicked = this.onItemClicked;
+        let curOnItemRemoved = this.onItemRemoved;
 
         this.props.shopItems.forEach(group => {
             
-            let items = group.value.map(item => {
-
+            let items = [];
+            group.value.forEach(item => {
                     let itemId = group.name + '_' + item.id;
-                    return React.createElement(ShopProduct, {
+
+                    if (this.state.removedItems.hasOwnProperty(itemId))
+                        return;
+
+                    items.push(React.createElement(ShopProduct, {
                         key: itemId, 
                         id: itemId,
                         name: item.name, 
@@ -40,7 +46,8 @@ var MyComponent = React.createClass({
                         img: item.img,
                         isSelected: curSelectedItem === itemId,
                         cbItemClicked: curOnItemClicked,
-                    });
+                        cbItemRemoved: curOnItemRemoved,
+                    }))
                 }
             );
 
@@ -53,6 +60,11 @@ var MyComponent = React.createClass({
 
     onItemClicked: function(itemId){
         this.setState( {selectedItem:itemId} );
+    },
+
+    onItemRemoved: function(itemId){
+        this.state.removedItems[itemId] = true;
+        this.setState( {removedItems: this.state.removedItems} );
     },
 
 });
