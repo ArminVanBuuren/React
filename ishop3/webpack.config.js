@@ -30,9 +30,5 @@ module.exports = {
     },
     plugins: [
         extractCSS
-    ],
-    devServer: {
-        overlay: true,
-        open: true
-    }
+    ]
 }
