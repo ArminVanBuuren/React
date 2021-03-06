@@ -1,0 +1,30 @@
+.ShopProductModify {
+    padding: 1%;
+}
+
+.ShopProductModify > input[type="button"]{
+    width: 10%;
+}
+
+.ShopProductModify{
+    display: flex;
+    flex-direction: column;
+}
+
+.ShopProductModify > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.ShopProductModify > div > *{
+    padding: 0 3px;
+    margin: 5px;
+}
+
+.ShopProductModify > div > input[type="text"]{
+    width: 50%;
+}
+
+.ShopProductModify > div > .Error{
+    color: red;
+}

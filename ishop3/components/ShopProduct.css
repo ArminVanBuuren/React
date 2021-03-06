@@ -4,16 +4,15 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    padding: 5px;
+    padding: 3px;
+    justify-content: space-around;
 }
 
 .ShopProduct > *{
-    flex:1;
     padding: 0 10px;
 }
 
 .ShopProduct > img{
-    flex:0;
     max-height: 80px;
     max-width: 80px;
     vertical-align: middle;
@@ -40,4 +39,9 @@
 
 .selected{
     background-color: #14c0df;
+}
+
+.ShopProduct > input[type="button"]{
+    margin: 0 5px;
+    flex-grow: 0;
 }
