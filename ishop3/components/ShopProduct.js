@@ -8,7 +8,7 @@ class ShopProduct extends React.Component {
     static propTypes = {
       item: PropTypes.shape({
         itemId: PropTypes.string.isRequired,
-        model: PropTypes.string.isRequired,
+        applianceType: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,

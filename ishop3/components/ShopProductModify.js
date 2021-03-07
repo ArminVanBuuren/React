@@ -7,10 +7,10 @@ class ShopProductModify extends React.Component {
 
     static propTypes = {
         cbOnCommit: PropTypes.func.isRequired,
-        models: PropTypes.array.isRequired,
+        appliances: PropTypes.array.isRequired,
         item: PropTypes.shape({
           itemId: PropTypes.string.isRequired,
-          model: PropTypes.string,
+          applianceType: PropTypes.string,
           id: PropTypes.number.isRequired,
           name: PropTypes.string.isRequired,
           price: PropTypes.number.isRequired,
@@ -22,7 +22,7 @@ class ShopProductModify extends React.Component {
     static defaultProps = {
       item: {
         itemId: "-1",
-        model: null,
+        applianceType: null,
         id: -1,
         name:'',
         price: 0,
@@ -47,7 +47,7 @@ class ShopProductModify extends React.Component {
 
     getSourceItem(){
       return {
-        model:this.props.item.model === null ? this.props.models[0] : this.props.item.model,
+        applianceType:this.props.item.applianceType === null ? this.props.appliances[0] : this.props.item.applianceType,
         itemId:this.props.item.itemId,
         id: this.props.item.id,
         name:this.props.item.name,
@@ -60,7 +60,7 @@ class ShopProductModify extends React.Component {
     render() {
 
       let hasAnyError = !this.isValid();
-      let modelIterator = 0;
+      let applianceIterator = 0;
 
       let result = (
         <div className='ShopProductModify'>
@@ -69,15 +69,15 @@ class ShopProductModify extends React.Component {
             {
               this.state.newItem.itemId === "-1" 
               ? <div>
-                <span>Model: </span>
-                <select onChange={this.onModelChanged.bind(this)}>
-                  {this.props.models.map(m => {
-                    modelIterator++;
-                    return (<option key={modelIterator}>{m}</option>);
+                <span>Appliance: </span>
+                <select onChange={this.onApplianceTypeChanged.bind(this)}>
+                  {this.props.appliances.map(a => {
+                    applianceIterator++;
+                    return (<option key={applianceIterator}>{a}</option>);
                   })}
                 </select>
               </div>
-              : <p>Model: {this.state.newItem.model}</p>
+              : <p>Appliance: {this.state.newItem.applianceType}</p>
             }
 
             <div>
@@ -114,8 +114,8 @@ class ShopProductModify extends React.Component {
       return result;
     }
 
-    onModelChanged(EO){
-      this.setState( {newItem: {...this.state.newItem, model:EO.target.value} } );
+    onApplianceTypeChanged(EO){
+      this.setState( {newItem: {...this.state.newItem, applianceType:EO.target.value} } );
     }
 
     onNameChanged(EO){

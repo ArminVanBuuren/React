@@ -39,7 +39,7 @@ class ShopBasket extends React.Component {
     
     render() {
 
-        let models = [];
+        let appliances = [];
         let bag = [];
         let selectedItem = null;
         let curSelectedItem = this.state.selectedItem;
@@ -49,12 +49,12 @@ class ShopBasket extends React.Component {
 
         this.state.shopItems.forEach(group => {
             
-            models.push(group.name);
+            appliances.push(group.name);
             let items = [];
             group.value.forEach(item => {
 
                     let itemId = group.name + '_' + item.id;
-                    let newItem = { ...item, itemId, model:group.name };
+                    let newItem = { ...item, itemId, applianceType:group.name };
 
                     if (!selectedItem && curSelectedItem === itemId)
                         selectedItem = newItem;
@@ -87,8 +87,8 @@ class ShopBasket extends React.Component {
                 {bag}
                 <input type='button' value='New product' onClick={this.onItemCreated} disabled={this.state.mode === ChangeModes.Edit} />
                 { selectedItem && this.state.mode === ChangeModes.None && <ShopProductInfo {...selectedItem} />  }
-                { selectedItem && this.state.mode === ChangeModes.Edit && <ShopProductModify cbOnCommit={this.onItemCommit} models={models} item={selectedItem} />  }
-                { this.state.mode === ChangeModes.Create && <ShopProductModify cbOnCommit={this.onItemCommit} models={models} />  }
+                { selectedItem && this.state.mode === ChangeModes.Edit && <ShopProductModify cbOnCommit={this.onItemCommit} appliances={appliances} item={selectedItem} />  }
+                { this.state.mode === ChangeModes.Create && <ShopProductModify cbOnCommit={this.onItemCommit} appliances={appliances} />  }
             </div>
         );
     }
@@ -101,7 +101,7 @@ class ShopBasket extends React.Component {
     }
 
     onItemRemoved = (removedItem) => {
-        let group = this.state.shopItems.find(g => g.name === removedItem.model);
+        let group = this.state.shopItems.find(g => g.name === removedItem.type);
         group.value = group.value.filter(x => x.id !== removedItem.id);
         this.setState( { shopItems: this.state.shopItems, } );
     }
@@ -122,17 +122,14 @@ class ShopBasket extends React.Component {
         if (this.state.mode === ChangeModes.None)
             return;
 
-        let group = this.state.shopItems.find(g => g.name === newItem.model);
+        let group = this.state.shopItems.find(g => g.name === newItem.type);
     
         if (this.state.mode === ChangeModes.Edit){
-            let items = group.value.map(x => x.id === newItem.id ? newItem : x);
-            group.value = items;
+            group.value = group.value.map(x => x.id === newItem.id ? newItem : x);
         }
         else{
             let maxId = 0;
-            group.value.forEach(item => {
-                maxId = item.id > maxId ? item.id : maxId;
-            });
+            group.value.forEach(item => { maxId = item.id > maxId ? item.id : maxId; });
             maxId++;
             group.value.push(this.getItem(maxId, newItem));
         }
