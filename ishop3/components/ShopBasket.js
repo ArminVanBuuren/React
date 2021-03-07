@@ -125,8 +125,7 @@ class ShopBasket extends React.Component {
         let group = this.state.shopItems.find(g => g.name === newItem.model);
     
         if (this.state.mode === ChangeModes.Edit){
-            let items = group.value.filter(x => x.id !== newItem.id);
-            items.push(this.getItem(newItem.id, newItem));
+            let items = group.value.map(x => x.id === newItem.id ? newItem : x);
             group.value = items;
         }
         else{
