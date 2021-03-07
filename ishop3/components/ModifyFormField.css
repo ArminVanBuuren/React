@@ -1,0 +1,17 @@
+.ModifyFormField {
+    display: flex;
+    flex-direction: row;
+}
+
+.ModifyFormField > input[type="text"]{
+    width: 50%;
+}
+
+.ModifyFormField > .Error{
+    color: red;
+}
+
+.ModifyFormField > *{
+    padding: 0 3px;
+    margin: 5px;
+}

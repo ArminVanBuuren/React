@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './ShopProductModify.css';
+import ModifyFormField from './ModifyFormField';
 
 class ShopProductModify extends React.Component {
 
@@ -34,15 +35,7 @@ class ShopProductModify extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-          newItem: this.getSourceItem(),
-          status: {
-            nameCorrect: true,
-            priceCorrect: true,
-            quantityCorrect: true,
-            urlCorrect: true,
-          },
-        };
+        this.state = { newItem: this.getSourceItem(), };
     }
 
     getSourceItem(){
@@ -80,29 +73,14 @@ class ShopProductModify extends React.Component {
               : <p>Appliance: {this.state.newItem.applianceType}</p>
             }
 
-            <div>
-              <span>Name: </span>
-              <input className='Value' type='text' defaultValue={this.state.newItem.name} onChange={this.onNameChanged} />
-              {!this.state.status.nameCorrect && <span className='Error'>incorrect filling name</span>}
-            </div>
-
-            <div>
-              <span>Price: </span>
-              <input type='text' defaultValue={this.state.newItem.price} onChange={this.onPriceChanged} />
-              {!this.state.status.priceCorrect && <span className='Error'>incorrect filling, only number</span>}
-            </div>
-
-            <div>
-              <span>Quantity: </span>
-              <input type='text' defaultValue={this.state.newItem.count} onChange={this.onQuantityChanged} />
-              {!this.state.status.quantityCorrect && <span className='Error'>incorrect filling, only number</span>}
-            </div>
-
-            <div>
-              <span>URL: </span>
-              <input type='text' defaultValue={this.state.newItem.img} onChange={this.onUrlChanged} />
-              {!this.state.status.urlCorrect && <span className='Error'>incorrect filling URL</span>}
-            </div>
+            <ModifyFormField fieldName='Name: ' defaultValue={this.state.newItem.name} 
+                              errMessage='incorrect filling name' cbValidateAndSet={this.onNameChanged} />
+            <ModifyFormField fieldName='Price: ' defaultValue={this.state.newItem.price.toString()} 
+                              errMessage='incorrect filling, only number' cbValidateAndSet={this.onPriceChanged} />
+            <ModifyFormField fieldName='Quantity: ' defaultValue={this.state.newItem.count.toString()} 
+                              errMessage='incorrect filling, only number' cbValidateAndSet={this.onQuantityChanged} />
+            <ModifyFormField fieldName='URL: ' defaultValue={this.state.newItem.img} 
+                              errMessage='incorrect filling URL' cbValidateAndSet={this.onUrlChanged} />
 
             { this.state.newItem.itemId !== "-1"
               ? <input type='button' value='Edit' onClick={this.onCommit} disabled={hasAnyError} /> 
@@ -118,46 +96,36 @@ class ShopProductModify extends React.Component {
       this.setState( {newItem: {...this.state.newItem, applianceType:EO.target.value} } );
     }
 
-    onNameChanged = (EO) => {
-      this.setState( {
-        newItem: {...this.state.newItem, name:EO.target.value },
-        status: {...this.state.status, nameCorrect: this.checkName(EO.target.value)},
-      });
+    onNameChanged = (newValue) => {
+      this.setState( { newItem: {...this.state.newItem, name:newValue }, });
+      return this.checkName(newValue);
     }
 
     checkName = (value) => {
       return (/\w{2,}/.test(value));
     }
 
-    onPriceChanged = (EO) => {
-      const parsed = parseInt(EO.target.value);
-      this.setState( {
-          newItem: {...this.state.newItem, price:parsed },
-          status: {...this.state.status, priceCorrect: this.checkPrice(EO.target.value) },
-        });
+    onPriceChanged = (newValue) => {
+      this.setState( { newItem: {...this.state.newItem, price:parseInt(newValue) }, });
+      return this.checkPrice(newValue);
     }
 
     checkPrice = (value) => {
       return (/^\d+$/.test(value));
     }
 
-    onQuantityChanged = (EO) => {
-      const parsed = parseInt(EO.target.value);
-      this.setState( {
-          newItem: {...this.state.newItem, count:parsed },
-          status: {...this.state.status, quantityCorrect: this.checkQuantity(EO.target.value) },
-        });
+    onQuantityChanged = (newValue) => {
+      this.setState( { newItem: {...this.state.newItem, count:parseInt(newValue) }, });
+      return this.checkQuantity(newValue);
     }
 
     checkQuantity = (value) => {
       return (/^\d+$/.test(value));
     }
 
-    onUrlChanged = (EO) => {
-      this.setState( {
-        newItem: {...this.state.newItem, img:EO.target.value },
-        status: {...this.state.status, urlCorrect: this.checkUrl(EO.target.value), }
-      });
+    onUrlChanged = (newValue) => {
+      this.setState( { newItem: {...this.state.newItem, img:newValue }, });
+      return this.checkUrl(newValue);
     }
 
     checkUrl = (value) => {
