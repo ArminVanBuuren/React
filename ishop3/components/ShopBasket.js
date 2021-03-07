@@ -64,7 +64,7 @@ class ShopBasket extends React.Component {
                                 key={itemId}
                                 item={newItem}
                                 isSelected={curSelectedItem === itemId}
-                                isEditing={this.state.mode === ChangeModes.Edit}
+                                isEditing={this.state.mode !== ChangeModes.None}
                                 cbItemClicked={curOnItemClicked}
                                 cbItemEdited={curOnItemEdited}
                                 cbItemRemoved={curOnItemRemoved}
@@ -85,7 +85,7 @@ class ShopBasket extends React.Component {
         return (
             <div className='ShopBasket'>
                 {bag}
-                <input type='button' value='New product' onClick={this.onItemCreated} disabled={this.state.mode === ChangeModes.Edit} />
+                <input type='button' value='New product' onClick={this.onItemCreated} disabled={this.state.mode !== ChangeModes.None} />
                 { selectedItem && this.state.mode === ChangeModes.None && <ShopProductInfo {...selectedItem} />  }
                 { selectedItem && this.state.mode === ChangeModes.Edit && <ShopProductModify cbOnCommit={this.onItemCommit} appliances={appliances} item={selectedItem} />  }
                 { this.state.mode === ChangeModes.Create && <ShopProductModify cbOnCommit={this.onItemCommit} appliances={appliances} />  }
