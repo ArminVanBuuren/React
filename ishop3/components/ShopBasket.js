@@ -64,6 +64,7 @@ class ShopBasket extends React.Component {
                                 key={itemId}
                                 item={newItem}
                                 isSelected={curSelectedItem === itemId}
+                                isEditing={this.state.mode === ChangeModes.Edit}
                                 cbItemClicked={curOnItemClicked}
                                 cbItemEdited={curOnItemEdited}
                                 cbItemRemoved={curOnItemRemoved}
@@ -102,13 +103,11 @@ class ShopBasket extends React.Component {
     onItemRemoved = (removedItem) => {
         let group = this.state.shopItems.find(g => g.name === removedItem.model);
         group.value = group.value.filter(x => x.id !== removedItem.id);
+        this.setState( { shopItems: this.state.shopItems, } );
     }
 
     onItemCreated = (EO) => {
-        this.setState( {
-            selectedItem: "-1",
-            mode: ChangeModes.Create,
-        } );
+        this.setState( { mode: ChangeModes.Create, } );
     }
 
     onItemEdited = (itemId) => {

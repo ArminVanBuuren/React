@@ -15,8 +15,9 @@ class ShopProduct extends React.Component {
         count: PropTypes.number.isRequired,
         img: PropTypes.string.isRequired,
       }),
-
+      
       isSelected: PropTypes.bool.isRequired,
+      isEditing: PropTypes.bool.isRequired,
       cbItemClicked: PropTypes.func.isRequired,
       cbItemEdited: PropTypes.func.isRequired,
       cbItemRemoved: PropTypes.func.isRequired,
@@ -33,8 +34,8 @@ class ShopProduct extends React.Component {
           <span className='Name'>{this.props.item.name}</span>
           <span className='Count'>{this.props.item.count}</span>
           <span className='Price'>{this.props.item.price}</span>
-          <input className='Button' type='button' value='Edit' onClick={this.onItemEdit} />
-          <input className='Button' type='button' value='Remove' onClick={this.onItemRemoved} />
+          <input className='Button' type='button' value='Edit' onClick={this.onItemEdit} disabled={this.props.isEditing} />
+          <input className='Button' type='button' value='Remove' onClick={this.onItemRemoved} disabled={this.props.isEditing} />
         </div>
       );
     }
@@ -51,9 +52,11 @@ class ShopProduct extends React.Component {
       }
     }
 
-    onItemRemoved = (EO) => { 
-      if (this.props.cbItemRemoved)
-          this.props.cbItemRemoved(this.props.item);
+    onItemRemoved = (EO) => {
+      if (this.props.cbItemRemoved){
+        EO.stopPropagation();
+        this.props.cbItemRemoved(this.props.item);
+      }
     }
   
 }
