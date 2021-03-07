@@ -16,7 +16,7 @@
     flex-direction: row;
 }
 
-.ShopProductModify > div > *{
+.ShopProductModify > p, .ShopProductModify > div > *{
     padding: 0 3px;
     margin: 5px;
 }

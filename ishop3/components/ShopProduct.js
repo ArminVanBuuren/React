@@ -6,11 +6,16 @@ import './ShopProduct.css';
 class ShopProduct extends React.Component {
 
     static propTypes = {
-      itemId: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      count: PropTypes.number.isRequired,
-      img: PropTypes.string.isRequired,
+      item: PropTypes.shape({
+        itemId: PropTypes.string.isRequired,
+        model: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        count: PropTypes.number.isRequired,
+        img: PropTypes.string.isRequired,
+      }),
+
       isSelected: PropTypes.bool.isRequired,
       cbItemClicked: PropTypes.func.isRequired,
       cbItemEdited: PropTypes.func.isRequired,
@@ -24,10 +29,10 @@ class ShopProduct extends React.Component {
     render() {
       return (
         <div className={ this.props.isSelected ? 'ShopProduct selected' : 'ShopProduct' } onClick={this.onItemClicked}>
-          <img src={this.props.img} />
-          <span className='Name'>{this.props.name}</span>
-          <span className='Count'>{this.props.count}</span>
-          <span className='Price'>{this.props.price}</span>
+          <img src={this.props.item.img} />
+          <span className='Name'>{this.props.item.name}</span>
+          <span className='Count'>{this.props.item.count}</span>
+          <span className='Price'>{this.props.item.price}</span>
           <input className='Button' type='button' value='Edit' onClick={this.onItemEdit} />
           <input className='Button' type='button' value='Remove' onClick={this.onItemRemoved} />
         </div>
@@ -36,17 +41,19 @@ class ShopProduct extends React.Component {
 
     onItemClicked = (EO) => { 
       if (this.props.cbItemClicked)
-          this.props.cbItemClicked(this.props.itemId);
+          this.props.cbItemClicked(this.props.item.itemId);
     }
 
-    onItemEdit = (EO) => { 
-      if (this.props.cbItemEdited)
-          this.props.cbItemEdited(this.props.itemId);
+    onItemEdit = (EO) => {
+      if (this.props.cbItemEdited){
+        EO.stopPropagation();
+        this.props.cbItemEdited(this.props.item.itemId);
+      }
     }
 
     onItemRemoved = (EO) => { 
       if (this.props.cbItemRemoved)
-          this.props.cbItemRemoved(this.props.itemId);
+          this.props.cbItemRemoved(this.props.item);
     }
   
 }

@@ -8,7 +8,15 @@ class ShopProductModify extends React.Component {
     static propTypes = {
         cbOnCommit: PropTypes.func.isRequired,
         models: PropTypes.array.isRequired,
-        item: PropTypes.object,
+        item: PropTypes.shape({
+          itemId: PropTypes.string.isRequired,
+          model: PropTypes.string,
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          price: PropTypes.number.isRequired,
+          count: PropTypes.number.isRequired,
+          img: PropTypes.string.isRequired,
+        }),
     };
 
     static defaultProps = {
@@ -17,14 +25,28 @@ class ShopProductModify extends React.Component {
         model: null,
         id: -1,
         name:'',
-        count: 0,
         price: 0,
+        count: 0,
         img: "",
       },
     }
-  
-    state = {
-      newItem: {
+    
+    constructor(props) {
+        super(props);
+
+        this.state = {
+          newItem: this.getSourceItem(),
+          status: {
+            nameCorrect: true,
+            priceCorrect: true,
+            quantityCorrect: true,
+            urlCorrect: true,
+          },
+        };
+    }
+
+    getSourceItem(){
+      return {
         model:this.props.item.model === null ? this.props.models[0] : this.props.item.model,
         itemId:this.props.item.itemId,
         id: this.props.item.id,
@@ -32,37 +54,31 @@ class ShopProductModify extends React.Component {
         price: this.props.item.price,
         count: this.props.item.count,
         img: this.props.item.img,
-      },
-      status: {
-        nameCorrect: true,
-        priceCorrect: true,
-        quantityCorrect: true,
-        urlCorrect: true,
-      },
-    };
+      }
+    }
 
     render() {
 
       let hasAnyError = !this.isValid();
-
       let modelIterator = 0;
-      return (
+
+      let result = (
         <div className='ShopProductModify'>
             { this.state.newItem.itemId !== "-1" && <p>ID {this.state.newItem.id}</p> }
 
             {
-              this.state.newItem.itemId === "-1" &&
-              <div>
+              this.state.newItem.itemId === "-1" 
+              ? <div>
                 <span>Model: </span>
                 <select onChange={this.onModelChanged.bind(this)}>
-                  {this.props.models.map(item => {
+                  {this.props.models.map(m => {
                     modelIterator++;
-                    return (<option key={modelIterator} defaultValue={item === this.state.newItem.model}>{item}</option>);
+                    return (<option key={modelIterator}>{m}</option>);
                   })}
                 </select>
               </div>
+              : <p>Model: {this.state.newItem.model}</p>
             }
-            
 
             <div>
               <span>Name: </span>
@@ -94,6 +110,8 @@ class ShopProductModify extends React.Component {
             }
         </div>
       );
+
+      return result;
     }
 
     onModelChanged(EO){
@@ -108,7 +126,7 @@ class ShopProductModify extends React.Component {
     }
 
     checkName = (value) => {
-      return (/\w{3,}/.test(value));
+      return (/\w{2,}/.test(value));
     }
 
     onPriceChanged(EO){
