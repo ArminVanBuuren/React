@@ -8,6 +8,7 @@ class ShopProductModify extends React.Component {
 
     static propTypes = {
         cbOnCommit: PropTypes.func.isRequired,
+        cbOnCancel: PropTypes.func.isRequired,
         appliances: PropTypes.array.isRequired,
         item: PropTypes.shape({
           itemId: PropTypes.string.isRequired,
@@ -79,10 +80,13 @@ class ShopProductModify extends React.Component {
             <ModifyFormField fieldName='URL: ' defaultValue={this.state.newItem.img} 
                               errMessage='incorrect filling URL' validateFunc={this.checkUrl} modifyFunc={this.onUrlChanged} />
 
-            { this.state.newItem.itemId !== "-1"
-              ? <input type='button' value='Edit' onClick={this.onCommit} disabled={hasAnyError} /> 
-              : <input type='button' value='Create' onClick={this.onCommit} disabled={hasAnyError} />
-            }
+            <div className='Control' >
+              { this.state.newItem.itemId !== "-1"
+                ? <input type='button' value='Edit' onClick={this.onCommit} disabled={hasAnyError} /> 
+                : <input type='button' value='Create' onClick={this.onCommit} disabled={hasAnyError} />
+              }
+              <input type='button' value='Cancel' onClick={this.onCancel} /> 
+            </div>
         </div>
       );
 
@@ -129,6 +133,10 @@ class ShopProductModify extends React.Component {
       if (this.isValid()){
         this.props.cbOnCommit(this.state.newItem);
       }
+    }
+
+    onCancel = (EO) => {
+      this.props.cbOnCancel();
     }
 
     isValid(){

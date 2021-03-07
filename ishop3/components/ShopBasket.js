@@ -87,8 +87,8 @@ class ShopBasket extends React.Component {
                 {bag}
                 <input type='button' value='New product' onClick={this.onItemCreated} disabled={this.state.mode !== ChangeModes.None} />
                 { selectedItem && this.state.mode === ChangeModes.None && <ShopProductInfo {...selectedItem} />  }
-                { selectedItem && this.state.mode === ChangeModes.Edit && <ShopProductModify cbOnCommit={this.onItemCommit} appliances={appliances} item={selectedItem} />  }
-                { this.state.mode === ChangeModes.Create && <ShopProductModify cbOnCommit={this.onItemCommit} appliances={appliances} />  }
+                { selectedItem && this.state.mode === ChangeModes.Edit && <ShopProductModify cbOnCommit={this.onModifyCommitted} cbOnCancel={this.onModifyCancelled} appliances={appliances} item={selectedItem} />  }
+                { this.state.mode === ChangeModes.Create && <ShopProductModify cbOnCommit={this.onModifyCommitted} cbOnCancel={this.onModifyCancelled} appliances={appliances} />  }
             </div>
         );
     }
@@ -101,9 +101,10 @@ class ShopBasket extends React.Component {
     }
 
     onItemRemoved = (removedItem) => {
-        let group = this.state.shopItems.find(g => g.name === removedItem.applianceType);
+        let newStateItems = this.state.shopItems.slice();
+        let group = newStateItems.find(g => g.name === removedItem.applianceType);
         group.value = group.value.filter(x => x.id !== removedItem.id);
-        this.setState( { shopItems: this.state.shopItems, } );
+        this.setState( { shopItems: newStateItems, } );
     }
 
     onItemCreated = (EO) => {
@@ -117,7 +118,7 @@ class ShopBasket extends React.Component {
         } );
     }
 
-    onItemCommit = (newItem) => {
+    onModifyCommitted = (newItem) => {
 
         if (this.state.mode === ChangeModes.None)
             return;
@@ -148,6 +149,10 @@ class ShopBasket extends React.Component {
             count: newItem.count,
             img: newItem.img,
         };
+    }
+
+    onModifyCancelled = () => {
+        this.setState( { mode: ChangeModes.None, } );
     }
 }
 

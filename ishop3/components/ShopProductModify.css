@@ -4,8 +4,15 @@
     padding: 1%;
 }
 
-.ShopProductModify > input[type="button"]{
-    width: 10%;
+.ShopProductModify > .Control {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    width: 100px;
+}
+
+.ShopProductModify > .Control > input[type="button"]{
+    margin: 0 10px;
 }
 
 .ShopProductModify > p{
