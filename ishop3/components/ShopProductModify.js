@@ -62,14 +62,11 @@ class ShopProductModify extends React.Component {
             {
               this.state.newItem.itemId === "-1" 
               ? <div>
-                <span>Appliance: </span>
-                <select onChange={this.onApplianceTypeChanged}>
-                  {this.props.appliances.map(a => {
-                    applianceIterator++;
-                    return (<option key={applianceIterator}>{a}</option>);
-                  })}
-                </select>
-              </div>
+                  <span>Appliance: </span>
+                  <select onChange={this.onApplianceTypeChanged}>
+                    {this.props.appliances.map(a => <option key={++applianceIterator}>{a}</option> )}
+                  </select>
+                </div>
               : <p>Appliance: {this.state.newItem.applianceType}</p>
             }
 
