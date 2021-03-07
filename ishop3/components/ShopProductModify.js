@@ -74,13 +74,13 @@ class ShopProductModify extends React.Component {
             }
 
             <ModifyFormField fieldName='Name: ' defaultValue={this.state.newItem.name} 
-                              errMessage='incorrect filling name' cbValidateAndSet={this.onNameChanged} />
+                              errMessage='incorrect filling name' validateFunc={this.checkName} modifyFunc={this.onNameChanged} />
             <ModifyFormField fieldName='Price: ' defaultValue={this.state.newItem.price.toString()} 
-                              errMessage='incorrect filling, only number' cbValidateAndSet={this.onPriceChanged} />
+                              errMessage='incorrect filling, only number' validateFunc={this.checkPrice} modifyFunc={this.onPriceChanged} />
             <ModifyFormField fieldName='Quantity: ' defaultValue={this.state.newItem.count.toString()} 
-                              errMessage='incorrect filling, only number' cbValidateAndSet={this.onQuantityChanged} />
+                              errMessage='incorrect filling, only number' validateFunc={this.checkQuantity} modifyFunc={this.onQuantityChanged} />
             <ModifyFormField fieldName='URL: ' defaultValue={this.state.newItem.img} 
-                              errMessage='incorrect filling URL' cbValidateAndSet={this.onUrlChanged} />
+                              errMessage='incorrect filling URL' validateFunc={this.checkUrl} modifyFunc={this.onUrlChanged} />
 
             { this.state.newItem.itemId !== "-1"
               ? <input type='button' value='Edit' onClick={this.onCommit} disabled={hasAnyError} /> 
@@ -98,7 +98,6 @@ class ShopProductModify extends React.Component {
 
     onNameChanged = (newValue) => {
       this.setState( { newItem: {...this.state.newItem, name:newValue }, });
-      return this.checkName(newValue);
     }
 
     checkName = (value) => {
@@ -107,7 +106,6 @@ class ShopProductModify extends React.Component {
 
     onPriceChanged = (newValue) => {
       this.setState( { newItem: {...this.state.newItem, price:parseInt(newValue) }, });
-      return this.checkPrice(newValue);
     }
 
     checkPrice = (value) => {
@@ -116,7 +114,6 @@ class ShopProductModify extends React.Component {
 
     onQuantityChanged = (newValue) => {
       this.setState( { newItem: {...this.state.newItem, count:parseInt(newValue) }, });
-      return this.checkQuantity(newValue);
     }
 
     checkQuantity = (value) => {
@@ -125,7 +122,6 @@ class ShopProductModify extends React.Component {
 
     onUrlChanged = (newValue) => {
       this.setState( { newItem: {...this.state.newItem, img:newValue }, });
-      return this.checkUrl(newValue);
     }
 
     checkUrl = (value) => {

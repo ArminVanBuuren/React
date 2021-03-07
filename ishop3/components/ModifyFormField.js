@@ -9,7 +9,8 @@ class ModifyFormField extends React.Component {
         fieldName: PropTypes.string.isRequired,
         defaultValue: PropTypes.string.isRequired,
         errMessage: PropTypes.string.isRequired,
-        cbValidateAndSet: PropTypes.func.isRequired,
+        validateFunc: PropTypes.func.isRequired,
+        modifyFunc: PropTypes.func.isRequired,
     };
   
     state = {
@@ -27,7 +28,8 @@ class ModifyFormField extends React.Component {
     }
 
     validate = (EO) =>{
-        let isValid = this.props.cbValidateAndSet(EO.target.value);
+        let isValid = this.props.validateFunc(EO.target.value);
+        this.props.modifyFunc(EO.target.value);
         this.setState( { isValid } );
     }
 
