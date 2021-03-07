@@ -101,7 +101,7 @@ class ShopBasket extends React.Component {
     }
 
     onItemRemoved = (removedItem) => {
-        let group = this.state.shopItems.find(g => g.name === removedItem.type);
+        let group = this.state.shopItems.find(g => g.name === removedItem.applianceType);
         group.value = group.value.filter(x => x.id !== removedItem.id);
         this.setState( { shopItems: this.state.shopItems, } );
     }
