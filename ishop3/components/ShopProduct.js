@@ -17,7 +17,7 @@ class ShopProduct extends React.Component {
       }),
       
       isSelected: PropTypes.bool.isRequired,
-      isEditing: PropTypes.bool.isRequired,
+      isModifying: PropTypes.bool.isRequired,
       cbItemClicked: PropTypes.func.isRequired,
       cbItemEdited: PropTypes.func.isRequired,
       cbItemRemoved: PropTypes.func.isRequired,
@@ -34,29 +34,24 @@ class ShopProduct extends React.Component {
           <span className='Name'>{this.props.item.name}</span>
           <span className='Count'>{this.props.item.count}</span>
           <span className='Price'>{this.props.item.price}</span>
-          <input className='Button' type='button' value='Edit' onClick={this.onItemEdit} disabled={this.props.isEditing} />
-          <input className='Button' type='button' value='Remove' onClick={this.onItemRemoved} disabled={this.props.isEditing} />
+          <input className='Button' type='button' value='Edit' onClick={this.onItemEdit} disabled={this.props.isModifying} />
+          <input className='Button' type='button' value='Remove' onClick={this.onItemRemoved} disabled={this.props.isModifying} />
         </div>
       );
     }
 
     onItemClicked = (EO) => { 
-      if (this.props.cbItemClicked)
-          this.props.cbItemClicked(this.props.item.itemId);
+      this.props.cbItemClicked(this.props.item.itemId);
     }
 
     onItemEdit = (EO) => {
-      if (this.props.cbItemEdited){
-        EO.stopPropagation();
-        this.props.cbItemEdited(this.props.item.itemId);
-      }
+      EO.stopPropagation();
+      this.props.cbItemEdited(this.props.item.itemId);
     }
 
     onItemRemoved = (EO) => {
-      if (this.props.cbItemRemoved){
-        EO.stopPropagation();
-        this.props.cbItemRemoved(this.props.item);
-      }
+      EO.stopPropagation();
+      this.props.cbItemRemoved(this.props.item)
     }
   
 }

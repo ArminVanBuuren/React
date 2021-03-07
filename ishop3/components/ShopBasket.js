@@ -64,7 +64,7 @@ class ShopBasket extends React.Component {
                                 key={itemId}
                                 item={newItem}
                                 isSelected={curSelectedItem === itemId}
-                                isEditing={this.state.mode !== ChangeModes.None}
+                                isModifying={this.state.mode !== ChangeModes.None}
                                 cbItemClicked={curOnItemClicked}
                                 cbItemEdited={curOnItemEdited}
                                 cbItemRemoved={curOnItemRemoved}
@@ -140,7 +140,7 @@ class ShopBasket extends React.Component {
         });
     }
     
-    getItem(itemId, newItem){
+    getItem = (itemId, newItem) => {
         return {
             id: itemId,
             name: newItem.name,

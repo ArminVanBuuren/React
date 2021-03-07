@@ -70,7 +70,7 @@ class ShopProductModify extends React.Component {
               this.state.newItem.itemId === "-1" 
               ? <div>
                 <span>Appliance: </span>
-                <select onChange={this.onApplianceTypeChanged.bind(this)}>
+                <select onChange={this.onApplianceTypeChanged}>
                   {this.props.appliances.map(a => {
                     applianceIterator++;
                     return (<option key={applianceIterator}>{a}</option>);
@@ -82,31 +82,31 @@ class ShopProductModify extends React.Component {
 
             <div>
               <span>Name: </span>
-              <input className='Value' type='text' defaultValue={this.state.newItem.name} onChange={this.onNameChanged.bind(this)} />
+              <input className='Value' type='text' defaultValue={this.state.newItem.name} onChange={this.onNameChanged} />
               {!this.state.status.nameCorrect && <span className='Error'>incorrect filling name</span>}
             </div>
 
             <div>
               <span>Price: </span>
-              <input type='text' defaultValue={this.state.newItem.price} onChange={this.onPriceChanged.bind(this)} />
+              <input type='text' defaultValue={this.state.newItem.price} onChange={this.onPriceChanged} />
               {!this.state.status.priceCorrect && <span className='Error'>incorrect filling, only number</span>}
             </div>
 
             <div>
               <span>Quantity: </span>
-              <input type='text' defaultValue={this.state.newItem.count} onChange={this.onQuantityChanged.bind(this)} />
+              <input type='text' defaultValue={this.state.newItem.count} onChange={this.onQuantityChanged} />
               {!this.state.status.quantityCorrect && <span className='Error'>incorrect filling, only number</span>}
             </div>
 
             <div>
               <span>URL: </span>
-              <input type='text' defaultValue={this.state.newItem.img} onChange={this.onUrlChanged.bind(this)} />
+              <input type='text' defaultValue={this.state.newItem.img} onChange={this.onUrlChanged} />
               {!this.state.status.urlCorrect && <span className='Error'>incorrect filling URL</span>}
             </div>
 
             { this.state.newItem.itemId !== "-1"
-              ? <input type='button' value='Edit' onClick={this.onCommit.bind(this)} disabled={hasAnyError} /> 
-              : <input type='button' value='Create' onClick={this.onCommit.bind(this)} disabled={hasAnyError} />
+              ? <input type='button' value='Edit' onClick={this.onCommit} disabled={hasAnyError} /> 
+              : <input type='button' value='Create' onClick={this.onCommit} disabled={hasAnyError} />
             }
         </div>
       );
@@ -114,11 +114,11 @@ class ShopProductModify extends React.Component {
       return result;
     }
 
-    onApplianceTypeChanged(EO){
+    onApplianceTypeChanged = (EO) => {
       this.setState( {newItem: {...this.state.newItem, applianceType:EO.target.value} } );
     }
 
-    onNameChanged(EO){
+    onNameChanged = (EO) => {
       this.setState( {
         newItem: {...this.state.newItem, name:EO.target.value },
         status: {...this.state.status, nameCorrect: this.checkName(EO.target.value)},
@@ -129,7 +129,7 @@ class ShopProductModify extends React.Component {
       return (/\w{2,}/.test(value));
     }
 
-    onPriceChanged(EO){
+    onPriceChanged = (EO) => {
       const parsed = parseInt(EO.target.value);
       this.setState( {
           newItem: {...this.state.newItem, price:parsed },
@@ -141,7 +141,7 @@ class ShopProductModify extends React.Component {
       return (/^\d+$/.test(value));
     }
 
-    onQuantityChanged(EO){
+    onQuantityChanged = (EO) => {
       const parsed = parseInt(EO.target.value);
       this.setState( {
           newItem: {...this.state.newItem, count:parsed },
@@ -153,18 +153,18 @@ class ShopProductModify extends React.Component {
       return (/^\d+$/.test(value));
     }
 
-    onUrlChanged(EO){
+    onUrlChanged = (EO) => {
       this.setState( {
         newItem: {...this.state.newItem, img:EO.target.value },
         status: {...this.state.status, urlCorrect: this.checkUrl(EO.target.value), }
       });
     }
 
-    checkUrl(value){
+    checkUrl = (value) => {
       return (/^(http|https):\/\/.{3,}$/.test(value));
     }
 
-    onCommit(EO){
+    onCommit = (EO) => {
       if (this.isValid()){
         this.props.cbOnCommit(this.state.newItem);
       }
