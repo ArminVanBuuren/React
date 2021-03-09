@@ -33,23 +33,13 @@ class ShopProductModify extends React.Component {
       },
     }
     
-    constructor(props) { 
-      super(props); 
-    }
+    constructor(props) {
+      super(props);
 
-    state = {
-      newItem: {
-          applianceType:this.props.item.applianceType === null ? this.props.appliances[0] : this.props.item.applianceType,
-          itemId:this.props.item.itemId,
-          id: this.props.item.id,
-          name:this.props.item.name,
-          price: this.props.item.price,
-          count: this.props.item.count,
-          img: this.props.item.img,
-        },
-    }
+      this.state = { newItem: this.getSourceItem(this.props.item), };
+  }
 
-    render() {
+  render() {
 
       let hasAnyError = !this.isValid();
       let applianceIterator = 0;
@@ -89,6 +79,23 @@ class ShopProductModify extends React.Component {
       );
 
       return result;
+    }
+
+    componentDidUpdate = (oldProps, oldState) => {
+         if (oldProps.item && this.props.item && oldProps.item.itemId !== this.props.item.itemId)
+            this.setState( { newItem: this.getSourceItem(this.props.item), } );
+    }
+   
+    getSourceItem = (item) => {
+      return {
+        applianceType:item.applianceType === null ? this.props.appliances[0] : this.props.item.applianceType,
+        itemId:       item.itemId,
+        id:           item.id,
+        name:         item.name,
+        price:        item.price,
+        count:        item.count,
+        img:          item.img,
+      }
     }
 
     onApplianceTypeChanged = (EO) => {

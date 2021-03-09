@@ -96,7 +96,7 @@ class ShopBasket extends React.Component {
     onItemClicked = (itemId) => { 
         this.setState( {
             selectedItem:itemId,
-            mode: ChangeModes.None,
+            // mode: ChangeModes.None,
         } );
     }
 

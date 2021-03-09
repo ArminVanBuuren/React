@@ -21,7 +21,7 @@ class ModifyFormField extends React.Component {
       return (
         <div className='ModifyFormField' >
               <span className='Name'>{this.props.fieldName}</span>
-              <input className='Value' type='text' defaultValue={this.props.defaultValue} onChange={this.validateAndChange} />
+              <input className='Value' type='text' value={this.props.defaultValue} onChange={this.validateAndChange} />
               {!this.state.isValid && <span className='Error'>{this.props.errMessage}</span>}
         </div>
       );
