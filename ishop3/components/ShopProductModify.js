@@ -86,7 +86,7 @@ class ShopProductModify extends React.Component {
             this.setState( { newItem: this.getSourceItem(this.props.item), } );
     }
    
-    getSourceItem = (item) => {
+    getNewItem = (item) => {
       return {
         applianceType:item.applianceType === null ? this.props.appliances[0] : this.props.item.applianceType,
         itemId:       item.itemId,
