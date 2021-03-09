@@ -33,22 +33,20 @@ class ShopProductModify extends React.Component {
       },
     }
     
-    constructor(props) {
-        super(props);
-
-        this.state = { newItem: this.getSourceItem(), };
+    constructor(props) { 
+      super(props); 
     }
 
-    getSourceItem(){
-      return {
-        applianceType:this.props.item.applianceType === null ? this.props.appliances[0] : this.props.item.applianceType,
-        itemId:this.props.item.itemId,
-        id: this.props.item.id,
-        name:this.props.item.name,
-        price: this.props.item.price,
-        count: this.props.item.count,
-        img: this.props.item.img,
-      }
+    state = {
+      newItem: {
+          applianceType:this.props.item.applianceType === null ? this.props.appliances[0] : this.props.item.applianceType,
+          itemId:this.props.item.itemId,
+          id: this.props.item.id,
+          name:this.props.item.name,
+          price: this.props.item.price,
+          count: this.props.item.count,
+          img: this.props.item.img,
+        },
     }
 
     render() {
@@ -101,37 +99,29 @@ class ShopProductModify extends React.Component {
       this.setState( { newItem: {...this.state.newItem, name:newValue }, });
     }
 
-    checkName = (value) => {
-      return (/\w{2,}/.test(value));
-    }
+    checkName = (value) => (/\w{2,}/.test(value));
 
     onPriceChanged = (newValue) => {
       this.setState( { newItem: {...this.state.newItem, price:parseInt(newValue) }, });
     }
 
-    checkPrice = (value) => {
-      return (/^\d+$/.test(value));
-    }
+    checkPrice = (value) => (/^\d+$/.test(value));
 
     onQuantityChanged = (newValue) => {
       this.setState( { newItem: {...this.state.newItem, count:parseInt(newValue) }, });
     }
 
-    checkQuantity = (value) => {
-      return (/^\d+$/.test(value));
-    }
+    checkQuantity = (value) => (/^\d+$/.test(value));
 
     onUrlChanged = (newValue) => {
       this.setState( { newItem: {...this.state.newItem, img:newValue }, });
     }
 
-    checkUrl = (value) => {
-      return (/^(http|https):\/\/.{3,}$/.test(value));
-    }
+    checkUrl = (value) => (/^(http|https):\/\/.{3,}$/.test(value));
 
     onCommit = (EO) => {
       if (this.isValid()){
-        this.props.cbOnCommit(this.state.newItem);
+          this.props.cbOnCommit(this.state.newItem);
       }
     }
 
@@ -139,12 +129,10 @@ class ShopProductModify extends React.Component {
       this.props.cbOnCancel();
     }
 
-    isValid(){
-      return this.checkName(this.state.newItem.name) &&
-      this.checkPrice(this.state.newItem.price) &&
-      this.checkQuantity(this.state.newItem.count) &&
-      this.checkUrl(this.state.newItem.img);
-    }
+    isValid = () => this.checkName(this.state.newItem.name) &&
+                    this.checkPrice(this.state.newItem.price) &&
+                    this.checkQuantity(this.state.newItem.count) &&
+                    this.checkUrl(this.state.newItem.img);
 
 }
 

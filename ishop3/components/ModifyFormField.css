@@ -1,6 +1,12 @@
 .ModifyFormField {
     display: flex;
     flex-direction: row;
+    overflow: hidden;   
+}
+
+.ModifyFormField > .Name{
+    /* width: calc(45px + 5%); */
+    width: 60px;
 }
 
 .ModifyFormField > input[type="text"]{

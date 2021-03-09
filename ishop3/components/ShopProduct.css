@@ -4,7 +4,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    padding: 3px;
+    padding: 3px 10px;
     justify-content: space-around;
 }
 
@@ -16,11 +16,20 @@
     max-height: 80px;
     max-width: 80px;
     vertical-align: middle;
+    width: 50px;
+}
+
+.ShopProduct > .Name{
+    width: 130px;
 }
 
 .ShopProduct > .Name::before{
     content: 'Model: ';
     font-weight: bold;
+}
+
+.ShopProduct > .Count, .ShopProduct > .Price{
+    width: 100px;
 }
 
 .ShopProduct > .Count::before{
@@ -43,5 +52,4 @@
 
 .ShopProduct > input[type="button"]{
     margin: 0 5px;
-    flex-grow: 0;
 }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class ShopProductInfo extends React.Component {
 
     static propTypes = {
-        itemId: PropTypes.string.isRequired,
+        applianceType: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         count: PropTypes.number.isRequired,
@@ -17,7 +17,7 @@ class ShopProductInfo extends React.Component {
     render() {
       return (
         <div>
-            <h2>{this.props.name}</h2>
+            <h2>{this.props.applianceType}: {this.props.name}</h2>
             <p>Quantity: {this.props.count}</p>
             <p>Price: {this.props.price}$</p>
         </div>
