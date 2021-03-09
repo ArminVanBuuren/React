@@ -36,7 +36,7 @@ class ShopProductModify extends React.Component {
     constructor(props) {
       super(props);
 
-      this.state = { newItem: this.getSourceItem(this.props.item), };
+      this.state = { newItem: this.getNewItem(this.props.item), };
   }
 
   render() {
@@ -83,7 +83,7 @@ class ShopProductModify extends React.Component {
 
     componentDidUpdate = (oldProps, oldState) => {
          if (oldProps.item && this.props.item && oldProps.item.itemId !== this.props.item.itemId)
-            this.setState( { newItem: this.getSourceItem(this.props.item), } );
+            this.setState( { newItem: this.getNewItem(this.props.item), } );
     }
    
     getNewItem = (item) => {
