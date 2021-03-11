@@ -32,22 +32,23 @@ class ShopBasket extends React.Component {
     };
 
     state = {
-        selectedItem: "-1",
+        selectedItemId: "-1",
         mode: ChangeModes.None,
         shopItems: this.props.shopItems,
     };
     
     render() {
 
+        const {shopItems, mode, selectedItemId} = this.state;
+
         let appliances = [];
         let bag = [];
         let selectedItem = null;
-        let curSelectedItem = this.state.selectedItem;
         let curOnItemClicked = this.onItemClicked;
         let curOnItemEdited = this.onItemEdited;
         let curOnItemRemoved = this.onItemRemoved;
 
-        this.state.shopItems.forEach(group => {
+        shopItems.forEach(group => {
             
             appliances.push(group.name);
             let items = [];
@@ -56,15 +57,15 @@ class ShopBasket extends React.Component {
                     let itemId = group.name + '_' + item.id;
                     let newItem = { ...item, itemId, applianceType:group.name };
 
-                    if (!selectedItem && curSelectedItem === itemId)
+                    if (!selectedItem && selectedItemId === itemId)
                         selectedItem = newItem;
 
                     items.push(
                         <ShopProduct
                                 key={itemId}
                                 item={newItem}
-                                isSelected={curSelectedItem === itemId}
-                                isModifying={this.state.mode !== ChangeModes.None}
+                                isSelected={selectedItemId === itemId}
+                                isModifying={mode !== ChangeModes.None}
                                 cbItemClicked={curOnItemClicked}
                                 cbItemEdited={curOnItemEdited}
                                 cbItemRemoved={curOnItemRemoved}
@@ -85,17 +86,17 @@ class ShopBasket extends React.Component {
         return (
             <div className='ShopBasket'>
                 {bag}
-                <input type='button' value='New product' onClick={this.onItemCreated} disabled={this.state.mode !== ChangeModes.None} />
-                { selectedItem && this.state.mode === ChangeModes.None && <ShopProductInfo {...selectedItem} />  }
-                { selectedItem && this.state.mode === ChangeModes.Edit && <ShopProductModify cbOnCommit={this.onModifyCommitted} cbOnCancel={this.onModifyCancelled} appliances={appliances} item={selectedItem} />  }
-                { this.state.mode === ChangeModes.Create && <ShopProductModify cbOnCommit={this.onModifyCommitted} cbOnCancel={this.onModifyCancelled} appliances={appliances} />  }
+                <input type='button' value='New product' onClick={this.onItemCreated} disabled={mode !== ChangeModes.None} />
+                { selectedItem && mode === ChangeModes.None && <ShopProductInfo {...selectedItem} />  }
+                { selectedItem && mode === ChangeModes.Edit && <ShopProductModify cbOnCommit={this.onModifyCommitted} cbOnCancel={this.onModifyCancelled} appliances={appliances} item={selectedItem} />  }
+                { mode === ChangeModes.Create && <ShopProductModify cbOnCommit={this.onModifyCommitted} cbOnCancel={this.onModifyCancelled} appliances={appliances} />  }
             </div>
         );
     }
 
     onItemClicked = (itemId) => { 
         this.setState( {
-            selectedItem:itemId,
+            selectedItemId:itemId,
             // mode: ChangeModes.None,
         } );
     }
@@ -113,19 +114,22 @@ class ShopBasket extends React.Component {
 
     onItemEdited = (itemId) => {
         this.setState( {
-            selectedItem: itemId,
+            selectedItemId: itemId,
             mode: ChangeModes.Edit,
         } );
     }
 
     onModifyCommitted = (newItem) => {
 
-        if (this.state.mode === ChangeModes.None)
+        const {shopItems, mode} = this.state;
+
+
+        if (mode === ChangeModes.None)
             return;
 
-        let group = this.state.shopItems.find(g => g.name === newItem.applianceType);
+        let group = shopItems.find(g => g.name === newItem.applianceType);
     
-        if (this.state.mode === ChangeModes.Edit){
+        if (mode === ChangeModes.Edit){
             group.value = group.value.map(x => x.id === newItem.id ? newItem : x);
         }
         else{
@@ -136,7 +140,7 @@ class ShopBasket extends React.Component {
         }
 
         this.setState({ 
-            shopItems: this.state.shopItems,
+            shopItems: shopItems,
             mode: ChangeModes.None, 
         });
     }

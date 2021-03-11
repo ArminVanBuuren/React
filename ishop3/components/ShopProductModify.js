@@ -40,36 +40,37 @@ class ShopProductModify extends React.Component {
   }
 
   render() {
+      const { newItem } = this.state;
 
       let hasAnyError = !this.isValid();
       let applianceIterator = 0;
 
       let result = (
         <div className='ShopProductModify'>
-            { this.state.newItem.itemId !== "-1" && <p>ID {this.state.newItem.id}</p> }
+            { newItem.itemId !== "-1" && <p>ID {newItem.id}</p> }
 
             {
-              this.state.newItem.itemId === "-1" 
+              newItem.itemId === "-1" 
               ? <div>
                   <span>Appliance: </span>
                   <select onChange={this.onApplianceTypeChanged}>
                     {this.props.appliances.map(a => <option key={++applianceIterator}>{a}</option> )}
                   </select>
                 </div>
-              : <p>Appliance: {this.state.newItem.applianceType}</p>
+              : <p>Appliance: {newItem.applianceType}</p>
             }
 
-            <ModifyFormField fieldName='Name: ' defaultValue={this.state.newItem.name} 
+            <ModifyFormField fieldName='Name: ' defaultValue={newItem.name} 
                               errMessage='incorrect filling name' validateFunc={this.checkName} modifyFunc={this.onNameChanged} />
-            <ModifyFormField fieldName='Price: ' defaultValue={this.state.newItem.price.toString()} 
+            <ModifyFormField fieldName='Price: ' defaultValue={newItem.price.toString()} 
                               errMessage='incorrect filling, only number' validateFunc={this.checkPrice} modifyFunc={this.onPriceChanged} />
-            <ModifyFormField fieldName='Quantity: ' defaultValue={this.state.newItem.count.toString()} 
+            <ModifyFormField fieldName='Quantity: ' defaultValue={newItem.count.toString()} 
                               errMessage='incorrect filling, only number' validateFunc={this.checkQuantity} modifyFunc={this.onQuantityChanged} />
-            <ModifyFormField fieldName='URL: ' defaultValue={this.state.newItem.img} 
+            <ModifyFormField fieldName='URL: ' defaultValue={newItem.img} 
                               errMessage='incorrect filling URL' validateFunc={this.checkUrl} modifyFunc={this.onUrlChanged} />
 
             <div className='Control' >
-              { this.state.newItem.itemId !== "-1"
+              { newItem.itemId !== "-1"
                 ? <input type='button' value='Edit' onClick={this.onCommit} disabled={hasAnyError} /> 
                 : <input type='button' value='Create' onClick={this.onCommit} disabled={hasAnyError} />
               }
@@ -136,10 +137,10 @@ class ShopProductModify extends React.Component {
       this.props.cbOnCancel();
     }
 
-    isValid = () => this.checkName(this.state.newItem.name) &&
-                    this.checkPrice(this.state.newItem.price) &&
-                    this.checkQuantity(this.state.newItem.count) &&
-                    this.checkUrl(this.state.newItem.img);
+    isValid = () => {
+        const { name, price, count, img } = this.state.newItem;
+        return this.checkName(name) && this.checkPrice(price) && this.checkQuantity(count) && this.checkUrl(img);
+    }
 
 }
 

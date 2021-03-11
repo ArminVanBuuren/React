@@ -28,12 +28,14 @@ class ShopProduct extends React.Component {
     };
 
     render() {
+      const {img, name, count, price} = this.props.item;
+
       return (
         <div className={ this.props.isSelected ? 'ShopProduct selected' : 'ShopProduct' } onClick={this.onItemClicked}>
-          <img src={this.props.item.img} />
-          <span className='Name'>{this.props.item.name}</span>
-          <span className='Count'>{this.props.item.count}</span>
-          <span className='Price'>{this.props.item.price}</span>
+          <img src={img} />
+          <span className='Name'>{name}</span>
+          <span className='Count'>{count}</span>
+          <span className='Price'>{price}</span>
           <input className='Button' type='button' value='Edit' onClick={this.onItemEdit} disabled={this.props.isModifying} />
           <input className='Button' type='button' value='Remove' onClick={this.onItemRemoved} disabled={this.props.isModifying} />
         </div>
