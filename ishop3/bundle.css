@@ -1,0 +1,110 @@
+.ShopBasket{
+    border: double gray 3px;
+    padding: 10px 7px;
+    background-color: #F0F0F0;
+    vertical-align: middle;
+}
+
+.ShopBasket > .Group{
+    border: solid gray 1px;
+    background-color: #ffffff;
+    padding: 2px;
+}.ShopProduct{
+    border: solid gray 1px; 
+    background-color: #F0F0F0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 3px 10px;
+    justify-content: space-around;
+}
+
+.ShopProduct > *{
+    padding: 0 10px;
+}
+
+.ShopProduct > img{
+    max-height: 80px;
+    max-width: 80px;
+    vertical-align: middle;
+    width: 50px;
+}
+
+.ShopProduct > .Name{
+    width: 130px;
+}
+
+.ShopProduct > .Name::before{
+    content: 'Model: ';
+    font-weight: bold;
+}
+
+.ShopProduct > .Count, .ShopProduct > .Price{
+    width: 100px;
+}
+
+.ShopProduct > .Count::before{
+    content: 'Quantity: ';
+    font-weight: bold;
+}
+
+.ShopProduct > .Price::before{
+    content: 'Price: ';
+    font-weight: bold;
+}
+
+.ShopProduct > .Price::after{
+    content: '$';
+}
+
+.selected{
+    background-color: #14c0df;
+}
+
+.ShopProduct > input[type="button"]{
+    margin: 0 5px;
+}.ShopProductModify {
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+}
+
+.ShopProductModify > .Control {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    max-width: 131px;
+    overflow: hidden;
+}
+
+.ShopProductModify > .Control > input[type="button"]{
+    margin: 0 5px;
+}
+
+.ShopProductModify > p{
+    padding: 0 3px;
+    margin: 5px;
+}.ModifyFormField {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;   
+}
+
+.ModifyFormField > .Name{
+    /* width: calc(45px + 5%); */
+    width: 60px;
+}
+
+.ModifyFormField > input[type="text"]{
+    width: 50%;
+}
+
+.ModifyFormField > .Error{
+    color: red;
+}
+
+.ModifyFormField > *{
+    padding: 0 3px;
+    margin: 5px;
+}
+/*# sourceMappingURL=bundle.css.map*/
