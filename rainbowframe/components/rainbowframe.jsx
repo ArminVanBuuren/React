@@ -11,13 +11,10 @@ class RainbowFrame extends React.Component {
         </div>);
     }
 
-    getChildsDiv = (arrColor, index) => {
-        return (
-                arrColor.length <= index 
-                ? this.props.children
-                : <div style={ { borderColor: arrColor[index] } }>{this.getChildsDiv(arrColor, ++index)}</div>
-        )
-    }
+    getChildsDiv = (arrColor, index) => 
+        (arrColor.length <= index 
+        ? this.props.children
+        : <div style={ { borderColor: arrColor[index] } }>{this.getChildsDiv(arrColor, ++index)}</div>);
 }
 
 export default RainbowFrame;

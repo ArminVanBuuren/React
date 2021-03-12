@@ -11,5 +11,5 @@ export default props => {
         if (i < items.length)
             bag.push(<br key={i}/>);
     });
-    return <div className='br2jsx'>{bag}</div>
+    return (<div className='br2jsx'>{bag}</div>);
 }
