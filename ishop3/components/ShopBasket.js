@@ -120,9 +120,7 @@ class ShopBasket extends React.Component {
     }
 
     onModifyCommitted = (newItem) => {
-
         const {shopItems, mode} = this.state;
-
 
         if (mode === ChangeModes.None)
             return;
