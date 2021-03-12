@@ -6,7 +6,7 @@
 }
 
 .rainbowframe :last-child {
-    text-align: -webkit-center;
+    text-align: center;
     color: black;
     overflow: hidden;
 }
