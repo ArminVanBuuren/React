@@ -3,9 +3,13 @@ import './br2jsx.css';
 
 export default props => {
     let bag = [];
-    props.text.split(/\<br\s*\/?\>*/).forEach(element => {
+    let items = props.text.split(/\<br\s*\/?\>*/);
+    let i = 0;
+    items.forEach(element => {
+        i++;
         bag.push(element);
-        bag.push(<br/>);
+        if (i < items.length)
+            bag.push(<br key={element}/>);
     });
     return <div className='br2jsx'>{bag}</div>
 
