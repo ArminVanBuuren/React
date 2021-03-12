@@ -8,7 +8,7 @@ export default props => {
     items.forEach(element => {
         i++;
         bag.push(element);
-        if (i < items.length)
+        if (items.length > i)
             bag.push(<br key={i}/>);
     });
     return (<div className='br2jsx'>{bag}</div>);

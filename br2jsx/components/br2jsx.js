@@ -9,7 +9,7 @@ export default props => {
     <div className='br2jsx'>{items.map(x =>
         <Fragment key={++i}>
             {x}
-            { i < items.length && <br/>}
+            { items.length > i && <br/>}
         </Fragment>)}
     </div>);
 }
