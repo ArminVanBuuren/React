@@ -1,4 +1,8 @@
 
+.rainbowframe{
+    width: 100%;
+}
+
 .rainbowframe *{
     border-width: 5px;
     border-style: solid;

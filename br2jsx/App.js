@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import './app.css';
 import BR2JSX from './components/br2jsx';
 
 let text="первый<br>второй<br/>третий<br />последний";
