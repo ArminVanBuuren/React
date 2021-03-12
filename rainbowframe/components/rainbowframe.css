@@ -1,0 +1,11 @@
+
+.rainbowframe *{
+    border-width: 5px;
+    border-style: solid;
+    padding: 5px;
+}
+
+.rainbowframe :last-child {
+    text-align: -webkit-center;
+    color: black;
+}
