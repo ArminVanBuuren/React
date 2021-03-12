@@ -3,7 +3,7 @@ import './br2jsx.css';
 
 export default props => {
     let bag = [];
-    let items = props.text.split(/\<br\s*\/?\>*/);
+    let items = props.text.split(/\<br\s*\/?\>/);
     let i = 0;
     items.forEach(element => {
         i++;
