@@ -29,6 +29,7 @@ class ShopProduct extends React.Component {
 
     render() {
       const {img, name, count, price} = this.props.item;
+      const {isModifying} = this.props;
 
       return (
         <div className={ this.props.isSelected ? 'ShopProduct selected' : 'ShopProduct' } onClick={this.onItemClicked}>
@@ -36,8 +37,8 @@ class ShopProduct extends React.Component {
           <span className='Name'>{name}</span>
           <span className='Count'>{count}</span>
           <span className='Price'>{price}</span>
-          <input className='Button' type='button' value='Edit' onClick={this.onItemEdit} disabled={this.props.isModifying} />
-          <input className='Button' type='button' value='Remove' onClick={this.onItemRemoved} disabled={this.props.isModifying} />
+          <input className='Button' type='button' value='Edit' onClick={this.onItemEdit} disabled={isModifying} />
+          <input className='Button' type='button' value='Remove' onClick={this.onItemRemoved} disabled={isModifying} />
         </div>
       );
     }

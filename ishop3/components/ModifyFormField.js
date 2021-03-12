@@ -30,12 +30,13 @@ class ModifyFormField extends React.Component {
 
     validateAndChange = (EO) => {
         const {validateFunc, modifyFunc} = this.props;
+        const {value} = EO.target;
 
-        let isValid = validateFunc(EO.target.value);
+        let isValid = validateFunc(value);
         if (isValid !== this.state.isValid)
             this.setState( { isValid } );
 
-        modifyFunc(EO.target.value);
+        modifyFunc(value);
     }
 
 }
