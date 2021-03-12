@@ -10,7 +10,7 @@ let colors = ['red','orange', 'yellow','green', '#00BFFF', 'blue', 'purple'];
 
 ReactDOM.render(
     (<RainbowFrame colors={colors} >
-        {"Hello!"}
+        Hello!
     </RainbowFrame>)
     , document.getElementById('container')
 );
