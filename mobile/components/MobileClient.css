@@ -1,1 +1,11 @@
-﻿
+﻿.MobileClient{
+    display: table-row;
+}
+
+.MobileClient > *{
+    display: table-cell;
+    padding: 5px;
+}
+.MobileClient > input[type="button"]{
+    margin: 0 5px;
+}

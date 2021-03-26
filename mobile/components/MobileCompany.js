@@ -46,20 +46,20 @@ class MobileCompany extends React.PureComponent {
   }
 
   componentDidMount = () => {
-    modifyEvents.addListener('OnModify',this.modifyClient);
-    modifyEvents.addListener('OnRemove',this.removeClient);
-    modifyEvents.addListener('OnCommit',this.updateData);
+    modifyEvents.addListener('OnModifyClient',this.modifyClient);
+    modifyEvents.addListener('OnRemoveClient',this.removeClient);
+    modifyEvents.addListener('OnCommitClient',this.updateData);
   };
 
   componentWillUnmount = () => {
-    modifyEvents.removeListener('OnModify',this.modifyClient);
-    modifyEvents.removeListener('OnRemove',this.removeClient);
-    modifyEvents.removeListener('OnCommit',this.updateData);
+    modifyEvents.removeListener('OnModifyClient',this.modifyClient);
+    modifyEvents.removeListener('OnRemoveClient',this.removeClient);
+    modifyEvents.removeListener('OnCommitClient',this.updateData);
   };
 
   render() {
     console.log("MobileCompany render");
-    
+
     const {selectedCompany, data} = this.state;
     let company = data.find(d => d.name == selectedCompany);
 
@@ -73,7 +73,20 @@ class MobileCompany extends React.PureComponent {
         <input type="button" value="Активные" onClick={()=>this.changeShownClients(2)} />
         <input type="button" value="Заблокированные" onClick={()=>this.changeShownClients(3)} />
 
-        { company.clients.map(client => <MobileClient key={client.id} info={client} /> )}
+        <div className='MobileCompanyTable'>
+          <div className='MobileCompanyTableHeader'>
+            <div>Фамилия</div>
+            <div>Имя</div>
+            <div>Отчество</div>
+            <div>Баланс</div>
+            <div>Статус</div>
+            <div>Редактировать</div>
+            <div>Удалить</div>
+          </div>
+          <div className='MobileCompanyTableBody'>
+          { company.clients.map(client => <MobileClient key={client.id} info={client} /> )}
+          </div>
+        </div>
 
         <input className='AddClient' type="button" value="Добавить клиента" onClick={this.createClient} />
 

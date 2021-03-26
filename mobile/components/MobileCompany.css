@@ -1,1 +1,23 @@
-﻿
+﻿.MobileCompanyTable{
+    width: 100%;
+    display: table;
+}
+
+.MobileCompanyTableHeader{
+    display: table-header-group;
+    background-color: white;
+    font-weight: bold;
+    border-bottom: solid gray 10px; 
+    /* font-size: 25px; */
+}
+
+.MobileCompanyTableHeader > *{
+    display: table-cell;
+    padding: 5px;
+    text-align: justify;
+    border-bottom: 1px solid black;
+}
+
+.MobileCompanyTableBody{
+    display: table-row-group;
+}

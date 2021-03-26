@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import './MobileClient.css';
@@ -27,19 +27,23 @@ class MobileClient extends React.PureComponent {
         <span>{otch}</span>
         <span>{balance}</span>
         <span className={ balance >= 0 ? 'active' : 'blocked' } ></span>
-        <input type="button" value="Редактировать" onClick={this.modifyClient} />
-        <input type="button" value="Удалить" onClick={this.removeClient} />
+        <div>
+          <input type="button" value="Редактировать" onClick={this.modifyClient} />
+        </div>
+        <div>
+          <input type="button" value="Удалить" onClick={this.removeClient} />
+        </div>
       </div>
     );
 
   }
 
   modifyClient = () => {
-    modifyEvents.emit('OnModify', this.props.info);
+    modifyEvents.emit('OnModifyClient', this.props.info);
   }
 
   removeClient = () => {
-    modifyEvents.emit('OnRemove', this.props.info);
+    modifyEvents.emit('OnRemoveClient', this.props.info);
   }
 
 }

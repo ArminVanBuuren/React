@@ -62,7 +62,7 @@ class MobileClientModify extends React.PureComponent {
   }
 
   commitClient = () => {
-    modifyEvents.emit('OnCommit', {...this.props.info, fm:famRef.value, im: imRef.value, otch: otchRef.value, balance:balanceRef.value });
+    modifyEvents.emit('OnCommitClient', {...this.props.info, fm:famRef.value, im: imRef.value, otch: otchRef.value, balance:balanceRef.value });
   }
 
 }
