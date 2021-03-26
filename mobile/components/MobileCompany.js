@@ -58,16 +58,10 @@ class MobileCompany extends React.PureComponent {
   };
 
   render() {
-
     console.log("MobileCompany render");
-
-    // var clientsCode=this.state.clients.map( client => {
-    //     let FIO={fam:client.fam,im:client.im,otch:client.otch};
-    //     return <MobileClient key={client.id} id={client.id} FIO={FIO} balance={client.balance} />;
-    //   }
-    // );
-
+    
     const {selectedCompany, data} = this.state;
+    let company = data.find(d => d.name == selectedCompany);
 
     return (
       <Fragment>
@@ -79,6 +73,7 @@ class MobileCompany extends React.PureComponent {
         <input type="button" value="Активные" onClick={()=>this.changeShownClients(2)} />
         <input type="button" value="Заблокированные" onClick={()=>this.changeShownClients(3)} />
 
+        { company.clients.map(client => <MobileClient key={client.id} info={client} /> )}
 
         <input className='AddClient' type="button" value="Добавить клиента" onClick={this.createClient} />
 
@@ -95,6 +90,14 @@ class MobileCompany extends React.PureComponent {
   }
 
   createClient = () => {
+    const {data} = this.props;
+    const {selectedCompany} = this.state;
+
+    let company = data.find(d => d.name == selectedCompany);
+
+    let maxId = 0;
+    company.clients.forEach(client => { maxId = client.id > maxId ? client.id : maxId; });
+    maxId++;
 
   }
 
