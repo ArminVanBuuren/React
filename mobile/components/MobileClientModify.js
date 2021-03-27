@@ -29,7 +29,7 @@ class MobileClientModify extends React.PureComponent {
 
   updateData = () => {
     const { fam, im, otch, balance } = this.props.info;
-
+    
     if (this.famRef)
       this.famRef.value = fam;
     if (this.imRef)
