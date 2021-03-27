@@ -3,6 +3,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import './app.css';
+
 import MobileCompany from './components/MobileCompany';
 
 let data = require('./data.json');

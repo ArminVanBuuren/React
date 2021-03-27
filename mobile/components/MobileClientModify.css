@@ -1,1 +1,23 @@
-﻿
+﻿.MobileClientModify {
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+}
+
+.MobileClientModify > *{
+    margin: 5px 0;
+    padding: 0 3px;
+}
+
+.MobileClientModify > span{
+    width: 60px;
+    margin: 0;
+}
+
+.MobileClientModify > input[type="text"]{
+    width: 50%;
+}
+
+.MobileClientModify > input[type="button"]{
+    width: 60px;
+}

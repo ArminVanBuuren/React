@@ -1,6 +1,8 @@
 ﻿import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import {modifyEvents} from './events';
+
 import './MobileClient.css';
 
 class MobileClient extends React.PureComponent {
@@ -21,19 +23,19 @@ class MobileClient extends React.PureComponent {
     console.log("MobileClient id="+this.props.info.id+" render");
     
     return (
-      <div className='MobileClient'>
-        <span>{fam}</span>
-        <span>{im}</span>
-        <span>{otch}</span>
-        <span>{balance}</span>
-        <span className={ balance >= 0 ? 'active' : 'blocked' } ></span>
-        <div>
+      <tr>
+        <td>{fam}</td>
+        <td>{im}</td>
+        <td>{otch}</td>
+        <td>{balance}</td>
+        { balance >= 0 ? <td className='active'>active</td> : <td className='blocked'>blocked</td> }
+        <td>
           <input type="button" value="Редактировать" onClick={this.modifyClient} />
-        </div>
-        <div>
+        </td>
+        <td>
           <input type="button" value="Удалить" onClick={this.removeClient} />
-        </div>
-      </div>
+        </td>
+      </tr>
     );
 
   }

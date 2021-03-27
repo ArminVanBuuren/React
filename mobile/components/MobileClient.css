@@ -1,11 +1,7 @@
-﻿.MobileClient{
-    display: table-row;
+﻿.active{
+    background-color: rgb(0, 177, 0);
 }
 
-.MobileClient > *{
-    display: table-cell;
-    padding: 5px;
-}
-.MobileClient > input[type="button"]{
-    margin: 0 5px;
+.blocked{
+    background-color: rgb(231, 67, 67);
 }

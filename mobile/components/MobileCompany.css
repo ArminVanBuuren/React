@@ -1,23 +1,54 @@
-﻿.MobileCompanyTable{
+﻿.MobileCompanyTable {
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-indent: initial;
     width: 100%;
-    display: table;
+    margin: 10px 0;
 }
 
-.MobileCompanyTableHeader{
+.MobileCompanyTable thead {
     display: table-header-group;
-    background-color: white;
-    font-weight: bold;
-    border-bottom: solid gray 10px; 
-    /* font-size: 25px; */
+    vertical-align: middle;
+    border-color: inherit;
 }
 
-.MobileCompanyTableHeader > *{
-    display: table-cell;
-    padding: 5px;
-    text-align: justify;
-    border-bottom: 1px solid black;
+.MobileCompanyTable tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+    text-align: center;
 }
 
-.MobileCompanyTableBody{
+.MobileCompanyTable th {
+    text-align: center;
+}
+
+.MobileCompanyTable tbody {
     display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.MobileCompanyTable td {
+    display: table-cell;
+}
+
+.MobileCompanyTable, .MobileCompanyTable>thead>tr>th, .MobileCompanyTable>tbody>tr>td {
+    border: 1px solid #ddd;
+}
+
+.MobileCompanyTable thead>tr>th {
+    vertical-align: bottom;
+}
+
+.MobileCompanyTable thead:first-child tr:first-child th{
+    border-top: 0;
+}
+
+.MobileCompanyTable tbody>tr>td{
+    padding: 8px;
+    line-height: 1.428571429;
+    vertical-align: top;
 }
