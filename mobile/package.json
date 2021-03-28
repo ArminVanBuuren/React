@@ -5,7 +5,8 @@
   "main": "App.js",
   "scripts": {
     "build": ".\\node_modules\\.bin\\webpack",
-    "livebuild": ".\\node_modules\\.bin\\webpack-dev-server --progress --colors"
+    "livebuild": ".\\node_modules\\.bin\\webpack-dev-server --progress --colors",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -18,7 +19,11 @@
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "babel-jest": "^21.2.0",
+    "jest": "^21.2.1",
+    "react-test-renderer": "^16.1.1",
+    "identity-obj-proxy": "^3.0.0"
   },
   "dependencies": {
     "events": "^1.1.1",
@@ -27,5 +32,13 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "render-fragment": "^0.1.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(s?css|less)$": "identity-obj-proxy"
+    }
   }
 }

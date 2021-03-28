@@ -78,7 +78,7 @@ class MobileCompany extends React.PureComponent {
     return (
       <Fragment>
 
-        {data.map(c => <input key={c.name} type="button" value={c.name} onClick={()=>this.changeOperator(c.name)} />)}
+        {/* {data.map(c => <input key={c.name} type="button" value={c.name} onClick={()=>this.changeOperator(c.name)} />)} */}
         <p>Компания: {selectedCompany}</p>
 
         <input type="button" value="Все" onClick={()=>this.changeShownClients(DisplayModes.All)} />
