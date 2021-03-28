@@ -113,6 +113,7 @@ class MobileCompany extends React.PureComponent {
   changeOperator = (newName) => {
     const {selectedCompany, clients, data} = this.state;
 
+    // так как проверка поверхностная, то ссылка на основной хэш компании не изменится
     data.find(d => d.name == selectedCompany).clients = clients;
 
     this.setState({

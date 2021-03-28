@@ -1,15 +1,16 @@
 
-.rainbowframe{
+.RainbowFrame {
+    margin-top: 10px;
     width: 100%;
 }
 
-.rainbowframe, .rainbowframe *{
+.RainbowFrame, .RainbowFrameChild{
     border-width: 5px;
     border-style: solid;
     padding: 5px;
 }
 
-.rainbowframe :last-child {
+.RainbowFrame :last-child {
     text-align: center;
     color: black;
     overflow: hidden;
