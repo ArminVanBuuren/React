@@ -18,19 +18,20 @@ test('работа MobileCompany', () => {
   let componentTree = component.toJSON();
   expect(componentTree).toMatchSnapshot();
 
-  function testWhenOnClickButton(condition){
-    
-    const buttonElem = component.root.find( el => el.type == 'input' && condition(el));
+  function testWhenOnClickButton(buttonName){
+    const buttonElem = component.root.findAll( el => el.type == 'input' && el.props.value && el.props.value == buttonName)[0];
     buttonElem.props.onClick();
     componentTree = component.toJSON();
     expect(componentTree).toMatchSnapshot();
   }
 
-  testWhenOnClickButton((el) => el.props.value == 'Активные');
-  testWhenOnClickButton((el) => el.props.value == 'Заблокированные');
-  testWhenOnClickButton((el) => el.props.value == 'Добавить клиента');
-  testWhenOnClickButton((el) => el.props.value == 'OK');
-
+  testWhenOnClickButton('Активные');
+  testWhenOnClickButton('Заблокированные');
+  testWhenOnClickButton('Все');
+  testWhenOnClickButton('Удалить');
+  testWhenOnClickButton('Редактировать');
+  testWhenOnClickButton('Добавить клиента');
+  testWhenOnClickButton('OK');
   
   /*
   // можно эмулировать события, передавая в качестве объекта события то что нам нужно:
