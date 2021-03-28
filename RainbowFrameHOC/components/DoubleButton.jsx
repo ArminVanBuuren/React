@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Fragment from 'render-fragment';
 
 import './DoubleButton.css';
 
