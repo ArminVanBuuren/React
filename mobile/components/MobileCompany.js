@@ -9,10 +9,16 @@ import MobileClientModify from './MobileClientModify';
 
 import './MobileCompany.css';
 
-const DisplayModes = {
+const displayModes = {
   All: 'All',
   Active: 'Active',
   Blocked: 'Blocked',
+};
+
+const modifyModes = {
+  None: 'None',
+  Create: 'Create',
+  Edit: 'Edit'
 };
 
 class MobileCompany extends React.PureComponent {
@@ -39,6 +45,7 @@ class MobileCompany extends React.PureComponent {
     
     if (this.props.data.length > 0) {
       this.state = {
+        modifyMode: modifyModes.None,
         clientOnChange: null,
         selectedCompany: this.props.data[0].name,
         clients: this.props.data[0].clients,
@@ -48,6 +55,7 @@ class MobileCompany extends React.PureComponent {
     }
     else{
       this.state = {
+        modifyMode: modifyModes.None,
         clientOnChange: null,
         selectedCompany: "",
         clients: [],
@@ -81,9 +89,9 @@ class MobileCompany extends React.PureComponent {
         {/* {data.map(c => <input key={c.name} type="button" value={c.name} onClick={()=>this.changeOperator(c.name)} />)} */}
         <p>Компания: {selectedCompany}</p>
 
-        <input type="button" value="Все" onClick={()=>this.changeShownClients(DisplayModes.All)} />
-        <input type="button" value="Активные" onClick={()=>this.changeShownClients(DisplayModes.Active)} />
-        <input type="button" value="Заблокированные" onClick={()=>this.changeShownClients(DisplayModes.Blocked)} />
+        <input type="button" value="Все" onClick={()=>this.changeShownClients(displayModes.All)} />
+        <input type="button" value="Активные" onClick={()=>this.changeShownClients(displayModes.Active)} />
+        <input type="button" value="Заблокированные" onClick={()=>this.changeShownClients(displayModes.Blocked)} />
 
         <table className='MobileCompanyTable'>
           <thead>
@@ -117,6 +125,7 @@ class MobileCompany extends React.PureComponent {
     newData.find(d => d.name == selectedCompany).clients = clients;
 
     this.setState({
+      modifyMode:modifyModes.None,
       clientOnChange:null, 
       selectedCompany:newName, 
       clients:data.find(d => d.name == newName).clients,
@@ -129,13 +138,13 @@ class MobileCompany extends React.PureComponent {
     const {clients} = this.state;
 
     switch (mode) {
-      case DisplayModes.All:
+      case displayModes.All:
         this.setState({filter:null});
         break;
-      case DisplayModes.Active:
+      case displayModes.Active:
         this.setState({filter:clients.filter(c => c.balance >= 0)});
         break;
-      case DisplayModes.Blocked:
+      case displayModes.Blocked:
         this.setState({filter:clients.filter(c => c.balance < 0)});
         break;
     }
@@ -151,11 +160,11 @@ class MobileCompany extends React.PureComponent {
     if (clientOnChange && clientOnChange.id === maxId)
       return;
 
-    this.setState({clientOnChange:{id:maxId, fam:"", im: "", otch: "", balance: 0}});
+    this.setState({modifyMode:modifyModes.Create, clientOnChange:{id:maxId, fam:"", im: "", otch: "", balance: 0}});
   }
 
   modifyClient = (client) => {
-    this.setState({clientOnChange:client});
+    this.setState({modifyMode:modifyModes.Edit, clientOnChange:client});
   }
 
   removeClient = (client) => {
@@ -165,30 +174,33 @@ class MobileCompany extends React.PureComponent {
   }
 
   updateData = (client) => {
+    const { modifyMode, clients } = this.state;
 
-    // если клиент не изменился, то просто закрываем фарму редактирования
-    if (client === null){
-      this.setState({clientOnChange:null});
+    // если ничего у клиента не поменяли, то закрываем фарму редактирования
+    if (client === null || modifyMode === modifyModes.None){
+      this.setState({modifyMode:modifyModes.None, clientOnChange:null});
       return;
     }
-
-    let clients = this.state.clients;
-    let newClients = [];
-
-    for(var i = 0; i < clients.length; i++) {
-      if (clients[i].id === client.id){
-        newClients = clients.slice();
-        newClients[i] = client;
-        break;
-      }
-    }
-
-    if (newClients.length === 0 && clients.length > 0){
-      newClients = clients.slice();
-      newClients.push(client);
-    }
     
-    this.setState({clientOnChange:null, clients:newClients});
+    let newClients = [...clients];
+
+    switch (modifyMode) {
+
+      case modifyModes.Create:
+        newClients.push(client);
+        this.setState({modifyMode:modifyModes.None, clientOnChange:null, clients:newClients});
+        break;
+
+      case modifyModes.Edit:
+        for(var i = 0; i < newClients.length; i++) {
+          if (newClients[i].id === client.id){
+            newClients[i] = client;
+            break;
+          }
+        }
+        this.setState({modifyMode:modifyModes.None, clientOnChange:null, clients:newClients});
+        break;
+    }
   }
 
 }
