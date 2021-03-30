@@ -9,17 +9,17 @@ import MobileClientModify from './MobileClientModify';
 
 import './MobileCompany.css';
 
-const displayModes = {
+const displayModes = Object.freeze({
   All: 'All',
   Active: 'Active',
   Blocked: 'Blocked',
-};
+});
 
-const modifyModes = {
+const modifyModes = Object.freeze({
   None: 'None',
   Create: 'Create',
   Edit: 'Edit'
-};
+});
 
 class MobileCompany extends React.PureComponent {
 
@@ -50,7 +50,7 @@ class MobileCompany extends React.PureComponent {
         selectedCompany: this.props.data[0].name,
         clients: this.props.data[0].clients,
         data: this.props.data,
-        filter: null,
+        filterFunc: null,
       };
     }
     else{
@@ -60,7 +60,7 @@ class MobileCompany extends React.PureComponent {
         selectedCompany: "",
         clients: [],
         data: [],
-        filter: null,
+        filterFunc: null,
       };
     }
   }
@@ -80,8 +80,10 @@ class MobileCompany extends React.PureComponent {
   render() {
     console.log("MobileCompany render");
 
-    const {clientOnChange, selectedCompany, clients, data, filter} = this.state;
-    const displayClients = filter ? filter : clients;
+    const {clientOnChange, selectedCompany, clients, data, filterFunc} = this.state;
+
+    // filteredClients.filter(c => clients.includes(c)) - array intersection in javascript - другой способ если filteredClients массив
+    const displayClients = filterFunc ? clients.filter(c => filterFunc(c)) : clients;
 
     return (
       <Fragment>
@@ -130,22 +132,20 @@ class MobileCompany extends React.PureComponent {
       selectedCompany:newName, 
       clients:data.find(d => d.name == newName).clients,
       data: newData,
-      filter: null
+      filterFunc: null
     });
   };
 
   changeShownClients = (mode) =>{
-    const {clients} = this.state;
-
     switch (mode) {
       case displayModes.All:
-        this.setState({filter:null});
+        this.setState({filterFunc:null});
         break;
       case displayModes.Active:
-        this.setState({filter:clients.filter(c => c.balance >= 0)});
+        this.setState({filterFunc: (c) => c.balance >= 0 });
         break;
       case displayModes.Blocked:
-        this.setState({filter:clients.filter(c => c.balance < 0)});
+        this.setState({filterFunc: (c) => c.balance < 0 });
         break;
     }
   }
