@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 
-import {modifyEvents} from './events';
-
 import './MobileClientModify.css';
 
 class MobileClientModify extends React.PureComponent {
@@ -16,6 +14,7 @@ class MobileClientModify extends React.PureComponent {
       otch: PropTypes.string.isRequired,
       balance: PropTypes.number.isRequired,
     }),
+    modifyEvents: PropTypes.object.isRequired,
   };
   
   famRef = null;
@@ -87,7 +86,8 @@ class MobileClientModify extends React.PureComponent {
   }
 
   commitClient = () => {
-    let current = Immutable.Map(this.props.info);
+    const { info, modifyEvents} = this.props;
+    let current = Immutable.Map(info);
     let newData = current;
 
     if (this.famRef)

@@ -1,8 +1,6 @@
 ﻿import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import {modifyEvents} from './events';
-
 import './MobileClient.css';
 
 class MobileClient extends React.PureComponent {
@@ -15,6 +13,7 @@ class MobileClient extends React.PureComponent {
       otch: PropTypes.string.isRequired,
       balance: PropTypes.number.isRequired,
     }),
+    modifyEvents: PropTypes.object.isRequired,
   };
 
   render() {
@@ -41,11 +40,13 @@ class MobileClient extends React.PureComponent {
   }
 
   modifyClient = () => {
-    modifyEvents.emit('OnModifyClient', this.props.info);
+    const { info, modifyEvents} = this.props;
+    modifyEvents.emit('OnModifyClient', info);
   }
 
   removeClient = () => {
-    modifyEvents.emit('OnRemoveClient', this.props.info);
+    const { info, modifyEvents} = this.props;
+    modifyEvents.emit('OnRemoveClient', info);
   }
 
 }

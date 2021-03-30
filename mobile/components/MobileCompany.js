@@ -1,8 +1,7 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
 import Fragment from 'render-fragment';
-
-import {modifyEvents} from './events';
+import {EventEmitter} from 'events';
 
 import MobileClient from './MobileClient';
 import MobileClientModify from './MobileClientModify';
@@ -43,6 +42,8 @@ class MobileCompany extends React.PureComponent {
   constructor(props) {
     super(props);
     
+    this.modifyEvents = new EventEmitter();
+
     if (this.props.data.length > 0) {
       this.state = {
         modifyMode: modifyModes.None,
@@ -65,16 +66,18 @@ class MobileCompany extends React.PureComponent {
     }
   }
 
+  modifyEvents = null;
+
   componentDidMount = () => {
-    modifyEvents.addListener('OnModifyClient',this.modifyClient);
-    modifyEvents.addListener('OnRemoveClient',this.removeClient);
-    modifyEvents.addListener('OnCommitClient',this.updateData);
+    this.modifyEvents.addListener('OnModifyClient',this.modifyClient);
+    this.modifyEvents.addListener('OnRemoveClient',this.removeClient);
+    this.modifyEvents.addListener('OnCommitClient',this.updateData);
   };
 
   componentWillUnmount = () => {
-    modifyEvents.removeListener('OnModifyClient',this.modifyClient);
-    modifyEvents.removeListener('OnRemoveClient',this.removeClient);
-    modifyEvents.removeListener('OnCommitClient',this.updateData);
+    this.modifyEvents.removeListener('OnModifyClient',this.modifyClient);
+    this.modifyEvents.removeListener('OnRemoveClient',this.removeClient);
+    this.modifyEvents.removeListener('OnCommitClient',this.updateData);
   };
 
   render() {
@@ -108,13 +111,13 @@ class MobileCompany extends React.PureComponent {
             </tr>
           </thead>
           <tbody>
-          { displayClients.map(client => <MobileClient key={client.id} info={client} /> )}
+          { displayClients.map(client => <MobileClient key={client.id} info={client} modifyEvents={this.modifyEvents} /> )}
           </tbody>
         </table>
 
         <input className='AddClient' type="button" value="Добавить клиента" onClick={this.createClient} />
 
-        { clientOnChange && <MobileClientModify info={clientOnChange} /> }
+        { clientOnChange && <MobileClientModify info={clientOnChange} modifyEvents={this.modifyEvents} /> }
 
       </Fragment>
     );
