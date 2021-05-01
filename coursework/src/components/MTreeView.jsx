@@ -122,6 +122,7 @@ function IntMTreeView(props) {
   const {boxName, mailData} = props;
   const classes = useStyles();
   let nodeId = 0;
+  
 
   return (
     <TreeView

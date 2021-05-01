@@ -63,7 +63,6 @@ function mailItemsFetchAC( dispatch ) {
         //     } )
 
             .then( ( data ) => {
-                console.log(data);
                 dispatch( loadingSuccessAct( data ) );
             } )
             .catch( ( error ) => {
