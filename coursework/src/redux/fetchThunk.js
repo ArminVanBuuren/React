@@ -14,7 +14,7 @@ function mailItemsFetchAC( dispatch ) {
             setTimeout( () => {
                 resolve(
 [{
-    account: { id: 1, name: "Vkhovanskiy", mail: "vkhovanskiy@test.com" },
+    account: { id: 1, name: "V.Khovanskiy", mail: "vkhovanskiy@test.com" },
     filter: { 
         "Тестовые": ["test.com", "testing.com"]
     },

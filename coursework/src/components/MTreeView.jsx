@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { pure } from 'recompose';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
@@ -67,95 +68,88 @@ const useTreeItemStyles = makeStyles((theme) => ({
   },
 }));
 
+function StyledTreeItem(props) {
+  const classes = useTreeItemStyles();
+  const { labelText, labelIcon: LabelIcon, labelInfo, color, bgColor, ...other } = props;
 
-class StyledTreeItem extends React.PureComponent {
-
-  static propTypes = {
-    bgColor: PropTypes.string,
-    color: PropTypes.string,
-    labelIcon: PropTypes.object,
-    labelInfo: PropTypes.string,
-    labelText: PropTypes.string,
-  };
-
-  render() {
-    const classes = useTreeItemStyles();
-    const { labelText, labelIcon: LabelIcon, labelInfo, color, bgColor, ...other } = this.props;
-
-    return (
-      <TreeItem
-        label={
-          <div className={classes.labelRoot}>
-            <LabelIcon color="inherit" className={classes.labelIcon} />
-            <Typography variant="body2" className={classes.labelText}>
-              {labelText}
-            </Typography>
-            <Typography variant="caption" color="inherit">
-              {labelInfo}
-            </Typography>
-          </div>
-        }
-        style={{
-          '--tree-view-color': color,
-          '--tree-view-bg-color': bgColor,
-        }}
-        classes={{
-          root: classes.root,
-          content: classes.content,
-          expanded: classes.expanded,
-          selected: classes.selected,
-          group: classes.group,
-          label: classes.label,
-        }}
-        {...other}
-      />
-    );
-  }
-
+  return (
+    <TreeItem
+      label={
+        <div className={classes.labelRoot}>
+          <LabelIcon color="inherit" className={classes.labelIcon} />
+          <Typography variant="body2" className={classes.labelText}>
+            {labelText}
+          </Typography>
+          <Typography variant="caption" color="inherit">
+            {labelInfo}
+          </Typography>
+        </div>
+      }
+      style={{
+        '--tree-view-color': color,
+        '--tree-view-bg-color': bgColor,
+      }}
+      classes={{
+        root: classes.root,
+        content: classes.content,
+        expanded: classes.expanded,
+        selected: classes.selected,
+        group: classes.group,
+        label: classes.label,
+      }}
+      {...other}
+    />
+  );
 }
 
-class intMTreeView extends React.PureComponent {
+StyledTreeItem.propTypes = {
+  bgColor: PropTypes.string,
+  color: PropTypes.string,
+  labelIcon: PropTypes.object.isRequired,
+  labelInfo: PropTypes.string,
+  labelText: PropTypes.string.isRequired,
+};
 
-  // получено из Redux
-  static propTypes = {
-    boxName: PropTypes.string.isRequired,
-    mailData: PropTypes.array.isRequired,
-  };
+const useStyles = makeStyles({
+  root: {
+    height: 264,
+    flexGrow: 1,
+    maxWidth: 250,
+  },
+});
 
-  render() {
-    const {boxName, mailData} = this.props;
-    let nodeId = 0;
+function IntMTreeView(props) {
+  const {boxName, mailData} = props;
+  const classes = useStyles();
+  let nodeId = 0;
 
-    return (
-      <TreeView
-        className="TreeView"
+  return (
+    <TreeView
+        className={classes.root}
         defaultCollapseIcon={<ArrowDropDownIcon />}
         defaultExpandIcon={<ArrowRightIcon />}
         defaultEndIcon={<div style={{ width: 24 }} />} >
 
         {
-          mailData.map( (account, index) => {
-    
-    
-            console.log(account);
-            let keyNode = 0;
+          mailData.map( (mail, index) => {
+            
             return (
-              <StyledTreeItem key={account.id} nodeId={++nodeId} labelText={account.name} labelIcon={Label}>
+              <StyledTreeItem key={mail.account.id} nodeId={(++nodeId).toString()} labelText={mail.account.name} labelIcon={Label}>
                 <StyledTreeItem
-                            key={++keyNode}
-                            nodeId={++nodeId}
+                            key={++nodeId}
+                            nodeId={nodeId.toString()}
                             labelText="Inbox"
                             labelIcon={MailIcon}
-                            labelInfo={account.items.inbox.count}
+                            labelInfo={mail.items.inbox.count}
                             color="#1a73e8"
                             bgColor="#e8f0fe"
                           />
                 <StyledTreeItem
-                            key={++keyNode}
-                            nodeId={++nodeId}
+                            key={++nodeId}
+                            nodeId={nodeId.toString()}
                             labelText="Outbox"
                             labelIcon={MailIcon}
-                            labelInfo={account.items.outbox.count}
+                            labelInfo={mail.items.outbox.count}
                             color="#3c8039"
                             bgColor="#e6f4ea"
                           />
@@ -165,12 +159,14 @@ class intMTreeView extends React.PureComponent {
         }
 
       </TreeView>
-
-    );
-
-  }
-
+  );
 }
+
+IntMTreeView.propTypes = {
+  boxName: PropTypes.string.isRequired,
+  mailData: PropTypes.array.isRequired,
+};
+
 
 const mapStateToProps = function (state) {
   return {
@@ -182,6 +178,6 @@ const mapStateToProps = function (state) {
 };
 
 // присоединяем (connect) компонент к хранилищу Redux
-const MTreeView = connect(mapStateToProps)(intMTreeView);
+const MTreeView = connect(mapStateToProps)(pure(IntMTreeView));
 
 export default MTreeView;
