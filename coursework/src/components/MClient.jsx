@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import Fragment from 'render-fragment';
 
 import MTreeView from './MTreeView.jsx';
+import ControlHeader from './ControlHeader.jsx';
 
 import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
@@ -37,6 +38,7 @@ class intMClient extends React.PureComponent {
 
     return (
       <Fragment>
+        <ControlHeader />
         <MTreeView />
       </Fragment>
 

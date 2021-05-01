@@ -122,7 +122,6 @@ function IntMTreeView(props) {
   const {boxName, mailData} = props;
   const classes = useStyles();
   let nodeId = 0;
-  
 
   return (
     <TreeView
@@ -141,7 +140,7 @@ function IntMTreeView(props) {
                             nodeId={nodeId.toString()}
                             labelText="Inbox"
                             labelIcon={MailIcon}
-                            labelInfo={mail.items.inbox.count}
+                            labelInfo={mail.items.inbox.length.toString()}
                             color="#1a73e8"
                             bgColor="#e8f0fe"
                           />
@@ -150,7 +149,7 @@ function IntMTreeView(props) {
                             nodeId={nodeId.toString()}
                             labelText="Outbox"
                             labelIcon={MailIcon}
-                            labelInfo={mail.items.outbox.count}
+                            labelInfo={mail.items.outbox.length.toString()}
                             color="#3c8039"
                             bgColor="#e6f4ea"
                           />
