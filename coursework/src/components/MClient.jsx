@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Fragment from 'render-fragment';
 
-import MTreeView from './MTreeView.jsx';
 import ControlHeader from './ControlHeader.jsx';
+import MTreeView from './MTreeView.jsx';
+import MEditor from './MEditor.jsx';
 
 import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
@@ -40,6 +41,7 @@ class intMClient extends React.PureComponent {
       <Fragment>
         <ControlHeader />
         <MTreeView />
+        <MEditor />
       </Fragment>
 
       // <div>
