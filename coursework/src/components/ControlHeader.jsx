@@ -25,9 +25,7 @@ function IntControlHeader(props) {
 
   return (
     <div>
-        <Button variant="contained" color="primary" size="medium" className={classes.button} endIcon={<SendIcon />} >
-          { type == ACTION_TYPES.SendMsg ? "Send" : "Create" }
-        </Button>
+        <Button variant="contained" color="primary" size="medium" className={classes.button} endIcon={<SendIcon />} >Create</Button>
         <Button variant="contained" color="secondary" size="medium" className={classes.button} startIcon={<DeleteIcon />} >Delete</Button>
         <Button variant="contained" color="default" size="medium" className={classes.button} startIcon={<CachedIcon />} >Refresh</Button>
     </div>

@@ -119,13 +119,14 @@ const useStyles = makeStyles({
 });
 
 function IntMTreeView(props) {
-  const {boxName, mailData} = props;
+  const { mailData } = props;
   const classes = useStyles();
   let nodeId = 0;
 
   return (
     <TreeView
         className={classes.root}
+        defaultExpanded={['1']}
         defaultCollapseIcon={<ArrowDropDownIcon />}
         defaultExpandIcon={<ArrowRightIcon />}
         defaultEndIcon={<div style={{ width: 24 }} />} >
@@ -163,7 +164,6 @@ function IntMTreeView(props) {
 }
 
 IntMTreeView.propTypes = {
-  boxName: PropTypes.string.isRequired,
   mailData: PropTypes.array.isRequired,
 };
 
@@ -172,7 +172,6 @@ const mapStateToProps = function (state) {
   return {
     // из раздела Redux с именем counter свойство cnt будет доступно
     // данному компоненту как this.props.cnt
-    boxName: state.counters.boxName, 
     mailData: state.counters.mailData,
   };
 };

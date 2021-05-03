@@ -2,6 +2,8 @@ import isoFetch from 'isomorphic-fetch';
 
 import { loadingAct, loadingSuccessAct, loadingErrorAct } from "./countersAC";
 
+const url = "https://fe.it-academy.by/AjaxStringStorage2.php";
+
 function mailItemsFetchAC( dispatch ) {
     // Как и любой action creator, countriesThunkAC должен вернуть action,
     // только action будет не хэш, а ФУНКЦИЯ.
@@ -10,13 +12,14 @@ function mailItemsFetchAC( dispatch ) {
     // ВЫПОЛНЯЕТ эту функцию и не пропускает её дальше, к редьюсерам.
     return function () {
         dispatch( loadingAct() );
+
         new Promise((resolve, reject) => {
             setTimeout( () => {
                 resolve(
 [{
     account: { id: 1, name: "V.Khovanskiy", mail: "vkhovanskiy@test.com" },
     filter: { 
-        "Тестовые": ["test.com", "testing.com"]
+        testing: ["test.com", "testing.com"]
     },
     items: {
         inbox: [
@@ -49,7 +52,7 @@ function mailItemsFetchAC( dispatch ) {
             }, 300);
         })
 
-        // isoFetch( "http://fe.it-academy.by/Examples/net_city/countries.json" )
+        // isoFetch( url )
         //     .then( ( response ) => {
                 
         //         // response - HTTP-ответ
@@ -72,4 +75,36 @@ function mailItemsFetchAC( dispatch ) {
 
 }
 
-export { mailItemsFetchAC };
+function mailItemsUpdateAC( dispatch, data ) {
+    return function () {
+        dispatch( loadingAct() );
+        new Promise((resolve, reject) => { setTimeout( () => {resolve()}, 300 ) } )
+
+        // isoFetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // })
+        // .then(( response ) => {
+        //     if ( !response.ok ) {
+        //         let Err = new Error( "fetch error " + response.status );
+        //         Err.userMessage = "Ошибка связи";
+        //         throw Err;
+        //     } else {
+        //         return response.json();
+        //     }
+        // })
+
+        .then(() => {
+            dispatch( mailItemsFetchAC( dispatch ) );
+        })
+        .catch( ( error ) => {
+            dispatch( loadingErrorAct() );
+        } );
+    };
+}
+
+export { mailItemsFetchAC, mailItemsUpdateAC };

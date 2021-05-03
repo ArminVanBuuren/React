@@ -6,6 +6,7 @@ import Fragment from 'render-fragment';
 
 import ControlHeader from './ControlHeader.jsx';
 import MTreeView from './MTreeView.jsx';
+import MList from './MList.jsx';
 import MEditor from './MEditor.jsx';
 
 import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
@@ -17,8 +18,6 @@ class intMClient extends React.PureComponent {
   static propTypes = {
     type: PropTypes.string.isRequired,
     mode: PropTypes.string.isRequired,
-    boxName: PropTypes.string.isRequired,
-    msgId: PropTypes.number.isRequired,
     mailData: PropTypes.array.isRequired,
   };
 
@@ -41,6 +40,7 @@ class intMClient extends React.PureComponent {
       <Fragment>
         <ControlHeader />
         <MTreeView />
+        <MList />
         <MEditor />
       </Fragment>
 
@@ -61,9 +61,7 @@ const mapStateToProps = function (state) {
     // данному компоненту как this.props.cnt
     type: state.counters.type, 
     mode: state.counters.mode, 
-    boxName: state.counters.boxName, 
-    msgId: state.counters.msgId,
-    mailData: state.counters.mailData,
+    mailData: state.counters.mailData, 
   };
 };
 
