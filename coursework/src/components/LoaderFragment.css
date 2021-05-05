@@ -26,8 +26,8 @@
 #waiting .loader-div {
     width: calc(100% - 10px);
     height: calc(100% - 10px);
-    border: 5px solid #c8ff00;
-    border-top: 5px solid rgb(231, 34, 116);
+    border: 5px solid #094d74;
+    border-top: 5px solid #8fbaff;
     border-radius: 50%;
     animation: rotate 6s linear infinite;
     overflow: hidden;

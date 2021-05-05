@@ -7,10 +7,10 @@ function LoaderComponent(prop) {
   const trail = useTrail(1, {
     config: {...config, duration: 500 },
     opacity: prop.load ? 1 : 0,
-    zIndex: prop.load ? 1000 : 0,
+    zIndex: prop.load ? 1000 : -1,
     from: { opacity: 0},
   });
-
+  console.log(1);
   return trail.map(({ ...rest }, index) => (<animated.div id="waiting" key={index} style={{ ...rest, }} >{prop.children}</animated.div>));
 }
 
@@ -36,14 +36,14 @@ class Wrapper extends React.PureComponent {
   };
 
   render(){
+    const { load, children } = this.props;
     return (
       <Fragment>
-        <LoaderFragment load={this.props.load} />
-        {this.props.children}
+        <LoaderFragment load={load} />
+        {children}
       </Fragment>
     );
   }
-  
 }
 
 export default Wrapper;
