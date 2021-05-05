@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Fragment from 'render-fragment';
+import { pure } from 'recompose';
 
 import ControlHeader from './ControlHeader.jsx';
 import MTreeView from './MTreeView.jsx';
@@ -11,30 +12,79 @@ import MEditor from './MEditor.jsx';
 import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
 
-class intMList extends React.PureComponent {
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Paper from "@material-ui/core/Paper";
+import List from "@material-ui/core/List";
+import { deepOrange, green } from '@material-ui/core/colors';
 
-  // получено из Redux
-  static propTypes = {
+const useStyles = makeStyles((theme) => ({
+    text: {
+      padding: theme.spacing(2, 2, 0)
+    },
+    paper: {
+      paddingBottom: 50
+    },
+    list: {
+      marginBottom: theme.spacing(2)
+    },
+    subheader: {
+      backgroundColor: theme.palette.background.paper
+    },
+    appBar: {
+      top: "auto",
+      bottom: 0
+    },
+    grow: {
+      flexGrow: 1
+    },
+    fabButton: {
+      position: "absolute",
+      zIndex: 1,
+      top: -30,
+      left: 0,
+      right: 0,
+      margin: "0 auto"
+    },
+    rounded: {
+        color: '#fff',
+        backgroundColor: green[500],
+    },
+}));
+
+function IntMList(props) {
+    const { boxData, selectedPage, countPages } = props;
+    const classes = useStyles();
+
+    return (
+        <Fragment>
+            <CssBaseline />
+            <Paper square className={classes.paper}>
+                <List className={classes.list}>
+                {boxData.map((msg) => {
+                    const name = msg.from.charAt(0).toUpperCase();
+                    return (
+                    <Fragment key={msg.msgId}>
+                        <ListSubheader className={classes.subheader}>{msg.dateOfSent}</ListSubheader>
+                        <ListItem button>
+                            <ListItemAvatar>
+                                <Avatar alt="Profile Picture" className={classes.rounded} >{name}</Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={primary} secondary={secondary} />
+                        </ListItem>
+                    </Fragment>
+                )})}
+                </List>
+            </Paper>
+        </Fragment>
+    );
+}
+
+IntMList.propTypes = {
     boxData: PropTypes.array.isRequired,
     selectedPage: PropTypes.number.isRequired,
     countPages: PropTypes.number.isRequired,
-  };
-
-  render() {
-    const { boxData } = this.props;
-
-    return (
-        <div>
-            {
-               boxData.map( (msg, index) => {
-
-               })
-            }
-        </div>
-    );
-  }
-
-}
+};
 
 const mapStateToProps = function (state) {
     return {
@@ -47,7 +97,7 @@ const mapStateToProps = function (state) {
   };
   
   // присоединяем (connect) компонент к хранилищу Redux
-  const MList = connect(mapStateToProps)(intMList);
+const MList = connect(mapStateToProps)(pure(IntMList));
   
-  export default MList;
+export default MList;
   

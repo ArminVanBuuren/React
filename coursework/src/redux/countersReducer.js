@@ -32,10 +32,10 @@ function loadBoxData(state, mailData) {
             selectedPage = selectedPage > countPages ? countPages : selectedPage;
   
             let start = ( ( selectedPage - 1 ) * maxBoxItems ) - 1;
-            boxData = mailItems.slice( start );
+            boxData = mailItems.slice( start, start + maxBoxItems );
             
             if (selectedMsg.msgId){
-              if (!mailItems.some((m) => m.msgId === selectedMsg.msgId)){
+              if (!mailItems.some(m => m.msgId === selectedMsg.msgId)){
                 selectedMsg = {};
               }
             }
@@ -78,6 +78,7 @@ function countersReducer( state = initState, action ) {
 
       return state;
     }
+
 
     case ACTION_TYPES.CreateMsg: {
       return {
@@ -160,6 +161,7 @@ function countersReducer( state = initState, action ) {
           mode: ACTION_MODE.NoDataFound,
       };
     }
+
 
     default: {
       return state;

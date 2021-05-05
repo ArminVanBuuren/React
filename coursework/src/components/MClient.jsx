@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -8,9 +8,14 @@ import ControlHeader from './ControlHeader.jsx';
 import MTreeView from './MTreeView.jsx';
 import MList from './MList.jsx';
 import MEditor from './MEditor.jsx';
+import Wrapper from './LoaderFragment.jsx';
 
 import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
+import './MClient.css';
+
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class intMClient extends React.PureComponent {
 
@@ -28,21 +33,16 @@ class intMClient extends React.PureComponent {
   render() {
     const {type, mode, boxName, msgId, mailData} = this.props;
     
-    if (mode === ACTION_MODE.Processing)
-      return "загрузка...";
-
     if (mode === ACTION_MODE.Error)
       return "ошибка загрузки...";
 
-    
-
     return (
-      <Fragment>
+      <Wrapper load={mode === ACTION_MODE.Processing} >
         <ControlHeader />
         <MTreeView />
         <MList />
         <MEditor />
-      </Fragment>
+      </Wrapper>
 
       // <div>
       //   <NavLink to="/1" className="PageLink" activeClassName="ActivePageLink">1</NavLink>
@@ -52,7 +52,6 @@ class intMClient extends React.PureComponent {
     );
 
   }
-
 }
 
 const mapStateToProps = function (state) {

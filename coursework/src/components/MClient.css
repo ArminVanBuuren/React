@@ -1,0 +1,17 @@
+.bg-blur{
+    transition: blur 1s;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
+
+.hide-spa-container {
+    transition: blur 1s;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
+
+.show-spa-container {
+    transition: blur 1s;
+    filter: blur(0px);
+    -webkit-filter: blur(0px);
+}

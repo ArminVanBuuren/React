@@ -49,7 +49,7 @@ function mailItemsFetchAC( dispatch ) {
     }                    
 }]               
 );
-            }, 300);
+            }, 3000);
         })
 
         // isoFetch( url )
