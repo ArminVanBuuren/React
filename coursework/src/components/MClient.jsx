@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Fragment from 'render-fragment';
+import SplitPane from "react-splitter-layout";
 
 import ControlHeader from './ControlHeader.jsx';
 import MTreeView from './MTreeView.jsx';
 import MList from './MList.jsx';
 import MEditor from './MEditor.jsx';
-import Wrapper from './LoaderFragment.jsx';
+import Wrapper from './Wrapper.jsx';
 
 import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
@@ -39,9 +40,13 @@ class intMClient extends React.PureComponent {
     return (
       <Wrapper load={mode === ACTION_MODE.Processing} >
         <ControlHeader />
-        <MTreeView />
-        <MList />
-        <MEditor />
+        <SplitPane vertical borderColor="#999" percentage={false} primaryIndex={0} secondaryInitialSize={50} >
+          <MTreeView />
+          <SplitPane borderColor="#999" percentage={false} primaryIndex={0} secondaryInitialSize={100} > 
+            <MList />
+            <MEditor />
+          </SplitPane>
+        </SplitPane>
       </Wrapper>
 
       // <div>

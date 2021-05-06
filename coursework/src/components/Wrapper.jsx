@@ -1,7 +1,7 @@
 import React, { useTransition, useState, useEffect, Fragment } from 'react';
 import { useSpring, animated, useTrail, config } from 'react-spring';
 import PropTypes from 'prop-types';
-import './LoaderFragment.css';
+import './Wrapper.css';
 
 function LoaderComponent(prop) {
   const trail = useTrail(1, {
@@ -10,7 +10,7 @@ function LoaderComponent(prop) {
     zIndex: prop.load ? 1000 : -1,
     from: { opacity: 0},
   });
-  console.log(1);
+  
   return trail.map(({ ...rest }, index) => (<animated.div id="waiting" key={index} style={{ ...rest, }} >{prop.children}</animated.div>));
 }
 
