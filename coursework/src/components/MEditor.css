@@ -1,0 +1,14 @@
+.text-editor {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.text-editor > #toolbar{
+    flex: 0 0 auto;
+}
+
+.text-editor:last-child div{
+    flex: 1 1 auto;
+}

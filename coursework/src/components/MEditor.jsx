@@ -6,6 +6,7 @@ import Fragment from 'render-fragment';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import './MEditor.css';
 
 import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
@@ -46,7 +47,7 @@ class intMEditor extends React.PureComponent {
     return (
         <div className="text-editor">
             <CustomToolbar />
-            <ReactQuill value={value} onChange={this.textChanged} modules={this.modules} />
+            <ReactQuill value={value} theme='snow' onChange={this.textChanged} modules={this.modules} />
         </div>
     );
 
