@@ -22,7 +22,7 @@ function mailItemsFetchAC( dispatch ) {
         testing: ["test.com", "testing.com"]
     },
     items: [
-        { name: "inbox", mails: [
+        { name: "Inbox", mails: [
             { msgId:1,  dateOfSent:"01.01.2021 05:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good morning, Vlaidimir!" },
             { msgId:2,  dateOfSent:"01.01.2021 06:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good morning, Vlaidimir!" },
             { msgId:3,  dateOfSent:"01.01.2021 07:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good morning, Vlaidimir!" },
@@ -45,7 +45,7 @@ function mailItemsFetchAC( dispatch ) {
             { msgId:20, dateOfSent:"02.01.2021 05:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good night, Vlaidimir!" },
             { msgId:21, dateOfSent:"02.01.2021 06:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good night, Vlaidimir!" },
         ]},
-        { name: "outbox", mails: [
+        { name: "Outbox", mails: [
             { msgId:1, dateOfSent:"30.04.2021 09:00:00", subject:"test-oubox", from:"vkhovanskiy@test.com", to:"test@test.com", content:"Good morning, Test!" },
         ]},
     ]

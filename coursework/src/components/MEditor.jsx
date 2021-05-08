@@ -42,12 +42,12 @@ class intMEditor extends React.PureComponent {
   };
 
   render() {
-    let value = "test - test";
-
+    const { selectedAccount, selectedMsg } = this.props;
+    const isExistingMsg = selectedMsg != null && selectedMsg != undefined && selectedMsg.content != null && selectedMsg.content != undefined;
     return (
         <div className="text-editor">
             <CustomToolbar />
-            <ReactQuill value={value} theme='snow' onChange={this.textChanged} modules={this.modules} />
+            <ReactQuill value={isExistingMsg ? selectedMsg.content : ""} theme='snow' onChange={this.textChanged} modules={this.modules} readOnly={isExistingMsg} />
         </div>
     );
 

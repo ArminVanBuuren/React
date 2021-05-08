@@ -121,7 +121,10 @@ function countersReducer( state = initState, action ) {
 
     case ACTION_TYPES.SelectBox: {
       const currentMail = state.mailData.find(mail => mail.account.id === action.accountId);
-      
+      if (state.selectedAccount === currentMail.account && state.boxName === action.boxName){
+        return state; 
+      }
+
       if (currentMail){
         let newState = {
           ...state,
@@ -139,6 +142,18 @@ function countersReducer( state = initState, action ) {
       return {
         ...state,
         mode: ACTION_MODE.NoDataFound,
+      };
+    }
+
+
+    case ACTION_TYPES.SelectMsg: {
+      if (state.selectedMsg === action.msg){
+        return state;
+      }
+
+      return {
+        ...state,
+        selectedMsg: action.msg,
       };
     }
 

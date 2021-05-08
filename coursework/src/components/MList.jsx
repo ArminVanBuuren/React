@@ -9,7 +9,7 @@ import ControlHeader from './ControlHeader.jsx';
 import MTreeView from './MTreeView.jsx';
 import MEditor from './MEditor.jsx';
 
-import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
+import { selectMsgAct } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function IntMList(props) {
-    const { boxData, selectedPage, countPages } = props;
+    const { boxData, selectedPage, countPages, dispatch } = props;
     const classes = useStyles();
     let prevDate = null;
 
@@ -65,19 +65,21 @@ function IntMList(props) {
                 <List className={classes.list}>
                 {boxData.map((msg) => {
                     const name = msg.from.charAt(0).toUpperCase();
-                    const date = msg.dateOfSent.split(' ')[0];
-                    let dateChanged = prevDate !== date;
-                    if (prevDate != date)
-                        prevDate = date;
+                    const date = msg.dateOfSent.split(' ');
+                    let dateChanged = prevDate !== date[0];
+                    if (prevDate != date[0])
+                        prevDate = date[0];
 
                     return (
                     <Fragment key={msg.msgId}>
-                        {dateChanged && <ListSubheader className={classes.subheader}>{date}</ListSubheader>}
-                        <ListItem button>
+                        {dateChanged && <ListSubheader className={classes.subheader}>{date[0]}</ListSubheader>}
+                        <ListItem button onClick={() => {
+                              dispatch(selectMsgAct(msg));
+                            }}>
                             <ListItemAvatar>
                                 <Avatar alt="Profile Picture" className={classes.rounded} >{name}</Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={msg.from} secondary={msg.subject} />
+                            <ListItemText primary={msg.from} secondary={date[1] + ": " + msg.subject} />
                         </ListItem>
                     </Fragment>
                 )})}
