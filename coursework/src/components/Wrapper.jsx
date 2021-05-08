@@ -40,7 +40,7 @@ class Wrapper extends React.PureComponent {
     return (
       <Fragment>
         <LoaderFragment load={load} />
-        {children}
+        <div className='root' >{children}</div>
       </Fragment>
     );
   }

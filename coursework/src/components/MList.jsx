@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2, 2, 0)
     },
     paper: {
-      paddingBottom: 50
+      paddingBottom: 50,
+      height: '100%'
     },
     list: {
       marginBottom: theme.spacing(2)
@@ -36,7 +37,8 @@ const useStyles = makeStyles((theme) => ({
       bottom: 0
     },
     grow: {
-      flexGrow: 1
+      flex: '0 0 auto',
+      position: 'relative'
     },
     fabButton: {
       position: "absolute",

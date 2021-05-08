@@ -114,7 +114,7 @@ const useStyles = makeStyles({
   root: {
     height: 264,
     flexGrow: 1,
-    maxWidth: 250,
+    // maxWidth: 250,
   },
 });
 
