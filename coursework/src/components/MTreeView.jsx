@@ -17,6 +17,8 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
+import { selectBoxAct } from '../redux/countersAC';
+
 
 const useTreeItemStyles = makeStyles((theme) => ({
   root: {
@@ -114,14 +116,12 @@ const useStyles = makeStyles({
   root: {
     height: 264,
     flexGrow: 1,
-    // maxWidth: 250,
   },
 });
 
 function IntMTreeView(props) {
-  const { mailData } = props;
+  const { treeData, dispatch } = props;
   const classes = useStyles();
-  let nodeId = 0;
 
   return (
     <TreeView
@@ -129,31 +129,35 @@ function IntMTreeView(props) {
         defaultExpanded={['1']}
         defaultCollapseIcon={<ArrowDropDownIcon />}
         defaultExpandIcon={<ArrowRightIcon />}
-        defaultEndIcon={<div style={{ width: 24 }} />} >
+        defaultEndIcon={<div style={{ width: 24 }} />}
+        onNodeSelect={(EO, nodeId) => {
+          for (const mail of treeData) {
+            if (nodeId in mail.boxes) {
+              dispatch(selectBoxAct(mail.account.id, mail.boxes[nodeId].name));
+              break;
+            }
+          }
+        }}
+        >
 
         {
-          mailData.map( (mail, index) => {
-            
+          treeData.map( (mail, index) => {
             return (
-              <StyledTreeItem key={mail.account.id} nodeId={(++nodeId).toString()} labelText={mail.account.name} labelIcon={Label}>
-                <StyledTreeItem
-                            key={++nodeId}
-                            nodeId={nodeId.toString()}
-                            labelText="Inbox"
+              <StyledTreeItem key={mail.account.id} nodeId={mail.account.id.toString()} labelText={mail.account.name} labelIcon={Label}>
+                { Object.keys(mail.boxes).map(boxKey => {
+                  let value = mail.boxes[boxKey];
+                  return (<StyledTreeItem
+                            key={boxKey}
+                            nodeId={boxKey}
+                            labelText={value.name}
+                            labelInfo={value.count.toString()}
                             labelIcon={MailIcon}
-                            labelInfo={mail.items.inbox.length.toString()}
                             color="#1a73e8"
-                            bgColor="#e8f0fe"
-                          />
-                <StyledTreeItem
-                            key={++nodeId}
-                            nodeId={nodeId.toString()}
-                            labelText="Outbox"
-                            labelIcon={MailIcon}
-                            labelInfo={mail.items.outbox.length.toString()}
-                            color="#3c8039"
-                            bgColor="#e6f4ea"
-                          />
+                            bgColor="#e8f0fe" 
+                            // color="#3c8039"
+                            // bgColor="#e6f4ea"
+                            />);
+                } ) }
               </StyledTreeItem>
             )
           })
@@ -164,7 +168,7 @@ function IntMTreeView(props) {
 }
 
 IntMTreeView.propTypes = {
-  mailData: PropTypes.array.isRequired,
+  treeData: PropTypes.array.isRequired,
 };
 
 
@@ -172,7 +176,7 @@ const mapStateToProps = function (state) {
   return {
     // из раздела Redux с именем counter свойство cnt будет доступно
     // данному компоненту как this.props.cnt
-    mailData: state.counters.mailData,
+    treeData: state.counters.treeData,
   };
 };
 

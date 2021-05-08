@@ -21,8 +21,8 @@ function mailItemsFetchAC( dispatch ) {
     filter: { 
         testing: ["test.com", "testing.com"]
     },
-    items: {
-        inbox: [
+    items: [
+        { name: "inbox", mails: [
             { msgId:1,  dateOfSent:"01.01.2021 05:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good morning, Vlaidimir!" },
             { msgId:2,  dateOfSent:"01.01.2021 06:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good morning, Vlaidimir!" },
             { msgId:3,  dateOfSent:"01.01.2021 07:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good morning, Vlaidimir!" },
@@ -42,11 +42,13 @@ function mailItemsFetchAC( dispatch ) {
             { msgId:17, dateOfSent:"01.01.2021 21:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good evening, Vlaidimir!" },
             { msgId:18, dateOfSent:"01.01.2021 22:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good evening, Vlaidimir!" },
             { msgId:19, dateOfSent:"01.01.2021 23:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good night, Vlaidimir!" },
-        ],
-        outbox: [
+            { msgId:20, dateOfSent:"02.01.2021 05:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good night, Vlaidimir!" },
+            { msgId:21, dateOfSent:"02.01.2021 06:00:00", subject:"test-subject", from:"test@test.com", to:"vkhovanskiy@test.com", content:"Good night, Vlaidimir!" },
+        ]},
+        { name: "outbox", mails: [
             { msgId:1, dateOfSent:"30.04.2021 09:00:00", subject:"test-oubox", from:"vkhovanskiy@test.com", to:"test@test.com", content:"Good morning, Test!" },
-        ],
-    }                    
+        ]},
+    ]
 }]               
 );
             }, 300);

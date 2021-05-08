@@ -24,11 +24,11 @@
     width: 4px;
     height: 100%;
     cursor: col-resize;
-    background-color: #ccc;
+    background-color: #3f51b559;
   }
   
   .splitter-layout .layout-splitter:hover {
-    background-color: #bbb;
+    background-color: #3f51b575;
   }
   
   .splitter-layout.layout-changing {
@@ -36,7 +36,7 @@
   }
   
   .splitter-layout.layout-changing > .layout-splitter {
-    background-color: #aaa;
+    background-color: #3f51b5;
   }
   
   .splitter-layout.splitter-layout-vertical {

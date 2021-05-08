@@ -14,8 +14,7 @@ import { mailItemsFetchAC } from '../redux/fetchThunk';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import List from "@material-ui/core/List";
+import { Paper, List, ListSubheader, ListItem, ListItemAvatar, Avatar, ListItemText } from '@material-ui/core';
 import { deepOrange, green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 function IntMList(props) {
     const { boxData, selectedPage, countPages } = props;
     const classes = useStyles();
+    let prevDate = null;
 
     return (
         <Fragment>
@@ -65,14 +65,19 @@ function IntMList(props) {
                 <List className={classes.list}>
                 {boxData.map((msg) => {
                     const name = msg.from.charAt(0).toUpperCase();
+                    const date = msg.dateOfSent.split(' ')[0];
+                    let dateChanged = prevDate !== date;
+                    if (prevDate != date)
+                        prevDate = date;
+
                     return (
                     <Fragment key={msg.msgId}>
-                        <ListSubheader className={classes.subheader}>{msg.dateOfSent}</ListSubheader>
+                        {dateChanged && <ListSubheader className={classes.subheader}>{date}</ListSubheader>}
                         <ListItem button>
                             <ListItemAvatar>
                                 <Avatar alt="Profile Picture" className={classes.rounded} >{name}</Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={primary} secondary={secondary} />
+                            <ListItemText primary={msg.from} secondary={msg.subject} />
                         </ListItem>
                     </Fragment>
                 )})}

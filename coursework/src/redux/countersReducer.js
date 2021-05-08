@@ -11,44 +11,75 @@ const initState = {
   selectedMsg: {},     // выбранное сообщение
   selectedPage: 1,     // выбранная страница
   countPages: 1,       // всего страниц для папки
+  treeData: [],        // информация аккаунтов, боксах и количестве писем
   mailData: [],        // все данные с сервера
 }
 
-function loadBoxData(state, mailData) {
-  const { selectedAccount, boxName } = state;
+function loadBoxData(isNewData, state, mailData) {
+  const { selectedAccount } = state;
+  let selectedData = {};
+  let treeData = isNewData ? [] : state.treeData;
+  
+  if (isNewData) {
+    // обновляем всю дату, сортируем письма и находим выбранный аккаунт
+    for ( const mail of mailData ) {
+      let boxes = {};
+      mail.items.forEach(box => ( boxes[mail.account.id + "-" + box.name] = { name: box.name, count: box.mails.length } ));
+      treeData.push({ account:mail.account, boxes });
+
+      // сортируем все письма
+      for (const box of mail.items) {
+        box.mails = box.mails.sort((x, y) => new Date(x.dateOfSent) - new Date(y.dateOfSent)).reverse();
+      }
+
+      // находим выбранный аккаунт
+      if ( mail.account.id === selectedAccount.id ) {
+        selectedData = getSelectedBoxData(mail, state);
+      }
+    }
+  }
+  else {
+    // находим только выбранный аккаунт
+    for ( const mail of mailData ) {
+      if ( mail.account.id === selectedAccount.id ) {
+        selectedData = getSelectedBoxData(mail, state);
+        break;
+      }
+    }
+  }
+  return { ...selectedData, treeData };
+}
+
+function getSelectedBoxData( mail, state ) {
+  const { boxName } = state;
   let boxData = [];
   let selectedMsg = state.selectedMsg;
   let selectedPage = state.selectedPage;
   let countPages = 1;
 
-  if (selectedAccount.id){
-    for ( const mail of mailData ) {
-      if ( mail.account.id === selectedAccount.id ) {
-        for ( const boxKey in mail.items ) {
-          if ( boxKey === boxName ) {
-            
-            const mailItems = object[ boxKey ];
-            countPages = Math.ceil( mailItems.length / maxBoxItems );
-            selectedPage = selectedPage > countPages ? countPages : selectedPage;
-  
-            let start = ( ( selectedPage - 1 ) * maxBoxItems ) - 1;
-            boxData = mailItems.slice( start, start + maxBoxItems );
-            
-            if (selectedMsg.msgId){
-              if (!mailItems.some(m => m.msgId === selectedMsg.msgId)){
-                selectedMsg = {};
-              }
-            }
-  
-            break;
-          }
+  for ( const box of mail.items ) {
+    // находим выбранный box
+    if ( box.name === boxName ) {
+      // находим все письма, подситываем количество страниц и корректируем выбранную страницу
+      countPages = Math.ceil( box.mails.length / maxBoxItems );
+      selectedPage = selectedPage > countPages ? countPages : selectedPage;
+
+      // фильтрум письма для выбранной страницы
+      let start = ( ( selectedPage - 1 ) * maxBoxItems );
+      boxData = box.mails.slice( start, start + maxBoxItems );
+
+      // если на текущей странице нет выбранного ранее письма, то очищаем то что было выбрано
+      if ( selectedMsg.msgId ) {
+        if ( !box.mails.some( m => m.msgId === selectedMsg.msgId ) ) {
+          selectedMsg = {};
         }
-        break;
       }
+
+      break;
+    }
   }
-  
-  }
-  return { boxData, selectedMsg, selectedPage, countPages };
+
+  return {boxData, selectedMsg, selectedPage, countPages};
 }
 
 // в редьюсере state - это не весь state Redux, а только тот раздел state,
@@ -62,7 +93,7 @@ function countersReducer( state = initState, action ) {
 
     case ACTION_TYPES.Load: {
       if ( action.mode === ACTION_MODE.Success ) {
-        let result = loadBoxData(state, action.mailData);
+        let result = loadBoxData(true, state, action.mailData);
         return {
           ...state,
           ...action,
@@ -90,13 +121,19 @@ function countersReducer( state = initState, action ) {
 
     case ACTION_TYPES.SelectBox: {
       const currentMail = state.mailData.find(mail => mail.account.id === action.accountId);
-
-      if (currentMail && action.boxName in currentMail.items){
-        return {
+      
+      if (currentMail){
+        let newState = {
           ...state,
           selectedAccount: currentMail.account,
           boxName: action.boxName
         };
+        let result = loadBoxData(false, newState, state.mailData);
+        newState = { 
+          ...newState,
+          ...result
+        };
+        return newState;
       }
 
       return {
@@ -107,7 +144,7 @@ function countersReducer( state = initState, action ) {
 
 
     case ACTION_TYPES.SelectPage: {
-      let result = loadBoxData({...state, selectedPage:action.pageNumber}, action.mailData);
+      let result = loadBoxData(false, {...state, selectedPage:action.pageNumber}, action.mailData);
       return {
         ...state,
         ...result,

@@ -40,7 +40,7 @@ class intMClient extends React.PureComponent {
     return (
       <Wrapper load={mode === ACTION_MODE.Processing} >
         <ControlHeader />
-        <SplitPane borderColor="#999" percentage={true} primaryIndex={0} primaryMinSize={15} secondaryInitialSize={80} secondaryMinSize={70} >
+        <SplitPane borderColor="#999" percentage={true} primaryIndex={0} primaryMinSize={10} secondaryInitialSize={80} secondaryMinSize={70} >
           <MTreeView />
           <SplitPane borderColor="#999" percentage={true} primaryIndex={0} primaryMinSize={15} secondaryInitialSize={60} secondaryMinSize={20} >
             <MList />
