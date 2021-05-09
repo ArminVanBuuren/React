@@ -96,6 +96,10 @@ function getSelectedBoxData( isNewData, mail, state ) {
         selectedMsg = newSelectedMsg ? newSelectedMsg : selectedMsg;
       }
 
+      if ( selectedMsg.msgId === -1 && mails.length > 0 ){
+        selectedMsg = mails[0];
+      }
+
       // если страницу перегрузили, то назодим страницу по выбранному письму msgid 
       if ( selectedPage <= 0){
         if (findedIndex >= 0){
@@ -159,7 +163,10 @@ function countersReducer( state = initState, action ) {
       if (selectedAccount === currentMail.account && boxName === action.boxName && action.msgId === -1 )
         return state; 
       
-      let newSelectedMsg = selectedMsg && selectedMsg.msgId === action.msgId ? selectedMsg : { msgId: action.msgId };
+      let newSelectedMsg = selectedMsg && selectedMsg.msgId === action.msgId && action.msgId !== -1
+                                        ? selectedMsg
+                                        : { msgId: action.msgId };
+
 
       if (currentMail) {
         let newState = {

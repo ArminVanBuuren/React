@@ -34,7 +34,7 @@ const selectAct = function(accountId, boxName, msgId) {
     type: ACTION_TYPES.Select,
     accountId: parseInt(accountId),
     boxName,
-    msgId: parseInt(msgId)
+    msgId: parseInt(msgId),
   };
 }
 

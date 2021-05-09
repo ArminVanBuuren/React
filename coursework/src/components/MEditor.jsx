@@ -38,7 +38,7 @@ class intMEditor extends React.PureComponent {
     const { selectedAccount, selectedMsg } = this.props;
     const isExistingMsg = selectedMsg != null && selectedMsg != undefined && selectedMsg.msgId != null && selectedMsg.msgId != undefined && selectedMsg.msgId != -1;
     if (isExistingMsg && !this.state.resetted)
-      this.reset();  
+      this.reset();
 
     const isReplay = !isExistingMsg && this.state.resetted && selectedMsg.to != undefined && selectedMsg.subject != undefined && selectedMsg.content != undefined;
 
