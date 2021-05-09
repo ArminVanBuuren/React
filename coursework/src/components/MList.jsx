@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { pure } from 'recompose';
 import ControlHeader from './ControlHeader.jsx';
 import MTreeView from './MTreeView.jsx';
 import MEditor from './MEditor.jsx';
+import MListItem from './MListItem.jsx';
 
 import { selectMsgAct, selectPageAct } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
@@ -55,17 +56,14 @@ const useStyles = makeStyles((theme) => ({
       right: 0,
       margin: "0 auto"
     },
-    rounded: {
-        color: '#fff',
-        backgroundColor: green[500],
-    },
 }));
 
 function IntMList(props) {
-    const { boxData, selectedPage, countPages, dispatch } = props;
+    const [selectedMsg, setSelectMsg] = useState(null);
+    const { boxData, selectedAccount, boxName, selectedPage, countPages, dispatch, history } = props;
     const classes = useStyles();
     let prevDate = null;
-
+    console.log(1);
     return (
         <Fragment>
             <CssBaseline />
@@ -81,7 +79,9 @@ function IntMList(props) {
                     return (
                     <Fragment key={msg.msgId}>
                         {dateChanged && <ListSubheader className={classes.subheader}>{date[0]}</ListSubheader>}
-                        <ListItem button onClick={() => {
+                        <ListItem button selected={selectedMsg && msg.msgId === selectedMsg.msgId} onClick={() => {
+                              setSelectMsg(msg);
+                              history.push(`/${selectedAccount.id}/${boxName}/${msg.msgId}`);
                               dispatch(selectMsgAct(msg));
                             }}>
                             <ListItemAvatar>
@@ -93,19 +93,21 @@ function IntMList(props) {
                 )})}
                 </List>
                 {boxData.length > 0 && <Pagination className={classes.pagination}
-                                        count={countPages} 
-                                        siblingCount={4} 
-                                        page={selectedPage} 
-                                        color="primary" 
-                                        onChange={(EO, page) => {
-                                          dispatch(selectPageAct(page));
-                                        }} />}
+                                          count={countPages} 
+                                          siblingCount={4} 
+                                          page={selectedPage} 
+                                          color="primary" 
+                                          onChange={(EO, page) => {
+                                            dispatch(selectPageAct(page));
+                                          }} />}
             </Paper>
         </Fragment>
     );
 }
 
 IntMList.propTypes = {
+    selectedAccount: PropTypes.object.isRequired,
+    boxName: PropTypes.string.isRequired,
     boxData: PropTypes.array.isRequired,
     selectedPage: PropTypes.number.isRequired,
     countPages: PropTypes.number.isRequired,
@@ -115,6 +117,8 @@ const mapStateToProps = function (state) {
     return {
       // из раздела Redux с именем counter свойство cnt будет доступно
       // данному компоненту как this.props.cnt
+      selectedAccount: state.counters.selectedAccount, 
+      boxName: state.counters.boxName, 
       boxData: state.counters.boxData, 
       selectedPage: state.counters.selectedPage, 
       countPages: state.counters.countPages, 

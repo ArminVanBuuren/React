@@ -1,7 +1,11 @@
 import React, { useTransition, useState, useEffect, Fragment } from 'react';
 import { useSpring, animated, useTrail, config } from 'react-spring';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import './Wrapper.css';
+
+import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
+import { mailItemsFetchAC } from '../redux/fetchThunk';
 
 function LoaderComponent(prop) {
   const trail = useTrail(1, {
@@ -29,21 +33,40 @@ let withCircleFrame = count => Component => props => {
 
 let LoaderFragment = withCircleFrame(4)(LoaderComponent);
 
-class Wrapper extends React.PureComponent {
+class intWrapper extends React.PureComponent {
 
   static propTypes = {
-    load: PropTypes.bool.isRequired,
+    mode: PropTypes.string.isRequired,
   };
 
+  componentDidMount() {
+    this.props.dispatch( mailItemsFetchAC(this.props.dispatch) );
+  }
+
   render(){
-    const { load, children } = this.props;
+    const { mode, children } = this.props;
+
+    if (mode === ACTION_MODE.Error)
+      return "ошибка загрузки...";
+
     return (
       <Fragment>
-        <LoaderFragment load={load} />
+        <LoaderFragment load={mode === ACTION_MODE.Processing} />
         <div className='root' >{children}</div>
       </Fragment>
     );
   }
 }
+
+const mapStateToProps = function (state) {
+  return {
+    // из раздела Redux с именем counter свойство cnt будет доступно
+    // данному компоненту как this.props.cnt
+    mode: state.counters.mode, 
+  };
+};
+
+// присоединяем (connect) компонент к хранилищу Redux
+const Wrapper = connect(mapStateToProps)(intWrapper);
 
 export default Wrapper;
