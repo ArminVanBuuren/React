@@ -75,16 +75,29 @@ function getSelectedBoxData( isNewData, mail, state ) {
       countPages = Math.ceil( box.mails.length / maxBoxItems );
       selectedPage = selectedPage > countPages ? countPages : selectedPage;
 
+      // если на текущей странице нет выбранного ранее письма, то очищаем то что было выбрано
+      let findedIndex = -1;
+      if ( selectedMsg.msgId ) {
+        selectedMsg = box.mails.find( m => { 
+          findedIndex++;
+          return m.msgId === selectedMsg.msgId 
+        });
+        selectedMsg = !selectedMsg ? {} : selectedMsg;
+      }
+
+      // если страницу перегрузили, то назодим страницу по выбранному письму msgid 
+      if ( selectedPage === -1){
+        if (findedIndex >= 0){
+          selectedPage = Math.ceil((findedIndex + 1) / maxBoxItems);
+        }
+        else {
+          selectedPage = 1;
+        }
+      }
+      
       // фильтрум письма для выбранной страницы
       let start = ( ( selectedPage - 1 ) * maxBoxItems );
       boxData = box.mails.slice( start, start + maxBoxItems );
-
-      // если на текущей странице нет выбранного ранее письма, то очищаем то что было выбрано
-      if ( selectedMsg.msgId ) {
-        if ( !box.mails.some( m => m.msgId === selectedMsg.msgId ) ) {
-          selectedMsg = {};
-        }
-      }
 
       break;
     }
@@ -96,6 +109,9 @@ function getSelectedBoxData( isNewData, mail, state ) {
 // в редьюсере state - это не весь state Redux, а только тот раздел state,
 // за который отвечает данный редьюсер
 function countersReducer( state = initState, action ) {
+
+  const { selectedAccount, boxName, selectedMsg, selectedPage, mailData} = state;
+
   // надо создать новый счётчик
   // редьюсер ВСЕГДА должен возвращаеть новый state а не изменять старый!
   console.log( action.type + "=" + action.mode );
@@ -130,19 +146,22 @@ function countersReducer( state = initState, action ) {
     }
 
 
-    case ACTION_TYPES.SelectBox: {
-      const currentMail = state.mailData.find(mail => mail.account.id === action.accountId);
-      
-      if (state.selectedAccount === currentMail.account && state.boxName === action.boxName)
+    case ACTION_TYPES.Select: {
+      const currentMail = mailData.find(mail => mail.account.id === action.accountId);
+
+      if (selectedAccount === currentMail.account && boxName === action.boxName && action.msgId === -1 )
         return state; 
 
-      if (currentMail){
+      if (currentMail) {
         let newState = {
           ...state,
           selectedAccount: currentMail.account,
-          boxName: action.boxName
+          boxName: action.boxName,
+          selectedMsg: { msgId: action.msgId },
+          // если выбирался box, то выбранная страница сбрасывается. А если msgId то подсчитываем сами страницу
+          selectedPage: action.msgId === -1 ? 1 : -1,
         };
-        let result = loadBoxData(false, newState, state.mailData);
+        let result = loadBoxData(false, newState, mailData);
         newState = { 
           ...newState,
           ...result
@@ -158,7 +177,7 @@ function countersReducer( state = initState, action ) {
 
 
     case ACTION_TYPES.SelectMsg: {
-      if (state.selectedMsg === action.msg)
+      if (selectedMsg === action.msg)
         return state;
 
       return {
@@ -169,9 +188,9 @@ function countersReducer( state = initState, action ) {
 
 
     case ACTION_TYPES.SelectPage: {
-      if (state.selectedPage === action.pageNumber)
+      if (selectedPage === action.pageNumber)
         return state;
-      let result = loadBoxData(false, {...state, selectedPage:action.pageNumber}, state.mailData);
+      let result = loadBoxData(false, {...state, selectedPage:action.pageNumber}, mailData);
       return {
         ...state,
         ...result,
@@ -180,8 +199,8 @@ function countersReducer( state = initState, action ) {
 
 
     case ACTION_TYPES.SendMsg: {
-      if (state.selectedAccount && state.selectedAccount.id != undefined){
-        const currentMail = state.mailData.find(mail => mail.account.id === state.selectedAccount.id);
+      if (selectedAccount && selectedAccount.id != undefined){
+        const currentMail = mailData.find(mail => mail.account.id === selectedAccount.id);
 
         if (currentMail){
           let maxId = 0;
@@ -206,11 +225,11 @@ function countersReducer( state = initState, action ) {
 
 
     case ACTION_TYPES.RemoveMsg: {
-      if (state.selectedAccount && state.selectedAccount.id != undefined){
-        const currentMail = state.mailData.find(mail => mail.account.id === state.selectedAccount.id);
+      if (selectedAccount && selectedAccount.id != undefined){
+        const currentMail = mailData.find(mail => mail.account.id === selectedAccount.id);
 
-        if (currentMail && state.boxName in currentMail.items){
-          currentMail.items[state.boxName] = currentMail.items[state.boxName].find(m => m.msgId != action.msgid);
+        if (currentMail && boxName in currentMail.items){
+          currentMail.items[boxName] = currentMail.items[boxName].find(m => m.msgId != action.msgid);
 
           return {
             ...state,

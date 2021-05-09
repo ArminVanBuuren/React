@@ -17,7 +17,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
-import { selectBoxAct } from '../redux/countersAC';
+import { selectAct } from '../redux/countersAC';
 
 
 const useTreeItemStyles = makeStyles((theme) => ({
@@ -120,7 +120,7 @@ const useStyles = makeStyles({
 });
 
 function IntMTreeView(props) {
-  const { treeData, dispatch } = props;
+  const { treeData, dispatch, history } = props;
   const classes = useStyles();
 
   return (
@@ -133,7 +133,8 @@ function IntMTreeView(props) {
         onNodeSelect={(EO, nodeId) => {
           for (const mail of treeData) {
             if (nodeId in mail.boxes) {
-              dispatch(selectBoxAct(mail.account.id, mail.boxes[nodeId].name));
+              //dispatch(selectAct(mail.account.id, mail.boxes[nodeId].name, -1));
+              history.push(`/${mail.account.id}/${mail.boxes[nodeId].name}`);
               break;
             }
           }

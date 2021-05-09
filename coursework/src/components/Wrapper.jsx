@@ -39,10 +39,6 @@ class intWrapper extends React.PureComponent {
     mode: PropTypes.string.isRequired,
   };
 
-  componentDidMount() {
-    this.props.dispatch( mailItemsFetchAC(this.props.dispatch) );
-  }
-
   render(){
     const { mode, children } = this.props;
 

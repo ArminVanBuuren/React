@@ -11,27 +11,44 @@ import MList from './MList.jsx';
 import MEditor from './MEditor.jsx';
 import Wrapper from './Wrapper.jsx';
 
-import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
+import { ACTION_TYPES, ACTION_MODE, selectAct } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
 import './MClient.css';
 
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-class MClient extends React.PureComponent {
+class intMClient extends React.PureComponent {
 
-  // получено из Redux
-  static propTypes = {
-    type: PropTypes.string,
-  };
+  prevLocation = "/";
+
+  componentDidMount() {
+   
+  }
 
   render() {
+
+    const { history, dispatch, match} = this.props;
     
+    if ( this.prevLocation !== history.location.pathname){
+
+      this.prevLocation = history.location.pathname;
+      console.log(this.prevLocation);
+      
+      let path = this.prevLocation.split('/');
+      if (path.length === 2)
+        dispatch(selectAct(path[1], "", -1));
+      else if (path.length === 3)
+        dispatch(selectAct(path[1], path[2], -1));
+      else if (path.length === 4)
+        dispatch(selectAct(path[1], path[2], path[3]));
+    }
+
     return (
       <Wrapper>
         <ControlHeader />
         <SplitPane borderColor="#999" percentage={true} primaryIndex={0} primaryMinSize={10} secondaryInitialSize={80} secondaryMinSize={70} >
-          <MTreeView />
+          <MTreeView {...this.props} />
           <SplitPane borderColor="#999" percentage={true} primaryIndex={0} primaryMinSize={15} secondaryInitialSize={60} secondaryMinSize={20} >
             <MList {...this.props} />
             <MEditor />
@@ -43,17 +60,11 @@ class MClient extends React.PureComponent {
   }
 }
 
-// const mapStateToProps = function (state) {
-//   return {
-//     // из раздела Redux с именем counter свойство cnt будет доступно
-//     // данному компоненту как this.props.cnt
-//     type: state.counters.type, 
-//     mode: state.counters.mode, 
-//     mailData: state.counters.mailData, 
-//   };
-// };
+const mapStateToProps = function (state) {
+  return { };
+};
 
 // // присоединяем (connect) компонент к хранилищу Redux
-// const MClient = connect(mapStateToProps)(intMClient);
+const MClient = connect(mapStateToProps)(intMClient);
 
 export default MClient;

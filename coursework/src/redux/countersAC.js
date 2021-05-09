@@ -1,7 +1,7 @@
 ﻿
 const ACTION_TYPES = Object.freeze({
   Load: 'Load',
-  SelectBox: 'SelectBox',
+  Select: 'Select',
   SelectMsg: 'SelectMsg',
   SelectPage: 'SelectPage',
   CreateMsg: 'CreateMsg',
@@ -23,11 +23,12 @@ const loadingAct = function() {
   };
 }
 
-const selectBoxAct = function(accountId, boxName) {
+const selectAct = function(accountId, boxName, msgId) {
   return {
-    type: ACTION_TYPES.SelectBox,
-    accountId,
+    type: ACTION_TYPES.Select,
+    accountId: parseInt(accountId),
     boxName,
+    msgId: parseInt(msgId)
   };
 }
 
@@ -82,4 +83,4 @@ const loadingErrorAct = function() {
   };
 }
 
-export { ACTION_TYPES, ACTION_MODE, loadingAct, createMessageAct, selectBoxAct, selectMsgAct, selectPageAct, sendMessageAct, removeMessageAct, loadingSuccessAct, loadingErrorAct, }
+export { ACTION_TYPES, ACTION_MODE, loadingAct, createMessageAct, selectAct, selectMsgAct, selectPageAct, sendMessageAct, removeMessageAct, loadingSuccessAct, loadingErrorAct, }

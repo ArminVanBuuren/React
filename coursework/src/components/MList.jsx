@@ -8,7 +8,6 @@ import { pure } from 'recompose';
 import ControlHeader from './ControlHeader.jsx';
 import MTreeView from './MTreeView.jsx';
 import MEditor from './MEditor.jsx';
-import MListItem from './MListItem.jsx';
 
 import { selectMsgAct, selectPageAct } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
@@ -56,14 +55,18 @@ const useStyles = makeStyles((theme) => ({
       right: 0,
       margin: "0 auto"
     },
+    rounded: {
+      color: '#fff',
+      backgroundColor: green[500],
+    },
 }));
 
 function IntMList(props) {
-    const [selectedMsg, setSelectMsg] = useState(null);
-    const { boxData, selectedAccount, boxName, selectedPage, countPages, dispatch, history } = props;
+    //const [selectedMsg, setSelectedMsg] = useState(null);
+    const { boxData, selectedAccount, boxName, selectedMsg, selectedPage, countPages, dispatch, history } = props;
     const classes = useStyles();
     let prevDate = null;
-    console.log(1);
+    
     return (
         <Fragment>
             <CssBaseline />
@@ -80,9 +83,9 @@ function IntMList(props) {
                     <Fragment key={msg.msgId}>
                         {dateChanged && <ListSubheader className={classes.subheader}>{date[0]}</ListSubheader>}
                         <ListItem button selected={selectedMsg && msg.msgId === selectedMsg.msgId} onClick={() => {
-                              setSelectMsg(msg);
                               history.push(`/${selectedAccount.id}/${boxName}/${msg.msgId}`);
-                              dispatch(selectMsgAct(msg));
+                              //setSelectedMsg(msg);
+                              //dispatch(selectMsgAct(msg));
                             }}>
                             <ListItemAvatar>
                                 <Avatar alt="Profile Picture" className={classes.rounded} >{name}</Avatar>
@@ -108,6 +111,7 @@ function IntMList(props) {
 IntMList.propTypes = {
     selectedAccount: PropTypes.object.isRequired,
     boxName: PropTypes.string.isRequired,
+    selectedMsg: PropTypes.object.isRequired,
     boxData: PropTypes.array.isRequired,
     selectedPage: PropTypes.number.isRequired,
     countPages: PropTypes.number.isRequired,
@@ -119,6 +123,7 @@ const mapStateToProps = function (state) {
       // данному компоненту как this.props.cnt
       selectedAccount: state.counters.selectedAccount, 
       boxName: state.counters.boxName, 
+      selectedMsg: state.counters.selectedMsg, 
       boxData: state.counters.boxData, 
       selectedPage: state.counters.selectedPage, 
       countPages: state.counters.countPages, 

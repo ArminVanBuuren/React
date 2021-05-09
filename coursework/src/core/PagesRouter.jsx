@@ -1,10 +1,12 @@
 import React from 'react';
+import { browserHistory, Router, Route, Switch } from 'react-router';
 import PropTypes from 'prop-types';
 import Fragment from 'render-fragment';
-import { Route } from 'react-router-dom';
+import { BrowserRouter, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import MClient from '../components/MClient.jsx';
+import { mailItemsFetchAC } from '../redux/fetchThunk';
 
 class intPagesRouter extends React.PureComponent {
 
@@ -12,28 +14,36 @@ class intPagesRouter extends React.PureComponent {
     mailData: PropTypes.array.isRequired, // получено из Redux
   };
 
+  componentDidMount() {
+    this.props.dispatch( mailItemsFetchAC(this.props.dispatch) );
+  }
+
   render() {
     const { mailData } = this.props;
     const routes = [];
 
     for (const mail of mailData) {
       let accountPath = "/" + mail.account.id;
-      routes.push((<Route key={accountPath} path={accountPath} exact component={MClient} />));
+      routes.push((<Route key={accountPath} exact path={accountPath} component={MClient} />));
 
       for (const box of mail.items) {
         let boxPath = accountPath + "/" + box.name;
         let msgPath = boxPath + "/:msgId";
-        routes.push((<Route key={boxPath} path={boxPath} exact component={MClient} />));
+        routes.push((<Route key={boxPath} exact path={boxPath} component={MClient} />));
         routes.push((<Route key={msgPath} path={msgPath} component={MClient} />));
       }
     }
-    console.log(routes);
-    
+    console.log(0);
     return (
-      <Fragment>
-        <Route path="/" exact component={MClient} />
-        { routes}
-      </Fragment>
+      <BrowserRouter>
+        { 
+          // без div не работает роутер 
+        }
+        <div className="root">
+          <Route exact path="/" component={MClient} />
+          { routes}
+        </div>
+      </BrowserRouter>
     );
   }
 
