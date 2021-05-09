@@ -5,12 +5,7 @@ import { NavLink } from 'react-router-dom';
 import Fragment from 'render-fragment';
 import { pure } from 'recompose';
 
-import ControlHeader from './ControlHeader.jsx';
-import MTreeView from './MTreeView.jsx';
-import MEditor from './MEditor.jsx';
-
 import { selectMsgAct, selectPageAct } from '../redux/countersAC';
-import { mailItemsFetchAC } from '../redux/fetchThunk';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -24,16 +19,12 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2, 2, 0)
     },
     paper: {
-      // paddingBottom: 50,
-      // height: '100%'
+      
     },
     list: {
-      // marginBottom: theme.spacing(2)
+      
     },
     pagination: {
-      // marginBottom: theme.spacing(2),
-      // bottom: 0,
-      // position: 'absolute',
       padding: theme.spacing(2, 1, 1),
       backgroundColor: theme.palette.background.paper,
       width:'100%'

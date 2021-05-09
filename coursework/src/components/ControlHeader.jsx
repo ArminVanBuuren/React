@@ -1,23 +1,17 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Fragment from 'render-fragment';
 import { pure } from 'recompose';
 
-import Button from '@material-ui/core/Button';
 import CachedIcon from '@material-ui/icons/Cached';
-import SendIcon from '@material-ui/icons/Send';
-import Icon from '@material-ui/core/Icon';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import EmailIcon from '@material-ui/icons/Email';
-import Badge from "@material-ui/core/Badge";
 
 import { mailItemsFetchAC } from '../redux/fetchThunk';
 

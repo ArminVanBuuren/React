@@ -1,8 +1,6 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import Fragment from 'render-fragment';
 import SplitPane from "react-splitter-layout";
 
 import ControlHeader from './ControlHeader.jsx';
@@ -11,12 +9,8 @@ import MList from './MList.jsx';
 import MEditor from './MEditor.jsx';
 import { Wrapper } from './Wrapper.jsx';
 
-import { ACTION_TYPES, ACTION_MODE, selectAct } from '../redux/countersAC';
-import { mailItemsFetchAC } from '../redux/fetchThunk';
+import { selectAct } from '../redux/countersAC';
 import './MClient.css';
-
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 class intMClient extends React.PureComponent {
 
@@ -62,7 +56,6 @@ const mapStateToProps = function (state) {
   return { };
 };
 
-// // присоединяем (connect) компонент к хранилищу Redux
 const MClient = connect(mapStateToProps)(intMClient);
 
 export default MClient;

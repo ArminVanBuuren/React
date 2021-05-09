@@ -1,20 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import Fragment from 'render-fragment';
 
 import TextField from '@material-ui/core/TextField';
 import IconButton from "@material-ui/core/IconButton";
 import SendIcon from '@material-ui/icons/Send';
-import ReplyAllIcon from '@material-ui/icons/ReplyAll';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './MEditor.css';
 
 import { sendMessageAct } from '../redux/countersAC';
-import { mailItemsFetchAC } from '../redux/fetchThunk';
 
 class intMEditor extends React.PureComponent {
 
