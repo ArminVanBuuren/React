@@ -105,8 +105,6 @@ function getSelectedBoxData( isNewData, mail, state ) {
           selectedPage = 1;
         }
       }
-
-      console.log(`selectedPage=${selectedPage}`);
       
       // фильтрум письма для выбранной страницы
       let start = ( ( selectedPage - 1 ) * maxBoxItems );
@@ -133,7 +131,6 @@ function countersReducer( state = initState, action ) {
 
     case ACTION_TYPES.Load: {
       if ( action.mode === ACTION_MODE.Success ) {
-        console.log(1);
         let result = loadBoxData(true, state, action.mailData);
         return {
           ...state,
@@ -151,23 +148,25 @@ function countersReducer( state = initState, action ) {
     case ACTION_TYPES.CreateMsg: {
       return {
         ...state,
-        selectedMsg: {}
+        selectedMsg: { ...action.msg }
       };
     }
 
 
     case ACTION_TYPES.Select: {
       const currentMail = mailData.find(mail => mail.account.id === action.accountId);
-
+      
       if (selectedAccount === currentMail.account && boxName === action.boxName && action.msgId === -1 )
         return state; 
+      
+      let newSelectedMsg = selectedMsg && selectedMsg.msgId === action.msgId ? selectedMsg : { msgId: action.msgId };
 
       if (currentMail) {
         let newState = {
           ...state,
           selectedAccount: currentMail.account,
           boxName: action.boxName,
-          selectedMsg: { msgId: action.msgId },
+          selectedMsg: newSelectedMsg,
           // если выбирался box, то выбранная страница сбрасывается. А если msgId то подсчитываем сами страницу
           selectedPage: action.msgId === -1 ? 1 : -1,
         };

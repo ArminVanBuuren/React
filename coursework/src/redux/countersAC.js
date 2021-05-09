@@ -47,9 +47,10 @@ const selectPageAct = function(pageNumber) {
   };
 }
 
-const createMessageAct = function() {
+const createMessageAct = function(msg) {
   return {
     type: ACTION_TYPES.CreateMsg,
+    msg: {...msg, msgId:-1}
   };
 }
 

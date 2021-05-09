@@ -23,12 +23,13 @@ class intMClient extends React.PureComponent {
   prevLocation = "/";
 
   componentDidMount() {
-   
+   //console.log("mounted");
   }
 
   render() {
     const { history, dispatch, match} = this.props;
-
+    
+    //console.log("render");
     if ( this.prevLocation !== history.location.pathname){
       this.prevLocation = history.location.pathname;
       

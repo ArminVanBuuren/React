@@ -5,6 +5,9 @@ import { NavLink } from 'react-router-dom';
 import Fragment from 'render-fragment';
 
 import TextField from '@material-ui/core/TextField';
+import IconButton from "@material-ui/core/IconButton";
+import SendIcon from '@material-ui/icons/Send';
+import ReplyAllIcon from '@material-ui/icons/ReplyAll';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -12,29 +15,6 @@ import './MEditor.css';
 
 import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
-
-const CustomToolbar = () => (
-    <div id="toolbar">
-      <select className="ql-header" defaultValue="" onChange={e => e.persist()}>
-        <option></option>
-        <option value="3">Medium</option>
-        <option value="2">Large</option>
-        <option value="1">Huge</option>
-      </select>
-      <button className="ql-bold"></button>
-      <button className="ql-italic"></button>
-      <select className="ql-color" defaultValue="">
-        <option value="red"></option>
-        <option value="green"></option>
-        <option value="blue"></option>
-        <option value="orange"></option>
-        <option value="violet"></option>
-        <option value="#d0d1d2"></option>
-        <option></option>
-      </select>
-    </div>
-)
-
 
 class intMEditor extends React.PureComponent {
 
@@ -44,49 +24,91 @@ class intMEditor extends React.PureComponent {
     selectedMsg: PropTypes.object.isRequired,
   };
 
+  initial = {
+    resetted: true,
+    to: "",
+    toValid: false,
+    subject: "",
+    content: "",
+  }
+
+  state = { ...this.initial };
+
   render() {
     const { selectedAccount, selectedMsg } = this.props;
-    const isExistingMsg = selectedMsg != null && selectedMsg != undefined && selectedMsg.msgId != null && selectedMsg.msgId != undefined;
-    let { from, to, subject, content } = selectedMsg;
-    if (!isExistingMsg){
-      from = "";
-      to = "";
-      subject = "";
-      content = "";
-    }
+    const isExistingMsg = selectedMsg != null && selectedMsg != undefined && selectedMsg.msgId != null && selectedMsg.msgId != undefined && selectedMsg.msgId != -1;
+    if (isExistingMsg && !this.state.resetted)
+      this.reset();
+
+    const isReplay = !isExistingMsg && this.state.resetted && selectedMsg.to != undefined && selectedMsg.subject != undefined && selectedMsg.content != undefined;
+
+    let { from, to, subject, content, toValid } = isExistingMsg || isReplay ? selectedMsg : { ...this.state, from: selectedAccount.mail };
+    const toTextValid = toValid === undefined || toValid;
+    const isReadyToSend = !isExistingMsg && toTextValid && subject;
 
     return (
         <div className="text-editor">
             <form noValidate autoComplete="off">
-              <TextField label="From" value={from} InputProps={{ readOnly: true, }} variant="outlined" />
-              <TextField label="To" value={to} InputProps={{ readOnly: true, }} variant="outlined" />
-              <TextField label="Subject" value={subject} InputProps={{ readOnly: true, }} variant="outlined" />
+              <IconButton color="inherit" disabled={!isReadyToSend} onClick={this.checkAndReset} >
+                <SendIcon />
+              </IconButton>
+              <TextField label="From" 
+                         value={from} 
+                         variant="outlined" 
+                         InputProps={{ readOnly: true, }}  />
+              <TextField label="To" 
+                         value={to} 
+                         variant="outlined" 
+                         InputProps={{ readOnly: isExistingMsg, }} 
+                         error={!toTextValid} 
+                         onChange={this.toChanged} />
+              <TextField label="Subject" 
+                         value={subject}
+                         variant="outlined" 
+                         InputProps={{ readOnly: isExistingMsg, }} 
+                         error={!isExistingMsg && !subject } onChange={this.subjectChanged} />
             </form>
             { isExistingMsg 
-              ? <ReactQuill value={content} theme='snow' onChange={this.textChanged} modules={{ toolbar:false }} readOnly={true} />
-              : <ReactQuill value={""} theme='snow' onChange={this.textChanged} readOnly={false} />
+              ? <ReactQuill value={content} theme='snow' modules={{ toolbar:false }} readOnly={true} />
+              : <ReactQuill value={content} theme='snow' onChange={this.textChanged} readOnly={false} />
              }
             
         </div>
     );
   }
 
-  textChanged = (html) => {
-      
+  checkAndReset = (EO) => {
+    console.log(this.state);
+    this.reset();
   }
 
-  modules = {
-    toolbar: {
-      container: "#toolbar",
+  reset = () => {
+    this.setState( { ...this.initial } );
+  }
+
+  toChanged = (EO) => {
+    const {value} = EO.target;
+    this.setState( { resetted:false, toValid: this.checkFromAndTo(value), to:value } );
+  }
+
+  checkFromAndTo = (value) => {
+    for (const address of value.split(';')) {
+      if (address === null || address === "")
+        continue;
+      if (!(/^\S{3,}@\S{3,}\.\S{2,}$/.test(address)))
+        return false;
+      console.log(address);
     }
+    return true;
   }
 
-  formats = [
-    'header', 'font', 'size',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
-    'link', 'image', 'color',
-  ]
+  subjectChanged = (EO) => {
+    this.setState( { resetted:false, subject:EO.target.value } );
+  }
+
+  textChanged = (html) => {
+    this.setState( { resetted:false, content:html });
+  }
 
 }
 

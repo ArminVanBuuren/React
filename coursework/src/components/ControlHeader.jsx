@@ -21,7 +21,7 @@ import Badge from "@material-ui/core/Badge";
 
 import { mailItemsFetchAC } from '../redux/fetchThunk';
 
-import { ACTION_TYPES, ACTION_MODE, searchingTextAct } from '../redux/countersAC';
+import { ACTION_TYPES, ACTION_MODE, searchingTextAct, createMessageAct } from '../redux/countersAC';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,7 +93,7 @@ function IntControlHeader(props) {
       <AppBar position="static">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>{boxName}</Typography>
-          <IconButton color="inherit" disabled={!boxName} >
+          <IconButton color="inherit" disabled={!boxName} onClick={(EO) => { dispatch( createMessageAct({}) ); }} >
             <EmailIcon />
           </IconButton>
           <IconButton  color="inherit" onClick={(EO) => { dispatch( mailItemsFetchAC(dispatch) ); }}>

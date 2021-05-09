@@ -95,7 +95,7 @@ function IntMList(props) {
                         <ListItem button selected={selectedMsg && msg.msgId === selectedMsg.msgId} onClick={() => {
                               history.push(`/${selectedAccount.id}/${boxName}/${msg.msgId}`);
                               //setSelectedMsg(msg);
-                              //dispatch(selectMsgAct(msg));
+                              dispatch(selectMsgAct(msg));
                             }}>
                             <ListItemAvatar>
                                 <Avatar alt="Profile Picture" className={classes.rounded} >{name}</Avatar>
