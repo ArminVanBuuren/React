@@ -90,7 +90,7 @@ function getSelectedBoxData( isNewData, mail, state ) {
       // если на текущей странице нет выбранного ранее письма, то очищаем то что было выбрано
       let findedIndex = -1;
       if ( selectedMsg ) {
-        
+
         if ( selectedMsg.msgId ) {
           let newSelectedMsg = mails.find( m => { 
             findedIndex++;
@@ -239,27 +239,25 @@ function countersReducer( state = initState, action ) {
 
 
     case ACTION_TYPES.SendMsg: {
-      if (selectedAccount && selectedAccount.id != undefined){
-        const currentMail = mailData.find(mail => mail.account.id === selectedAccount.id);
-
-        if (currentMail){
-          if (MAIL_TYPES.Outbox in currentMail.items){
-            let maxId = 0;
-            currentMail.items[MAIL_TYPES.Outbox].forEach(m => { maxId = m.msgId > maxId ? m.msgId + 1 : maxId; });
-            currentMail.items[MAIL_TYPES.Outbox].push({...action.msg, msgId: maxId});
-          }
-  
-          return {
-            ...state,
-            type: action.type,
-            mode: action.mode,
-          };
-        }
-      }
-
+      if (!selectedAccount || selectedAccount.id == undefined)
+        return state;
+      
+      const currentMail = mailData.find(mail => mail.account.id === selectedAccount.id);
+      if (!currentMail)
+        return state;
+      
+      const currentBoxData = currentMail.items.find(box => box.name === MAIL_TYPES.Outbox);
+      if (!currentBoxData)
+          return state;
+      
+      let maxId = 0;
+      currentBoxData.mails.forEach(m => { maxId = m.msgId > maxId ? m.msgId + 1 : maxId; });
+      currentBoxData.mails.push({...action.msg, msgId: maxId});
+      console.log(currentBoxData.mails);
       return {
         ...state,
-        mode: ACTION_MODE.NoDataFound,
+        // type: action.type,
+        // mode: action.mode,
       };
     }
 

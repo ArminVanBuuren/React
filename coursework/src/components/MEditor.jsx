@@ -13,7 +13,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './MEditor.css';
 
-import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
+import { sendMessageAct } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
 
 class intMEditor extends React.PureComponent {
@@ -83,8 +83,27 @@ class intMEditor extends React.PureComponent {
 
   checkAndReset = (EO) => {
     const { dispatch } = this.props;
-    console.log(this.state);
+    const { to, subject, content } = this.state;
+    dispatch(sendMessageAct( { from: this.props.selectedAccount.mail, dateOfSent: this.formatDateTime(new Date()), to, subject, content } ));
     this.reset();
+  }
+
+  formatDateTime = (dt) => {
+    var year = dt.getFullYear();
+    var month = dt.getMonth()+1;
+    var day = dt.getDate();
+    var hours = dt.getHours();
+    var minutes = dt.getMinutes();
+    var seconds = dt.getSeconds();
+    return this.str0l(day, 2) + '.' + this.str0l(month, 2) + '.' + year + ' ' + this.str0l(hours, 2) + ':' + this.str0l(minutes, 2) + ':' + this.str0l(seconds, 2);
+  }
+
+  // дополняет строку Val слева нулями до длины Len
+  str0l = (val, len) => {
+    var strVal=val.toString();
+    while ( strVal.length < len )
+        strVal='0'+strVal;
+    return strVal;
   }
 
   reset = () => {
