@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Fragment from 'render-fragment';
 
+import TextField from '@material-ui/core/TextField';
+
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './MEditor.css';
@@ -31,7 +33,8 @@ const CustomToolbar = () => (
         <option></option>
       </select>
     </div>
-  )
+)
+
 
 class intMEditor extends React.PureComponent {
 
@@ -46,8 +49,15 @@ class intMEditor extends React.PureComponent {
     const isExistingMsg = selectedMsg != null && selectedMsg != undefined && selectedMsg.content != null && selectedMsg.content != undefined;
     return (
         <div className="text-editor">
-            <CustomToolbar />
-            <ReactQuill value={isExistingMsg ? selectedMsg.content : ""} theme='snow' onChange={this.textChanged} modules={this.modules} readOnly={isExistingMsg} />
+            <form noValidate autoComplete="off">
+              <TextField id="outlined-read-only-input" label="From" defaultValue={selectedMsg.from} InputProps={{ readOnly: true, }} variant="outlined" />
+              <TextField id="outlined-read-only-input" label="To" defaultValue={selectedMsg.to} InputProps={{ readOnly: true, }} variant="outlined" />
+            </form>
+            { isExistingMsg 
+              ? <ReactQuill value={selectedMsg.content} theme='snow' onChange={this.textChanged} modules={{ toolbar:false }} readOnly={true} />
+              : <ReactQuill theme='snow' onChange={this.textChanged} readOnly={false} />
+             }
+            
         </div>
     );
   }
