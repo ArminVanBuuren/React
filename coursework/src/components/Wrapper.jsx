@@ -41,13 +41,13 @@ class intWrapper extends React.PureComponent {
 
   render(){
     const { mode, children } = this.props;
-
+    
     if (mode === ACTION_MODE.Error)
       return "ошибка загрузки...";
-
+    
     return (
       <Fragment>
-        <LoaderFragment load={mode === ACTION_MODE.Processing} />
+        {/* <LoaderFragment load={mode === ACTION_MODE.Processing} /> */}
         <div className='root' >{children}</div>
       </Fragment>
     );
@@ -65,4 +65,4 @@ const mapStateToProps = function (state) {
 // присоединяем (connect) компонент к хранилищу Redux
 const Wrapper = connect(mapStateToProps)(intWrapper);
 
-export default Wrapper;
+export { LoaderFragment, Wrapper };

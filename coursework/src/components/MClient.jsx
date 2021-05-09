@@ -9,7 +9,7 @@ import ControlHeader from './ControlHeader.jsx';
 import MTreeView from './MTreeView.jsx';
 import MList from './MList.jsx';
 import MEditor from './MEditor.jsx';
-import Wrapper from './Wrapper.jsx';
+import { Wrapper } from './Wrapper.jsx';
 
 import { ACTION_TYPES, ACTION_MODE, selectAct } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
@@ -27,9 +27,8 @@ class intMClient extends React.PureComponent {
   }
 
   render() {
-
     const { history, dispatch, match} = this.props;
-    
+
     if ( this.prevLocation !== history.location.pathname){
       this.prevLocation = history.location.pathname;
       
