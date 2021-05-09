@@ -1,4 +1,4 @@
-﻿import { ACTION_MODE, ACTION_TYPES } from './countersAC';
+﻿import { MAIL_TYPES, ACTION_MODE, ACTION_TYPES } from './countersAC';
 
 const maxBoxItems = 10;
 
@@ -89,11 +89,11 @@ function getSelectedBoxData( isNewData, mail, state ) {
       // если на текущей странице нет выбранного ранее письма, то очищаем то что было выбрано
       let findedIndex = -1;
       if ( selectedMsg.msgId ) {
-        selectedMsg = mails.find( m => { 
+        let newSelectedMsg = mails.find( m => { 
           findedIndex++;
           return m.msgId === selectedMsg.msgId 
         });
-        selectedMsg = !selectedMsg ? {} : selectedMsg;
+        selectedMsg = newSelectedMsg ? newSelectedMsg : selectedMsg;
       }
 
       // если страницу перегрузили, то назодим страницу по выбранному письму msgid 
@@ -232,11 +232,11 @@ function countersReducer( state = initState, action ) {
         const currentMail = mailData.find(mail => mail.account.id === selectedAccount.id);
 
         if (currentMail){
-          let maxId = 0;
-          if (currentMail.items.outbox)
-              currentMail.items.outbox.forEach(m => { maxId = m.msgId > maxId ? m.msgId + 1 : maxId; });
-  
-          currentMail.items.outbox.push({...action.msg, msgId: maxId});
+          if (MAIL_TYPES.Outbox in currentMail.items){
+            let maxId = 0;
+            currentMail.items[MAIL_TYPES.Outbox].forEach(m => { maxId = m.msgId > maxId ? m.msgId + 1 : maxId; });
+            currentMail.items[MAIL_TYPES.Outbox].push({...action.msg, msgId: maxId});
+          }
   
           return {
             ...state,

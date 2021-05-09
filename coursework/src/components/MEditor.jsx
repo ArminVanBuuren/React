@@ -38,7 +38,7 @@ class intMEditor extends React.PureComponent {
     const { selectedAccount, selectedMsg } = this.props;
     const isExistingMsg = selectedMsg != null && selectedMsg != undefined && selectedMsg.msgId != null && selectedMsg.msgId != undefined && selectedMsg.msgId != -1;
     if (isExistingMsg && !this.state.resetted)
-      this.reset();
+      this.reset();  
 
     const isReplay = !isExistingMsg && this.state.resetted && selectedMsg.to != undefined && selectedMsg.subject != undefined && selectedMsg.content != undefined;
 
@@ -78,6 +78,7 @@ class intMEditor extends React.PureComponent {
   }
 
   checkAndReset = (EO) => {
+    const { dispatch } = this.props;
     console.log(this.state);
     this.reset();
   }
@@ -92,13 +93,13 @@ class intMEditor extends React.PureComponent {
   }
 
   checkFromAndTo = (value) => {
-    for (const address of value.split(';')) {
-      if (address === null || address === "")
-        continue;
-      if (!(/^\S{3,}@\S{3,}\.\S{2,}$/.test(address)))
-        return false;
-      console.log(address);
-    }
+    // for (const address of value.split(';')) {
+    //   if (address === null || address === "")
+    //     continue;
+    //   if (!(/^\S{3,}@\S{3,}\.\S{2,}$/.test(address)))
+    //     return false;
+    //   console.log(address);
+    // }
     return true;
   }
 

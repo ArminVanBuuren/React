@@ -1,4 +1,9 @@
 ﻿
+const MAIL_TYPES = Object.freeze({
+  Inbox: 'Inbox',
+  Outbox: 'Outbox',
+});
+
 const ACTION_TYPES = Object.freeze({
   Load: 'Load',
   Select: 'Select',
@@ -92,4 +97,4 @@ const loadingErrorAct = function() {
   };
 }
 
-export { ACTION_TYPES, ACTION_MODE, loadingAct, createMessageAct, selectAct, selectMsgAct, selectPageAct, searchingTextAct, sendMessageAct, removeMessageAct, loadingSuccessAct, loadingErrorAct, }
+export { MAIL_TYPES, ACTION_TYPES, ACTION_MODE, loadingAct, createMessageAct, selectAct, selectMsgAct, selectPageAct, searchingTextAct, sendMessageAct, removeMessageAct, loadingSuccessAct, loadingErrorAct, }
