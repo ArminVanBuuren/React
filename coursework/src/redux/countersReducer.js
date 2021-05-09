@@ -120,6 +120,7 @@ function countersReducer( state = initState, action ) {
 
     case ACTION_TYPES.Load: {
       if ( action.mode === ACTION_MODE.Success ) {
+        console.log(1);
         let result = loadBoxData(true, state, action.mailData);
         return {
           ...state,
@@ -127,14 +128,10 @@ function countersReducer( state = initState, action ) {
           ...result,
         };
       }
-      else if ( action.mode === ACTION_MODE.Error ){
-        return {
-          ...initState,
-          ...action,
-        };
-      }
-
-      return state;
+      return {
+        ...initState,
+        ...action,
+      };
     }
 
 

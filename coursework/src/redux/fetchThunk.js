@@ -51,7 +51,7 @@ items: [{ name: "Inbox", mails: [
     ]
 }]               
 );
-            }, 300);
+            }, 3000);
         })
 
         // isoFetch( url )

@@ -8,14 +8,26 @@ import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
 
 function LoaderComponent(prop) {
-  const trail = useTrail(1, {
-    config: {...config, duration: 500 },
-    opacity: prop.load ? 1 : 0,
-    zIndex: prop.load ? 1000 : -1,
-    from: { opacity: 0},
-  });
+
+  // const trail = useTrail(1, {
+  //   config: {...config, duration: 500 },
+  //   opacity: prop.load ? 1 : 0,
+  //   zIndex: prop.load ? 1000 : -1,
+  //   from: { opacity: 0},
+  // });
   
-  return trail.map(({ ...rest }, index) => (<animated.div id="waiting" key={index} style={{ ...rest, }} >{prop.children}</animated.div>));
+  // return trail.map(({ ...rest }, index) => (<animated.div id="waiting" key={index} style={{ ...rest, }} >{prop.children}</animated.div>));
+
+  let anim = prop.load 
+  ? { from: { opacity: 0, zIndex: 1000 }, to: { opacity: 1, zIndex: 1000 }, } 
+  : { from: { opacity: 1, zIndex: 1000 }, to: { opacity: 0, zIndex: -1 }, };
+
+  const cnfg = useSpring({
+    config: { duration: 500 },
+    ...anim
+  });
+
+  return (<animated.div id="waiting" style={{ opacity: cnfg.opacity, zIndex: cnfg.zIndex }} >{prop.children}</animated.div>);
 }
 
 LoaderComponent.propTypes = {

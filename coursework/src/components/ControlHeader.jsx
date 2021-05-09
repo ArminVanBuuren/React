@@ -19,6 +19,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import EmailIcon from '@material-ui/icons/Email';
 import Badge from "@material-ui/core/Badge";
 
+import { mailItemsFetchAC } from '../redux/fetchThunk';
+
 import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
 
 const useStyles = makeStyles((theme) => ({
@@ -83,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function IntControlHeader(props) {
-  const { boxName } = props;
+  const { boxName, dispatch } = props;
   const classes = useStyles();
 
   return (
@@ -94,7 +96,7 @@ function IntControlHeader(props) {
           <IconButton color="inherit" disabled={!boxName} >
             <EmailIcon />
           </IconButton>
-          <IconButton  color="inherit" disabled={!boxName}>
+          <IconButton  color="inherit" onClick={(EO) => { dispatch( mailItemsFetchAC(dispatch) ); }}>
             <CachedIcon />
           </IconButton>
           <div className={classes.search}>
@@ -103,10 +105,7 @@ function IntControlHeader(props) {
             </div>
             <InputBase
               placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
+              classes={{root: classes.inputRoot, input: classes.inputInput, }}
               inputProps={{ "aria-label": "search" }}
             />
           </div>

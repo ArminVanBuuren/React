@@ -18,7 +18,6 @@ class intPagesRouter extends React.PureComponent {
   };
 
   componentDidMount() {
-    console.log(2);
     this.props.dispatch( mailItemsFetchAC(this.props.dispatch) );
   }
 
@@ -26,6 +25,7 @@ class intPagesRouter extends React.PureComponent {
     const { mode, mailData } = this.props;
     const routes = [];
 
+    
     if (mode === ACTION_MODE.Error)
       return "ошибка загрузки...";
     
@@ -40,7 +40,7 @@ class intPagesRouter extends React.PureComponent {
         routes.push((<Route key={msgPath} path={msgPath} component={MClient} />));
       }
     }
-    console.log(mode);
+    
     return (
       <BrowserRouter>
         { 

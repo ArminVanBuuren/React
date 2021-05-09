@@ -50,9 +50,9 @@ class intMEditor extends React.PureComponent {
     return (
         <div className="text-editor">
             <form noValidate autoComplete="off">
-              <TextField id="outlined-read-only-input" label="From" defaultValue={selectedMsg.from} InputProps={{ readOnly: true, }} variant="outlined" />
-              <TextField id="outlined-read-only-input" label="To" defaultValue={selectedMsg.to} InputProps={{ readOnly: true, }} variant="outlined" />
-              <TextField id="outlined-read-only-input" label="Subject" defaultValue={selectedMsg.subject} InputProps={{ readOnly: true, }} variant="outlined" />
+              <TextField label="From" value={selectedMsg.from} InputProps={{ readOnly: true, }} variant="outlined" />
+              <TextField label="To" value={selectedMsg.to} InputProps={{ readOnly: true, }} variant="outlined" />
+              <TextField label="Subject" value={selectedMsg.subject} InputProps={{ readOnly: true, }} variant="outlined" />
             </form>
             { isExistingMsg 
               ? <ReactQuill value={selectedMsg.content} theme='snow' onChange={this.textChanged} modules={{ toolbar:false }} readOnly={true} />
