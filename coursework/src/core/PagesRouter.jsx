@@ -33,7 +33,7 @@ class intPagesRouter extends React.PureComponent {
         routes.push((<Route key={msgPath} path={msgPath} component={MClient} />));
       }
     }
-    console.log(0);
+    
     return (
       <BrowserRouter>
         { 

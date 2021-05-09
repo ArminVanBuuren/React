@@ -31,9 +31,7 @@ class intMClient extends React.PureComponent {
     const { history, dispatch, match} = this.props;
     
     if ( this.prevLocation !== history.location.pathname){
-
       this.prevLocation = history.location.pathname;
-      console.log(this.prevLocation);
       
       let path = this.prevLocation.split('/');
       if (path.length === 2)
