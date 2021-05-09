@@ -7,6 +7,7 @@ const ACTION_TYPES = Object.freeze({
   CreateMsg: 'CreateMsg',
   SendMsg: 'SendMsg',
   RemoveMsg: 'RemoveMsg',
+  Searching: 'Searching',
 });
 
 const ACTION_MODE = Object.freeze({
@@ -52,6 +53,13 @@ const createMessageAct = function() {
   };
 }
 
+const searchingTextAct = function(searchingText) {
+  return {
+    type: ACTION_TYPES.Searching,
+    searchingText,
+  };
+}
+
 const sendMessageAct = function(msg) {
   return {
     type: ACTION_TYPES.SendMsg,
@@ -83,4 +91,4 @@ const loadingErrorAct = function() {
   };
 }
 
-export { ACTION_TYPES, ACTION_MODE, loadingAct, createMessageAct, selectAct, selectMsgAct, selectPageAct, sendMessageAct, removeMessageAct, loadingSuccessAct, loadingErrorAct, }
+export { ACTION_TYPES, ACTION_MODE, loadingAct, createMessageAct, selectAct, selectMsgAct, selectPageAct, searchingTextAct, sendMessageAct, removeMessageAct, loadingSuccessAct, loadingErrorAct, }

@@ -46,17 +46,25 @@ class intMEditor extends React.PureComponent {
 
   render() {
     const { selectedAccount, selectedMsg } = this.props;
-    const isExistingMsg = selectedMsg != null && selectedMsg != undefined && selectedMsg.content != null && selectedMsg.content != undefined;
+    const isExistingMsg = selectedMsg != null && selectedMsg != undefined && selectedMsg.msgId != null && selectedMsg.msgId != undefined;
+    let { from, to, subject, content } = selectedMsg;
+    if (!isExistingMsg){
+      from = "";
+      to = "";
+      subject = "";
+      content = "";
+    }
+
     return (
         <div className="text-editor">
             <form noValidate autoComplete="off">
-              <TextField label="From" value={selectedMsg.from} InputProps={{ readOnly: true, }} variant="outlined" />
-              <TextField label="To" value={selectedMsg.to} InputProps={{ readOnly: true, }} variant="outlined" />
-              <TextField label="Subject" value={selectedMsg.subject} InputProps={{ readOnly: true, }} variant="outlined" />
+              <TextField label="From" value={from} InputProps={{ readOnly: true, }} variant="outlined" />
+              <TextField label="To" value={to} InputProps={{ readOnly: true, }} variant="outlined" />
+              <TextField label="Subject" value={subject} InputProps={{ readOnly: true, }} variant="outlined" />
             </form>
             { isExistingMsg 
-              ? <ReactQuill value={selectedMsg.content} theme='snow' onChange={this.textChanged} modules={{ toolbar:false }} readOnly={true} />
-              : <ReactQuill theme='snow' onChange={this.textChanged} readOnly={false} />
+              ? <ReactQuill value={content} theme='snow' onChange={this.textChanged} modules={{ toolbar:false }} readOnly={true} />
+              : <ReactQuill value={""} theme='snow' onChange={this.textChanged} readOnly={false} />
              }
             
         </div>

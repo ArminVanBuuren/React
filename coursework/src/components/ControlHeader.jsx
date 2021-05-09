@@ -21,7 +21,7 @@ import Badge from "@material-ui/core/Badge";
 
 import { mailItemsFetchAC } from '../redux/fetchThunk';
 
-import { ACTION_TYPES, ACTION_MODE } from '../redux/countersAC';
+import { ACTION_TYPES, ACTION_MODE, searchingTextAct } from '../redux/countersAC';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -107,6 +107,7 @@ function IntControlHeader(props) {
               placeholder="Search…"
               classes={{root: classes.inputRoot, input: classes.inputInput, }}
               inputProps={{ "aria-label": "search" }}
+              onChange={(EO) => { dispatch(searchingTextAct(EO.target.value)) }}
             />
           </div>
         </Toolbar>

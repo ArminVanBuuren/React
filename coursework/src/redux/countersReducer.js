@@ -12,6 +12,7 @@ const initState = {
   selectedPage: 1,     // выбранная страница
   countPages: 1,       // всего страниц для папки
   treeData: [],        // информация аккаунтов, боксах и количестве писем
+  searchingText: null, 
   mailData: [],        // все данные с сервера
 }
 
@@ -56,6 +57,7 @@ function loadBoxData(isNewData, state, mailData) {
 }
 
 function getSelectedBoxData( isNewData, mail, state ) {
+  const { searchingText } = state;
   let boxName = state.boxName;
   let boxData = [];
   let selectedMsg = state.selectedMsg;
@@ -71,14 +73,23 @@ function getSelectedBoxData( isNewData, mail, state ) {
 
     // находим выбранный box
     if ( box.name === boxName ) {
+
+      let mails = box.mails;
+      if (searchingText){
+        mails = mails.filter(m => m.from.indexOf(searchingText) != -1 
+        || m.to.indexOf(searchingText) != -1 
+        || m.subject.indexOf(searchingText) != -1 
+        || m.content.indexOf(searchingText) != -1)
+      }
+
       // находим все письма, подситываем количество страниц и корректируем выбранную страницу
-      countPages = Math.ceil( box.mails.length / maxBoxItems );
+      countPages = Math.ceil( mails.length / maxBoxItems );
       selectedPage = selectedPage > countPages ? countPages : selectedPage;
 
       // если на текущей странице нет выбранного ранее письма, то очищаем то что было выбрано
       let findedIndex = -1;
       if ( selectedMsg.msgId ) {
-        selectedMsg = box.mails.find( m => { 
+        selectedMsg = mails.find( m => { 
           findedIndex++;
           return m.msgId === selectedMsg.msgId 
         });
@@ -86,7 +97,7 @@ function getSelectedBoxData( isNewData, mail, state ) {
       }
 
       // если страницу перегрузили, то назодим страницу по выбранному письму msgid 
-      if ( selectedPage === -1){
+      if ( selectedPage <= 0){
         if (findedIndex >= 0){
           selectedPage = Math.ceil((findedIndex + 1) / maxBoxItems);
         }
@@ -94,10 +105,12 @@ function getSelectedBoxData( isNewData, mail, state ) {
           selectedPage = 1;
         }
       }
+
+      console.log(`selectedPage=${selectedPage}`);
       
       // фильтрум письма для выбранной страницы
       let start = ( ( selectedPage - 1 ) * maxBoxItems );
-      boxData = box.mails.slice( start, start + maxBoxItems );
+      boxData = mails.slice( start, start + maxBoxItems );
 
       break;
     }
@@ -110,7 +123,7 @@ function getSelectedBoxData( isNewData, mail, state ) {
 // за который отвечает данный редьюсер
 function countersReducer( state = initState, action ) {
 
-  const { selectedAccount, boxName, selectedMsg, selectedPage, mailData} = state;
+  const { selectedAccount, boxName, selectedMsg, selectedPage, searchingText, mailData} = state;
 
   // надо создать новый счётчик
   // редьюсер ВСЕГДА должен возвращаеть новый state а не изменять старый!
@@ -158,11 +171,13 @@ function countersReducer( state = initState, action ) {
           // если выбирался box, то выбранная страница сбрасывается. А если msgId то подсчитываем сами страницу
           selectedPage: action.msgId === -1 ? 1 : -1,
         };
+        
         let result = loadBoxData(false, newState, mailData);
         newState = { 
           ...newState,
           ...result
         };
+
         return newState;
       }
 
@@ -192,6 +207,24 @@ function countersReducer( state = initState, action ) {
         ...state,
         ...result,
       };
+    }
+
+
+    case ACTION_TYPES.Searching: {
+      if (searchingText === action.searchingText)
+          return state;
+          
+      let newState = {
+        ...state,
+        searchingText:action.searchingText,
+      };
+      let result = loadBoxData(false, newState, mailData);
+      newState = {
+        ...newState,
+        ...result,
+      }
+      
+      return newState;
     }
 
 
