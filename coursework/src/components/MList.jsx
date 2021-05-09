@@ -31,10 +31,12 @@ const useStyles = makeStyles((theme) => ({
       // marginBottom: theme.spacing(2)
     },
     pagination: {
-      marginBottom: theme.spacing(2),
-      bottom: 0,
-      position: 'absolute',
+      // marginBottom: theme.spacing(2),
+      // bottom: 0,
+      // position: 'absolute',
       padding: theme.spacing(2, 1, 1),
+      backgroundColor: theme.palette.background.paper,
+      width:'100%'
     },
     subheader: {
       backgroundColor: theme.palette.background.paper
@@ -70,6 +72,14 @@ function IntMList(props) {
     return (
         <Fragment>
             <CssBaseline />
+            {boxData.length > 0 && <Pagination className={classes.pagination}
+                                          count={countPages} 
+                                          siblingCount={4} 
+                                          page={selectedPage} 
+                                          color="primary" 
+                                          onChange={(EO, page) => {
+                                            dispatch(selectPageAct(page));
+                                          }} />}
             <Paper square className={classes.paper}>
                 <List className={classes.list}>
                 {boxData.map((msg) => {
@@ -95,14 +105,6 @@ function IntMList(props) {
                     </Fragment>
                 )})}
                 </List>
-                {boxData.length > 0 && <Pagination className={classes.pagination}
-                                          count={countPages} 
-                                          siblingCount={4} 
-                                          page={selectedPage} 
-                                          color="primary" 
-                                          onChange={(EO, page) => {
-                                            dispatch(selectPageAct(page));
-                                          }} />}
             </Paper>
         </Fragment>
     );
