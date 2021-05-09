@@ -116,13 +116,13 @@ class intMEditor extends React.PureComponent {
   }
 
   checkFromAndTo = (value) => {
-    // for (const address of value.split(';')) {
-    //   if (address === null || address === "")
-    //     continue;
-    //   if (!(/^\S{3,}@\S{3,}\.\S{2,}$/.test(address)))
-    //     return false;
-    //   console.log(address);
-    // }
+    for (const address of value.split(';')) {
+      if (address === null || address === "")
+        continue;
+      if (!(/^\S{3,}@\S{3,}\.\S{2,}$/.test(address)))
+        return false;
+      console.log(address);
+    }
     return true;
   }
 

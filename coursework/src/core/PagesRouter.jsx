@@ -7,12 +7,13 @@ import { connect } from 'react-redux';
 
 import { LoaderFragment } from '../components/Wrapper.jsx';
 import MClient from '../components/MClient.jsx';
-import { mailItemsFetchAC } from '../redux/fetchThunk';
+import { mailItemsFetchAC, mailItemsSyncAC } from '../redux/fetchThunk';
 import { ACTION_TYPES, ACTION_MODE, selectAct } from '../redux/countersAC';
 
 class intPagesRouter extends React.PureComponent {
 
   static propTypes = {
+    type: PropTypes.string.isRequired, // получено из Redux
     mode: PropTypes.string.isRequired, // получено из Redux
     mailData: PropTypes.array.isRequired, // получено из Redux
   };
@@ -22,12 +23,17 @@ class intPagesRouter extends React.PureComponent {
   }
 
   render() {
-    const { mode, mailData } = this.props;
+    const { type, mode, mailData } = this.props;
     const routes = [];
 
-    
     if (mode === ACTION_MODE.Error)
       return "ошибка загрузки...";
+
+    if (type === ACTION_TYPES.SendMsg){
+      this.props.dispatch( mailItemsSyncAC(this.props.dispatch, mailData) );
+      return (<LoaderFragment load={mode === ACTION_MODE.Processing} />);
+    }
+        
     
     for (const mail of mailData) {
       let accountPath = "/" + mail.account.id;
@@ -61,6 +67,7 @@ const mapStateToProps = function (state) {
   return {
     // из раздела Redux с именем counter свойство cnt будет доступно
     // данному компоненту как this.props.cnt
+    type: state.counters.type,
     mode: state.counters.mode,
     mailData: state.counters.mailData,
   };

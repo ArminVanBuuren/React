@@ -16,6 +16,15 @@ const initState = {
   mailData: [],        // все данные с сервера
 }
 
+
+function getDate(dt){
+  let dateTime = dt.split(' ');
+  let date = dateTime[0].split('.');
+  let time = dateTime[1].split(':');
+  return new Date(date[2], date[1] - 1, date[0], time[0], time[1], time[2]);
+}
+
+
 function loadBoxData(isNewData, state, mailData) {
   let selectedAccount = state.selectedAccount;
   let selectedData = {};
@@ -30,7 +39,11 @@ function loadBoxData(isNewData, state, mailData) {
 
       // сортируем все письма
       for (const box of mail.items) {
-        box.mails = box.mails.sort((x, y) => new Date(x.dateOfSent) - new Date(y.dateOfSent)).reverse();
+        console.log(`box=${box.name}`)
+        box.mails = box.mails.sort((x, y) => {
+          //console.log(`${getDate(x.dateOfSent)}   -  ${getDate(y.dateOfSent)}  =  ${getDate(x.dateOfSent) - getDate(y.dateOfSent)}`);
+          return getDate(x.dateOfSent) - getDate(y.dateOfSent);
+        }).reverse();
       }
 
       // при первой загрузке показываем певый попавшийся аккаунт
@@ -133,7 +146,7 @@ function countersReducer( state = initState, action ) {
 
   // надо создать новый счётчик
   // редьюсер ВСЕГДА должен возвращаеть новый state а не изменять старый!
-  console.log( action.type + "=" + action.mode );
+  //console.log( action.type + "=" + action.mode );
 
   switch ( action.type ) {
 
@@ -253,11 +266,11 @@ function countersReducer( state = initState, action ) {
       let maxId = 0;
       currentBoxData.mails.forEach(m => { maxId = m.msgId > maxId ? m.msgId + 1 : maxId; });
       currentBoxData.mails.push({...action.msg, msgId: maxId});
-      console.log(currentBoxData.mails);
+      
       return {
         ...state,
-        // type: action.type,
-        // mode: action.mode,
+        type: action.type,
+        mode: action.mode,
       };
     }
 
