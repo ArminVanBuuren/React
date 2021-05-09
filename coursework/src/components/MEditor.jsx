@@ -21,7 +21,7 @@ class intMEditor extends React.PureComponent {
   // получено из Redux
   static propTypes = {
     selectedAccount: PropTypes.object.isRequired,
-    selectedMsg: PropTypes.object.isRequired,
+    selectedMsg: PropTypes.object,
   };
 
   initial = {
@@ -35,16 +35,18 @@ class intMEditor extends React.PureComponent {
   state = { ...this.initial };
 
   render() {
-    const { selectedAccount, selectedMsg } = this.props;
+    let { selectedAccount, selectedMsg } = this.props;
     const isExistingMsg = selectedMsg != null && selectedMsg != undefined && selectedMsg.msgId != null && selectedMsg.msgId != undefined && selectedMsg.msgId != -1;
     if (isExistingMsg && !this.state.resetted)
       this.reset();
 
+    selectedMsg = selectedMsg == undefined ? {} : selectedMsg;
     const isReplay = !isExistingMsg && this.state.resetted && selectedMsg.to != undefined && selectedMsg.subject != undefined && selectedMsg.content != undefined;
 
     let { from, to, subject, content, toValid } = isExistingMsg || isReplay ? selectedMsg : { ...this.state, from: selectedAccount.mail };
     const toTextValid = toValid === undefined || toValid;
     const isReadyToSend = !isExistingMsg && toTextValid && subject;
+    content = content == undefined ? "" : content;
 
     return (
         <div className="text-editor">
@@ -56,13 +58,15 @@ class intMEditor extends React.PureComponent {
                          value={from} 
                          variant="outlined" 
                          InputProps={{ readOnly: true, }}  />
-              <TextField label="To" 
+              <TextField required
+                         label="To" 
                          value={to} 
                          variant="outlined" 
                          InputProps={{ readOnly: isExistingMsg, }} 
                          error={!toTextValid} 
                          onChange={this.toChanged} />
-              <TextField label="Subject" 
+              <TextField required 
+                         label="Subject" 
                          value={subject}
                          variant="outlined" 
                          InputProps={{ readOnly: isExistingMsg, }} 

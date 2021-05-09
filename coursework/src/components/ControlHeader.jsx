@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Fragment from 'render-fragment';
@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function IntControlHeader(props) {
-  const { boxName, dispatch } = props;
+  const { boxName, dispatch, searchingText } = props;
   const classes = useStyles();
 
   return (
@@ -107,7 +107,8 @@ function IntControlHeader(props) {
               placeholder="Search…"
               classes={{root: classes.inputRoot, input: classes.inputInput, }}
               inputProps={{ "aria-label": "search" }}
-              onChange={(EO) => { dispatch(searchingTextAct(EO.target.value)) }}
+              value={searchingText == undefined ? "" : searchingText}
+              onChange={(EO) => { dispatch(searchingTextAct(EO.target.value))  }}
             />
           </div>
         </Toolbar>
@@ -118,6 +119,7 @@ function IntControlHeader(props) {
 
 IntControlHeader.propTypes = {
   boxName: PropTypes.string.isRequired,
+  searchingText: PropTypes.string,
 };
 
 const mapStateToProps = function (state) {
@@ -125,6 +127,7 @@ const mapStateToProps = function (state) {
       // из раздела Redux с именем counter свойство cnt будет доступно
       // данному компоненту как this.props.cnt
       boxName: state.counters.boxName,
+      searchingText: state.counters.searchingText,
     };
   };
 

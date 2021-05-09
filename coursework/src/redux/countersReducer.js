@@ -76,10 +76,11 @@ function getSelectedBoxData( isNewData, mail, state ) {
 
       let mails = box.mails;
       if (searchingText){
-        mails = mails.filter(m => m.from.indexOf(searchingText) != -1 
-        || m.to.indexOf(searchingText) != -1 
-        || m.subject.indexOf(searchingText) != -1 
-        || m.content.indexOf(searchingText) != -1)
+        let searchingTextLower = searchingText.toLowerCase();
+        mails = mails.filter(m => (m.from.toLowerCase().indexOf(searchingText) != -1 
+        || m.to.toLowerCase().indexOf(searchingText) != -1 
+        || m.subject.toLowerCase().indexOf(searchingText) != -1 
+        || m.content.toLowerCase().indexOf(searchingText) != -1));
       }
 
       // находим все письма, подситываем количество страниц и корректируем выбранную страницу
@@ -88,16 +89,19 @@ function getSelectedBoxData( isNewData, mail, state ) {
 
       // если на текущей странице нет выбранного ранее письма, то очищаем то что было выбрано
       let findedIndex = -1;
-      if ( selectedMsg.msgId ) {
-        let newSelectedMsg = mails.find( m => { 
-          findedIndex++;
-          return m.msgId === selectedMsg.msgId 
-        });
-        selectedMsg = newSelectedMsg ? newSelectedMsg : selectedMsg;
-      }
+      if ( selectedMsg ) {
+        
+        if ( selectedMsg.msgId ) {
+          let newSelectedMsg = mails.find( m => { 
+            findedIndex++;
+            return m.msgId === selectedMsg.msgId 
+          });
+          selectedMsg = newSelectedMsg ? newSelectedMsg : selectedMsg;
+        }
 
-      if ( selectedMsg.msgId === -1 && mails.length > 0 ){
-        selectedMsg = mails[0];
+        if ( selectedMsg.msgId === -1 || selectedMsg.msgId == undefined && mails.length > 0 ){
+          selectedMsg = mails[0];
+        }
       }
 
       // если страницу перегрузили, то назодим страницу по выбранному письму msgid 

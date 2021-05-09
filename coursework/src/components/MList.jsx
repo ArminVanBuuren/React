@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function IntMList(props) {
-    //const [selectedMsg, setSelectedMsg] = useState(null);
     const { boxData, selectedAccount, boxName, selectedMsg, selectedPage, countPages, dispatch, history } = props;
     const classes = useStyles();
     let prevDate = null;
@@ -94,7 +93,6 @@ function IntMList(props) {
                         {dateChanged && <ListSubheader className={classes.subheader}>{date[0]}</ListSubheader>}
                         <ListItem button selected={selectedMsg && msg.msgId === selectedMsg.msgId} onClick={() => {
                               history.push(`/${selectedAccount.id}/${boxName}/${msg.msgId}`);
-                              //setSelectedMsg(msg);
                               dispatch(selectMsgAct(msg));
                             }}>
                             <ListItemAvatar>
@@ -113,7 +111,7 @@ function IntMList(props) {
 IntMList.propTypes = {
     selectedAccount: PropTypes.object.isRequired,
     boxName: PropTypes.string.isRequired,
-    selectedMsg: PropTypes.object.isRequired,
+    selectedMsg: PropTypes.object,
     boxData: PropTypes.array.isRequired,
     selectedPage: PropTypes.number.isRequired,
     countPages: PropTypes.number.isRequired,
