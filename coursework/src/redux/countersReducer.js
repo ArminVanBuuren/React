@@ -39,7 +39,6 @@ function loadBoxData(isNewData, state, mailData) {
 
       // сортируем все письма
       for (const box of mail.items) {
-        console.log(`box=${box.name}`)
         box.mails = box.mails.sort((x, y) => {
           //console.log(`${getDate(x.dateOfSent)}   -  ${getDate(y.dateOfSent)}  =  ${getDate(x.dateOfSent) - getDate(y.dateOfSent)}`);
           return getDate(x.dateOfSent) - getDate(y.dateOfSent);

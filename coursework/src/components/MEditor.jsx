@@ -121,7 +121,6 @@ class intMEditor extends React.PureComponent {
         continue;
       if (!(/^\S{3,}@\S{3,}\.\S{2,}$/.test(address)))
         return false;
-      console.log(address);
     }
     return true;
   }

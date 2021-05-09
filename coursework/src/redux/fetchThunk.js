@@ -71,10 +71,7 @@ function mailItemsFetchAC( dispatch ) {
                 return response.json();
             }
         } )
-
-
         .then( ( data ) => {
-            //console.log(JSON.parse(data.result));
             dispatch( loadingSuccessAct( JSON.parse(data.result) ) );
         } )
         .catch( ( error ) => {
@@ -95,15 +92,11 @@ function mailItemsSyncAC( dispatch, mailData ) {
         sp.append('n', projectName);
         sp.append('p', password);
 
-        console.log(sp);
-
         isoFetch(url, {
             method: 'POST',
             body: sp
         })
         .then(( response ) => {
-            
-            console.log(response);
             if ( !response.ok ) {
                 let Err = new Error( "fetch error " + response.status );
                 Err.userMessage = "Ошибка связи";
@@ -135,8 +128,6 @@ function pullData(dispatch, mailData, password){
         body: sp
     })
     .then(( response ) => {
-        
-        console.log(response);
         if ( !response.ok ) {
             let Err = new Error( "fetch error " + response.status );
             Err.userMessage = "Ошибка связи";
