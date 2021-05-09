@@ -1,11 +1,11 @@
 ﻿import { ACTION_MODE, ACTION_TYPES } from './countersAC';
 
-const maxBoxItems = 100;
+const maxBoxItems = 10;
 
 const initState = {
   type: ACTION_TYPES.Load,
   mode: ACTION_MODE.Processing,
-  selectedAccount: {}, // выбранный аккаут
+  selectedAccount: { isDefault: true }, // выбранный аккаут
   boxName: "",         // выбранная папка
   boxData: [],         // отфильтрованный список меилов для одной страницы
   selectedMsg: {},     // выбранное сообщение
@@ -16,7 +16,7 @@ const initState = {
 }
 
 function loadBoxData(isNewData, state, mailData) {
-  const { selectedAccount } = state;
+  let selectedAccount = state.selectedAccount;
   let selectedData = {};
   let treeData = isNewData ? [] : state.treeData;
   
@@ -32,9 +32,14 @@ function loadBoxData(isNewData, state, mailData) {
         box.mails = box.mails.sort((x, y) => new Date(x.dateOfSent) - new Date(y.dateOfSent)).reverse();
       }
 
+      // при первой загрузке показываем певый попавшийся аккаунт
+      if (selectedAccount && selectedAccount.isDefault){
+        selectedAccount = mail.account;
+      }
+
       // находим выбранный аккаунт
       if ( mail.account.id === selectedAccount.id ) {
-        selectedData = getSelectedBoxData(mail, state);
+        selectedData = getSelectedBoxData(isNewData, mail, state);
       }
     }
   }
@@ -42,22 +47,28 @@ function loadBoxData(isNewData, state, mailData) {
     // находим только выбранный аккаунт
     for ( const mail of mailData ) {
       if ( mail.account.id === selectedAccount.id ) {
-        selectedData = getSelectedBoxData(mail, state);
+        selectedData = getSelectedBoxData(isNewData, mail, state);
         break;
       }
     }
   }
-  return { ...selectedData, treeData };
+  return { ...selectedData, selectedAccount, treeData };
 }
 
-function getSelectedBoxData( mail, state ) {
-  const { boxName } = state;
+function getSelectedBoxData( isNewData, mail, state ) {
+  let boxName = state.boxName;
   let boxData = [];
   let selectedMsg = state.selectedMsg;
   let selectedPage = state.selectedPage;
   let countPages = 1;
 
   for ( const box of mail.items ) {
+
+    // при первой загрузке показываем певый попавшийся бокс
+    if (isNewData && boxName === ""){
+      boxName = box.name;
+    }
+
     // находим выбранный box
     if ( box.name === boxName ) {
       // находим все письма, подситываем количество страниц и корректируем выбранную страницу
@@ -79,7 +90,7 @@ function getSelectedBoxData( mail, state ) {
     }
   }
 
-  return {boxData, selectedMsg, selectedPage, countPages};
+  return {boxName, boxData, selectedMsg, selectedPage, countPages};
 }
 
 // в редьюсере state - это не весь state Redux, а только тот раздел state,
@@ -121,9 +132,9 @@ function countersReducer( state = initState, action ) {
 
     case ACTION_TYPES.SelectBox: {
       const currentMail = state.mailData.find(mail => mail.account.id === action.accountId);
-      if (state.selectedAccount === currentMail.account && state.boxName === action.boxName){
+      
+      if (state.selectedAccount === currentMail.account && state.boxName === action.boxName)
         return state; 
-      }
 
       if (currentMail){
         let newState = {
@@ -147,9 +158,8 @@ function countersReducer( state = initState, action ) {
 
 
     case ACTION_TYPES.SelectMsg: {
-      if (state.selectedMsg === action.msg){
+      if (state.selectedMsg === action.msg)
         return state;
-      }
 
       return {
         ...state,
@@ -159,7 +169,9 @@ function countersReducer( state = initState, action ) {
 
 
     case ACTION_TYPES.SelectPage: {
-      let result = loadBoxData(false, {...state, selectedPage:action.pageNumber}, action.mailData);
+      if (state.selectedPage === action.pageNumber)
+        return state;
+      let result = loadBoxData(false, {...state, selectedPage:action.pageNumber}, state.mailData);
       return {
         ...state,
         ...result,

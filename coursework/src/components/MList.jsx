@@ -9,13 +9,15 @@ import ControlHeader from './ControlHeader.jsx';
 import MTreeView from './MTreeView.jsx';
 import MEditor from './MEditor.jsx';
 
-import { selectMsgAct } from '../redux/countersAC';
+import { selectMsgAct, selectPageAct } from '../redux/countersAC';
 import { mailItemsFetchAC } from '../redux/fetchThunk';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Paper, List, ListSubheader, ListItem, ListItemAvatar, Avatar, ListItemText } from '@material-ui/core';
 import { deepOrange, green } from '@material-ui/core/colors';
+import { Pagination } from '@material-ui/lab';
+
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -26,7 +28,13 @@ const useStyles = makeStyles((theme) => ({
       height: '100%'
     },
     list: {
-      marginBottom: theme.spacing(2)
+      // marginBottom: theme.spacing(2)
+    },
+    pagination: {
+      marginBottom: theme.spacing(2),
+      bottom: 0,
+      position: 'absolute',
+      padding: theme.spacing(2, 1, 1),
     },
     subheader: {
       backgroundColor: theme.palette.background.paper
@@ -84,6 +92,14 @@ function IntMList(props) {
                     </Fragment>
                 )})}
                 </List>
+                {boxData.length > 0 && <Pagination className={classes.pagination}
+                                        count={countPages} 
+                                        siblingCount={4} 
+                                        page={selectedPage} 
+                                        color="primary" 
+                                        onChange={(EO, page) => {
+                                          dispatch(selectPageAct(page));
+                                        }} />}
             </Paper>
         </Fragment>
     );

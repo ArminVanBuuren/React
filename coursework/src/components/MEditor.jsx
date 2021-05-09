@@ -50,7 +50,6 @@ class intMEditor extends React.PureComponent {
             <ReactQuill value={isExistingMsg ? selectedMsg.content : ""} theme='snow' onChange={this.textChanged} modules={this.modules} readOnly={isExistingMsg} />
         </div>
     );
-
   }
 
   textChanged = (html) => {
