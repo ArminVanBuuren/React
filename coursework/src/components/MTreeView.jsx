@@ -127,7 +127,8 @@ function IntMTreeView(props) {
           for (const mail of treeData) {
             if (nodeId in mail.boxes) {
               //dispatch(selectAct(mail.account.id, mail.boxes[nodeId].name, -1));
-              history.push(`/${mail.account.id}/${mail.boxes[nodeId].name}`);
+              let box = mail.boxes[nodeId];
+              history.push(`/${mail.account.id}/${box.name}/${box.mails.length > 0 ? box.mails[0].msgId : ""}`);
               break;
             }
           }
@@ -144,7 +145,7 @@ function IntMTreeView(props) {
                             key={boxKey}
                             nodeId={boxKey}
                             labelText={value.name}
-                            labelInfo={value.count.toString()}
+                            labelInfo={value.mails.length.toString()}
                             labelIcon={MailIcon}
                             color="#1a73e8"
                             bgColor="#e8f0fe" 

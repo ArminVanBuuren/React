@@ -25,17 +25,15 @@ function getDate(dt){
 }
 
 
-function loadBoxData(isNewData, state, mailData) {
+function loadBoxData(isNewData, state, mailData, reloadTreeData = false) {
   let selectedAccount = state.selectedAccount;
   let selectedData = {};
-  let treeData = isNewData ? [] : state.treeData;
+  let treeData = isNewData || reloadTreeData ? [] : state.treeData;
   
   if (isNewData) {
     // обновляем всю дату, сортируем письма и находим выбранный аккаунт
     for ( const mail of mailData ) {
-      let boxes = {};
-      mail.items.forEach(box => ( boxes[mail.account.id + "-" + box.name] = { name: box.name, count: box.mails.length } ));
-      treeData.push({ account:mail.account, boxes });
+      treeData.push(reloadTreeDataFunc(mail));
 
       // сортируем все письма
       for (const box of mail.items) {
@@ -59,6 +57,9 @@ function loadBoxData(isNewData, state, mailData) {
   else {
     // находим только выбранный аккаунт
     for ( const mail of mailData ) {
+      if (reloadTreeData)
+        treeData.push(reloadTreeDataFunc(mail));
+
       if ( mail.account.id === selectedAccount.id ) {
         selectedData = getSelectedBoxData(isNewData, mail, state);
         break;
@@ -66,6 +67,13 @@ function loadBoxData(isNewData, state, mailData) {
     }
   }
   return { ...selectedData, selectedAccount, treeData };
+}
+
+function reloadTreeDataFunc(mail){
+  let boxes = {};
+  //mails:box.mails
+  mail.items.forEach(box => ( boxes[mail.account.id + "-" + box.name] = { name: box.name, mails: box.mails } ));
+  return { account:mail.account, boxes };
 }
 
 function getSelectedBoxData( isNewData, mail, state ) {
@@ -275,23 +283,26 @@ function countersReducer( state = initState, action ) {
 
 
     case ACTION_TYPES.RemoveMsg: {
-      if (selectedAccount && selectedAccount.id != undefined){
-        const currentMail = mailData.find(mail => mail.account.id === selectedAccount.id);
+      if (!selectedAccount || selectedAccount.id == undefined)
+        return state;
 
-        if (currentMail && boxName in currentMail.items){
-          currentMail.items[boxName] = currentMail.items[boxName].find(m => m.msgId != action.msgid);
+      const currentMail = mailData.find(mail => mail.account.id === selectedAccount.id);
+      if (!currentMail)
+          return state;
 
-          return {
-            ...state,
-            type: action.type,
-            mode: action.mode,
-          };
-        }
-      }
+      const currentBoxData = currentMail.items.find(box => box.name === boxName);
+      if (!currentBoxData)
+          return state;
 
+      currentBoxData.mails = currentBoxData.mails.filter(m => !action.ItemsOfMsgId.some(removedMsgId => m.msgId == removedMsgId));
+
+      let newState = { 
+        ...state,
+      };
+      let result = loadBoxData(false, newState, mailData, true);
       return {
-          ...state,
-          mode: ACTION_MODE.NoDataFound,
+        ...newState,
+        ...result
       };
     }
 

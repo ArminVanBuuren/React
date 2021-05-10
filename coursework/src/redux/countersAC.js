@@ -74,11 +74,11 @@ const sendMessageAct = function(msg) {
   };
 }
 
-const removeMessageAct = function(msgId) {
+const removeMessageAct = function(ItemsOfMsgId) {
   return {
     type: ACTION_TYPES.RemoveMsg,
     mode: ACTION_MODE.Processing,
-    msgId,
+    ItemsOfMsgId,
   };
 }
 

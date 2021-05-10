@@ -5,13 +5,16 @@ import { NavLink } from 'react-router-dom';
 import Fragment from 'render-fragment';
 import { pure } from 'recompose';
 
-import { selectMsgAct, selectPageAct } from '../redux/countersAC';
+import { selectMsgAct, selectPageAct, removeMessageAct } from '../redux/countersAC';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Paper, List, ListSubheader, ListItem, ListItemAvatar, Avatar, ListItemText } from '@material-ui/core';
 import { deepOrange, green } from '@material-ui/core/colors';
 import { Pagination } from '@material-ui/lab';
+import Zoom from "@material-ui/core/Zoom/Zoom";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,21 +58,34 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function IntMList(props) {
+    const [hiddenMsgs, setHiddenMsgs] = useState([]);
     const { boxData, selectedAccount, boxName, selectedMsg, selectedPage, countPages, dispatch, history } = props;
     const classes = useStyles();
     let prevDate = null;
     
+    function handleDeleteItem (msgId) {
+      hiddenMsgs.push(msgId);
+      setHiddenMsgs(hiddenMsgs);
+    };
+
+    if (hiddenMsgs.length > 0) {
+      setTimeout(() => {
+        dispatch(removeMessageAct(hiddenMsgs));
+        setHiddenMsgs([]);
+      }, 300);
+    }
+
     return (
         <Fragment>
             <CssBaseline />
+
             {boxData.length > 0 && <Pagination className={classes.pagination}
                                           count={countPages} 
                                           siblingCount={4} 
                                           page={selectedPage} 
                                           color="primary" 
-                                          onChange={(EO, page) => {
-                                            dispatch(selectPageAct(page));
-                                          }} />}
+                                          onChange={(EO, page) => { dispatch(selectPageAct(page)); }} />}
+
             <Paper square className={classes.paper}>
                 <List className={classes.list}>
                 {boxData.map((msg) => {
@@ -80,17 +96,22 @@ function IntMList(props) {
                         prevDate = date[0];
 
                     return (
-                    <Fragment key={msg.msgId}>
-                        {dateChanged && <ListSubheader className={classes.subheader}>{date[0]}</ListSubheader>}
-                        <ListItem button selected={selectedMsg && msg.msgId === selectedMsg.msgId} onClick={() => {
-                              history.push(`/${selectedAccount.id}/${boxName}/${msg.msgId}`);
-                              dispatch(selectMsgAct(msg));
-                            }}>
-                            <ListItemAvatar>
-                                <Avatar alt="Profile Picture" className={classes.rounded} >{name}</Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary={msg.from} secondary={date[1] + ": " + msg.subject} />
-                        </ListItem>
+                    <Fragment key={msg.msgId} >
+                      {dateChanged && <ListSubheader className={classes.subheader}>{date[0]}</ListSubheader>}
+                      <Zoom in={!hiddenMsgs.includes(msg.msgId)}>
+                          <ListItem button selected={selectedMsg && msg.msgId === selectedMsg.msgId} onClick={() => {
+                                history.push(`/${selectedAccount.id}/${boxName}/${msg.msgId}`);
+                                //dispatch(selectMsgAct(msg));
+                              }}>
+                                <ListItemAvatar>
+                                    <Avatar alt="Profile Picture" className={classes.rounded} >{name}</Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary={msg.from} secondary={date[1] + ": " + msg.subject} />
+                                <IconButton color="primary" onClick={() => handleDeleteItem(msg.msgId)} >
+                                    <DeleteIcon />
+                                </IconButton>
+                          </ListItem>
+                      </Zoom>
                     </Fragment>
                 )})}
                 </List>
