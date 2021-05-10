@@ -87,10 +87,10 @@ function IntControlHeader(props) {
       <AppBar position="static">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>{boxName}</Typography>
-          <IconButton color="inherit" disabled={!boxName} onClick={(EO) => { dispatch( createMessageAct({}) ); }} >
+          <IconButton id="createButton" color="inherit" disabled={!boxName} onClick={(EO) => { dispatch( createMessageAct({}) ); }} >
             <EmailIcon />
           </IconButton>
-          <IconButton  color="inherit" onClick={(EO) => { dispatch( mailItemsFetchAC(dispatch) ); }}>
+          <IconButton id="reloadButton" color="inherit" onClick={(EO) => { dispatch( mailItemsFetchAC(dispatch) ); }}>
             <CachedIcon />
           </IconButton>
           <div className={classes.search}>
@@ -98,6 +98,7 @@ function IntControlHeader(props) {
               <SearchIcon color="inherit" />
             </div>
             <InputBase
+              id="searchText"
               placeholder="Search…"
               classes={{root: classes.inputRoot, input: classes.inputInput, }}
               inputProps={{ "aria-label": "search" }}
