@@ -52,7 +52,7 @@ function mailItemsFetchAC( dispatch ) {
 //     ]
 // }]               
 // );
-//             }, 300);
+//             }, 3000);
 //         })
 
 
@@ -72,6 +72,7 @@ function mailItemsFetchAC( dispatch ) {
             }
         } )
         .then( ( data ) => {
+            //dispatch( loadingSuccessAct( data ) );
             dispatch( loadingSuccessAct( JSON.parse(data.result) ) );
         } )
         .catch( ( error ) => {
