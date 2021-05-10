@@ -32,6 +32,7 @@ class intMEditor extends React.PureComponent {
 
   render() {
     let { selectedAccount, selectedMsg } = this.props;
+    
     const isExistingMsg = selectedMsg != null && selectedMsg != undefined && selectedMsg.msgId != null && selectedMsg.msgId != undefined && selectedMsg.msgId != -1;
     if (isExistingMsg && !this.state.resetted)
       this.reset();
@@ -42,6 +43,10 @@ class intMEditor extends React.PureComponent {
     let { from, to, subject, content, toValid } = isExistingMsg || isReplay ? selectedMsg : { ...this.state, from: selectedAccount.mail };
     const toTextValid = toValid === undefined || toValid;
     const isReadyToSend = !isExistingMsg && toTextValid && subject;
+
+    from = from == undefined ? "" : from;
+    to = to == undefined ? "" : to;
+    subject = subject == undefined ? "" : subject;
     content = content == undefined ? "" : content;
 
     return (

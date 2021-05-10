@@ -12,24 +12,26 @@ import { ACTION_TYPES, ACTION_MODE, selectAct } from '../redux/countersAC';
 class intPagesRouter extends React.PureComponent {
 
   static propTypes = {
+    emulation: PropTypes.bool,
     type: PropTypes.string.isRequired, // получено из Redux
     mode: PropTypes.string.isRequired, // получено из Redux
     mailData: PropTypes.array.isRequired, // получено из Redux
   };
 
   componentDidMount() {
-    this.props.dispatch( mailItemsFetchAC(this.props.dispatch) );
+    const { emulation, dispatch } = this.props;
+    dispatch( mailItemsFetchAC(dispatch, emulation) );
   }
 
   render() {
-    const { type, mode, mailData } = this.props;
+    const { emulation, type, mode, mailData, dispatch } = this.props;
     const routes = [];
 
     if (mode === ACTION_MODE.Error)
       return "ошибка загрузки...";
 
     if (type === ACTION_TYPES.SendMsg){
-      this.props.dispatch( mailItemsSyncAC(this.props.dispatch, mailData) );
+      dispatch( mailItemsSyncAC(dispatch, mailData, emulation) );
       return (<LoaderFragment load={mode === ACTION_MODE.Processing} />);
     }
         

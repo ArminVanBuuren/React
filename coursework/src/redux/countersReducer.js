@@ -86,11 +86,6 @@ function getSelectedBoxData( isNewData, mail, state ) {
   
   for ( const box of mail.items ) {
 
-    // при первой загрузке показываем певый попавшийся бокс
-    if (isNewData && boxName === ""){
-      boxName = box.name;
-    }
-
     // находим выбранный box
     if ( box.name === boxName ) {
 

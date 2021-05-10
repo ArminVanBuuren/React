@@ -1,5 +1,6 @@
 ﻿
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 
 import combinedReducer from '../redux/reducers.js';
@@ -11,10 +12,14 @@ let store = createStore(combinedReducer, applyMiddleware(thunk));
 
 class MainPage extends React.PureComponent {
 
+  static propTypes = {
+    emulation: PropTypes.bool,
+  };
+
   render() {
     return (
       <Provider store={store}>
-        <PagesRouter />
+        <PagesRouter emulation={this.props.emulation} />
       </Provider>
     );
   }

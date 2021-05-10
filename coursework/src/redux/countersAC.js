@@ -22,10 +22,12 @@ const ACTION_MODE = Object.freeze({
   NoDataFound: 'NoDataFound',
 });
 
-const loadingAct = function() {
+const loadingAct = function(emulation) {
+  let status = emulation ? { emulation: true } : {};
   return {
     type: ACTION_TYPES.Load,
     mode: ACTION_MODE.Processing,
+    ...status
   };
 }
 

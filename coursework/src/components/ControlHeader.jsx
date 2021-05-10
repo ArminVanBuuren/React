@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function IntControlHeader(props) {
-  const { boxName, dispatch, searchingText } = props;
+  const { emulation, boxName, dispatch, searchingText } = props;
   const classes = useStyles();
 
   return (
@@ -90,7 +90,7 @@ function IntControlHeader(props) {
           <IconButton id="createButton" color="inherit" disabled={!boxName} onClick={(EO) => { dispatch( createMessageAct({}) ); }} >
             <EmailIcon />
           </IconButton>
-          <IconButton id="reloadButton" color="inherit" onClick={(EO) => { dispatch( mailItemsFetchAC(dispatch) ); }}>
+          <IconButton id="reloadButton" color="inherit" onClick={(EO) => { dispatch( mailItemsFetchAC(dispatch, emulation) ); }}>
             <CachedIcon />
           </IconButton>
           <div className={classes.search}>
@@ -113,6 +113,7 @@ function IntControlHeader(props) {
 }
 
 IntControlHeader.propTypes = {
+  emulation: PropTypes.bool,
   boxName: PropTypes.string.isRequired,
   searchingText: PropTypes.string,
 };
@@ -121,6 +122,7 @@ const mapStateToProps = function (state) {
     return {
       // из раздела Redux с именем counter свойство cnt будет доступно
       // данному компоненту как this.props.cnt
+      emulation: state.counters.emulation,
       boxName: state.counters.boxName,
       searchingText: state.counters.searchingText,
     };
