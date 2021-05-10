@@ -83,7 +83,7 @@ function getSelectedBoxData( isNewData, mail, state ) {
   let selectedMsg = state.selectedMsg;
   let selectedPage = state.selectedPage;
   let countPages = 1;
-
+  
   for ( const box of mail.items ) {
 
     // при первой загрузке показываем певый попавшийся бокс
@@ -112,14 +112,19 @@ function getSelectedBoxData( isNewData, mail, state ) {
       if ( selectedMsg ) {
 
         if ( selectedMsg.msgId ) {
-          let newSelectedMsg = mails.find( m => { 
+          selectedMsg = mails.find( m => { 
             findedIndex++;
             return m.msgId === selectedMsg.msgId 
           });
-          selectedMsg = newSelectedMsg ? newSelectedMsg : selectedMsg;
+
+          // если запись уже удалена, то очищаем выбранное сообщение
+          if ( !selectedMsg ){
+            findedIndex = -1;
+            selectedMsg = {};
+          }
         }
 
-        if ( selectedMsg.msgId === -1 || selectedMsg.msgId == undefined && mails.length > 0 ){
+        if ( selectedMsg.msgId == undefined && mails.length > 0 || selectedMsg.msgId === -1 ){
           selectedMsg = mails[0];
         }
       }
@@ -190,7 +195,6 @@ function countersReducer( state = initState, action ) {
       let newSelectedMsg = selectedMsg && selectedMsg.msgId === action.msgId && action.msgId !== -1
                                         ? selectedMsg
                                         : { msgId: action.msgId };
-
 
       if (currentMail) {
         let newState = {

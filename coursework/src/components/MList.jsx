@@ -99,7 +99,7 @@ function IntMList(props) {
                     <Fragment key={msg.msgId} >
                       {dateChanged && <ListSubheader className={classes.subheader}>{date[0]}</ListSubheader>}
                       <Zoom in={!hiddenMsgs.includes(msg.msgId)}>
-                          <ListItem button selected={selectedMsg && msg.msgId === selectedMsg.msgId} onClick={() => {
+                          <ListItem button selected={selectedMsg && selectedMsg.msgId && msg.msgId === selectedMsg.msgId} onClick={() => {
                                 history.push(`/${selectedAccount.id}/${boxName}/${msg.msgId}`);
                                 //dispatch(selectMsgAct(msg));
                               }}>
