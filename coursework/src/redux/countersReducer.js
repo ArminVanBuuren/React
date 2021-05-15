@@ -31,7 +31,7 @@ function loadBoxData(isNewData, state, mailData, reloadTreeData = false) {
   let treeData = isNewData || reloadTreeData ? [] : state.treeData;
   
   if (isNewData) {
-    // обновляем всю дату, сортируем письма и находим выбранный аккаунт
+    // обновляем все данные, сортируем письма и находим выбранный аккаунт
     for ( const mail of mailData ) {
       treeData.push(reloadTreeDataFunc(mail));
 
@@ -92,10 +92,10 @@ function getSelectedBoxData( isNewData, mail, state ) {
       let mails = box.mails;
       if (searchingText){
         let searchingTextLower = searchingText.toLowerCase();
-        mails = mails.filter(m => (m.from.toLowerCase().indexOf(searchingText) != -1 
-        || m.to.toLowerCase().indexOf(searchingText) != -1 
-        || m.subject.toLowerCase().indexOf(searchingText) != -1 
-        || m.content.toLowerCase().indexOf(searchingText) != -1));
+        mails = mails.filter(m => (m.from.toLowerCase().indexOf(searchingTextLower) != -1 
+        || m.to.toLowerCase().indexOf(searchingTextLower) != -1 
+        || m.subject.toLowerCase().indexOf(searchingTextLower) != -1 
+        || m.content.toLowerCase().indexOf(searchingTextLower) != -1));
       }
 
       // находим все письма, подситываем количество страниц и корректируем выбранную страницу
