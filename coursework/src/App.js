@@ -1,0 +1,16 @@
+﻿"use strict";
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+
+import './App.css';
+import MainPage from './core/MainPage.jsx';
+
+ReactDOM.render(
+  <BrowserRouter>
+    <MainPage/>
+  </BrowserRouter>
+  , document.getElementById('container') 
+);
+

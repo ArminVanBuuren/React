@@ -2,7 +2,7 @@
   "name": "mailclient",
   "version": "1.0.0",
   "description": "курсовая",
-  "main": "App.js",
+  "main": "src\\App.js",
   "scripts": {
     "build": ".\\node_modules\\.bin\\webpack",
     "test": "jest",

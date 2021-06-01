@@ -8,9 +8,9 @@ const extractCSS = new ExtractTextPlugin({
 
 module.exports = { 
     // собирать пакет полифиллов, а потом основной файл приложения
-    entry: ["babel-polyfill",'./App.js'],
+    entry: ["babel-polyfill",'./src/App.js'],
     output:{ 
-        path: __dirname, // путь к каталогу выходных файлов
+        path: path.resolve(__dirname, 'public'), // путь к каталогу выходных файлов
         filename: "bundle.js"  // название создаваемого файла 
     }, 
     devtool:'source-map',
