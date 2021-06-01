@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import './app.css';
+import './App.css';
 import MainPage from './src/core/MainPage.jsx';
 
 ReactDOM.render(
