@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`работа MainPage 1`] = `
+<div
+  className="root"
+>
+  <div
+    id="waiting"
+    style={
+      Object {
+        "opacity": 0,
+        "zIndex": -1,
+      }
+    }
+  >
+    <div
+      className="loader-container"
+    >
+      <div
+        className="loader-div"
+      >
+        <div
+          className="loader-div"
+        >
+          <div
+            className="loader-div"
+          >
+            <div
+              className="loader-div"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

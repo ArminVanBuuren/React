@@ -1,0 +1,46 @@
+#waiting{
+    background-color: rgba(0, 0, 0, 0.400);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#waiting *, #waiting::before, #waiting::after {
+    box-sizing: content-box !important;
+}
+
+#waiting .loader-container {
+    /* z-index: 1; */
+    /* margin: auto; */
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#waiting .loader-div {
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    border: 5px solid #094d74;
+    border-top: 5px solid #8fbaff;
+    border-radius: 50%;
+    animation: rotate 6s linear infinite;
+    overflow: hidden;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.root{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}

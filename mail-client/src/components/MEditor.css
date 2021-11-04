@@ -1,0 +1,31 @@
+.text-editor {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.text-editor > #toolbar{
+    flex: 0 0 auto;
+    background-color: rgb(235, 235, 235);
+}
+
+.text-editor:last-child div{
+    flex: 1 1 auto;
+}
+
+.text-editor .MuiFormControl-root{
+    margin-top: 10px;
+}
+
+.text-editor .MuiFormControl-root:last-child{
+    margin: 10px 0 10px 0;
+}
+
+.text-editor .MuiTextField-root{
+    width: 100%;
+}
+
+.text-editor .MuiOutlinedInput-input{
+    padding: 13.5px 14px;
+}
