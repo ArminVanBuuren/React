@@ -1,0 +1,23 @@
+$fa-font-path: './app/assets/fonts';
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('#{$fa-font-path}/Roboto-Regular.eot');
+    src: url('#{$fa-font-path}/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+         url('#{$fa-font-path}/Roboto-Regular.svg#Roboto-Regular') format('svg'),
+         url('#{$fa-font-path}/Roboto-Regular.ttf') format('truetype'),
+         url('#{$fa-font-path}/Roboto-Regular.woff') format('woff'),
+         url('#{$fa-font-path}/Roboto-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    width: 100%;
+}

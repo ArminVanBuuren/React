@@ -1,0 +1,30 @@
+﻿{
+	"MainPage": {
+		"title": "Khovanskiy UI"
+	},
+	"NotFoundPage": {
+		"title": "Страница не найдена"
+	},
+	"ServerErrorPage": {
+		"title": "Ошибка сервера"
+	},
+	"ResumePage": {
+		"title": "Резюме"
+	},
+	"SimpleComponents": {
+		"DarkMode": "Ночная тема"
+	},
+	"TableComponent": {
+		"noData": "Нет данных",
+		"backIconButtonText": "Предыдущая страница",
+		"labelRowsPerPage": "",
+		"nextIconButtonText": "Следующая страница",
+		"labelDisplayedRows": "{0}-{1} из {2}",
+		"filterList": "Фильтр",
+		"searchDesert": "Поиск",
+		"sort": "",
+		"selected": "{0} выбрано",
+		"add": "Добавить",
+		"delete": "Удалить"
+	}
+}
