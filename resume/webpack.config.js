@@ -18,7 +18,7 @@ const paths = {
 };
 
 const appOptions = {
-	appName: 'Vladimir Khovanskiy UI',
+	appName: 'Khovanskiy UI',
 	mainPath: '',
 };
 
