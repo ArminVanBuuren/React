@@ -1,0 +1,27 @@
+{
+  "presets": [
+    "env",
+    "react",
+    "stage-2",
+    "es2015"
+  ],
+  "plugins": [
+    "transform-flow-strip-types",
+    "transform-decorators-legacy",
+    "transform-react-inline-elements",
+    [
+      "react-css-modules",
+      {
+        "generateScopedName": "[path]_[name]_[local]",
+        "filetypes": {
+          ".scss": {
+            "syntax": "postcss-scss",
+            "plugins": [
+              "postcss-nested"
+            ]
+          }
+        }
+      }
+    ]
+  ]
+}

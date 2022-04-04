@@ -1,0 +1,217 @@
+﻿{
+	"MnpMainPage": {
+		"title": "OrderManagement MNP UI"
+	},
+	"NotFoundPage": {
+		"title": "Страница не найдена"
+	},
+	"ServerErrorPage": {
+		"title": "Ошибка сервера"
+	},
+	"MnpUzPage": {
+		"title": "Заявки на перенос номера",
+		"orderTypes": {
+			"Any": "Любой",
+			"PortInMnpUz": "Карточка на перенос номера от другого ОСС",
+			"PortOutMnpUz": "Заявка на перенос номера к другому ОСС",
+			"NumberReturnMnpUz": "Возврат номера MNP",
+			"IncorrectPortOutMnpUz": "Ошибочный перенос. Донор",
+			"IncorrectPortInMnpUz": "Ошибочный перенос. Реципиент"
+		},
+		"orderFilter": {
+			"period": "За период",
+			"orderType": "Тип заявки",
+			"portState": "Статус заявки",
+			"search": "Поиск",
+			"searchPlaceHolder": "Номер телефона, номер заявки в ЦБДПН, ФИО или организация",
+			"searchButton": "Найти",
+			"clearButton": "Очистить",
+			"portOutButton": "Создать заявку"
+		},
+		"portStates": {
+			"Unknown": "Любой",
+			"New": "Новая",
+			"Reopen": "Переоткрыта",
+			"Checking": "На проверке",
+			"Approved": "Согласована",
+			"Portation": "Портация",
+			"Activated": "Активация завершена",
+			"Notification": "Уведомление",
+			"Rejected": "Отклонена",
+			"Completed": "Завершена",
+			"Deactivated": "Деактивация завершена",
+			"Waiting": "Ожидание освобождения номера",
+			"Clear": "Номер освобожден"
+		},
+		"tableAttributes": {
+			"orderTypeCode": "Тип заявки",
+			"createDate": "Дата заявки",
+			"orderId": "Номер заявки",
+			"portMsisdns": "Портируемые номера",
+			"tempMsisdns": "Временные номера",
+			"fullNameOrOrganization": "ФИО/ Наим. организации",
+			"portDate": "Дата портации",
+			"mnpRequestState": "Статус заявки"
+		},
+		"RequestPage": {
+			"title": "Заявка на перенос номера",
+			"stateMnpPorting": "Статус заявки",
+			"boolean": {
+				"true": "Да",
+				"false": "Нет"
+			},
+			"orderStates": {
+				"Unknown": "",
+				"NotSupported": "NotSupported",
+				"Registration": "Зарегистрировано",
+				"Execution": "В обработке",
+				"Canceled": "Отменено",
+				"Complete": "Завершено",
+				"Checkpoint": "Checkpoint"
+			},
+			"validationStatus": {
+				"Unknown": "",
+				"Accepted": "Подтвержден",
+				"Declined": "Отклонен",
+				"Excluded": "Исключен"
+			},
+			"returnReasonCode": {
+				"CloseTDPortIn": "Прекращение обслуживания ПО - Реципиент",
+				"CloseTDPortOut": "Прекращение обслуживания ПО - Донор",
+				"IncorrectPortIn": "Ошибочный перенос – Реципиент",
+				"IncorrectPortOut": "Ошибочный перенос - Донор"
+			},
+			"humanTasks": {
+				"CreateCdbPortRequestTask": "Регистрация заявления на перенос номера в ЦБДПН",
+				"DonorValidationResultTask": "Подтверждение заявки на перенос от донора",
+				"PortActivateTask": "Подтверждение активации номеров в ЦБДПН",
+				"PortCompletedTask": "Завершение переноса номеров в ЦБДПН",
+				"PortDeactivateCdbTask": "Запрос на отключение услуг абонента от ЦБ",
+				"PortDeactivateCompleteTask": "Подтверждение отключения услуг абонента у Донора",
+				"NumberReturnRequestTask": "Запрос в ЦБДПН",
+				"NumberReturnValidationTask": "Ответ от ЦБДПН",
+				"NumberReturnNotificationTask": "Уведомление ЦБДПН",
+				"IncorrectPortOutRequestTask": "Запрос в ЦБДПН",
+				"IncorrectPortOutValidationTask": "Ответ от ЦБДПН",
+				"IncorrectPortOutNotificationTask": "Уведомление ЦБДПН"
+			},
+			"stateLabel": "Статус",
+			"recreateButton": "Пересоздать заявку",
+			"reopenDialogTitle": "Пересоздать заявку",
+			"reopenDialogDescription": "Будет произведено создание новой заявки на основе отмененной.",
+			"reopenDialogOk": "Пересоздать",
+			"reopenDialogCancel": "Отмена",
+			"saveButton": "Сохранить",
+			"refreshButton": "Обновить",
+			"cancelButton": "Отмена",
+			"orderAttributes": {
+				"CreateDate": "Заявка создана",
+				"CdbRequestId": "Номер заявки в ЦБДПН",
+				"customer_id": "Идентификатор абонента",
+				"PortDate": "Плановая дата портации",
+				"CustomerFirstName": "Имя",
+				"CustomerLastName": "Фамилия",
+				"CustomerMiddleName": "Отчество",
+				"PINFL": "ПИНФЛ",
+				"DocType": "Тип документа",
+				"DocNum": "Серия и номер",
+				"DocIssuer": "Кем выдан",
+				"DocIssueDate": "Дата выдачи документа",
+				"MNPGroupTransferApproach": "Признак полного переноса",
+				"INN": "ИНН абонента",
+				"OrganizationName": "Название организации",
+				"PortRejectReason": "Причина отказа переноса",
+				"StateRequestMNP": "Состояние заявки",
+				"ReturnReasonCode": "Причина возврата номера",
+				"RejectReason": "Причина отказа",
+				"MsisdnIsFree": "Номер освобожден"
+			},
+			"mnpPortOutFields": {
+				"individual": "Частное лицо",
+				"organization": "Организация",
+				"cdbRequestId": "Номер заявки в ЦБДПН",
+				"portDate": "Плановая дата портации",
+				"firstName": "Имя",
+				"lastName": "Фамилия",
+				"middleName": "Отчество",
+				"puid": "ПИНФЛ",
+				"docTypeCode": "Тип документа",
+				"docSeries": "Серия",
+				"docNumber": "Номер",
+				"docIssuer": "Кем выдан",
+				"docIssueDate": "Дата выдачи документа",
+				"inn": "ИНН абонента",
+				"organizationName": "Название организации",
+				"isFullPortabilityRequired": "Признак полного переноса",
+				"terminalDeviceId": "ПО",
+				"portMsisdn": "Портируемый номер",
+				"tempMsisdn": "Временный номер"
+			},
+			"orderTableAttributes": {
+				"Terminal_device_id": "ПО",
+				"MSISDN": "Номер",
+				"PortMsisdn": "Номер",
+				"TempMsisdn": "Временный номер",
+				"PortCheckStatus": "Статус",
+				"PortRejectReason": "Причина отказа",
+				"IncorrectMsisdn": "Ошибочный номер",
+				"CorrectMsisdn": "Корректный номер"
+			}
+		},
+		"messages": {
+			"ModifyNotAllowed": "Изменения не разрешены",
+			"InvalidState": "Не установлено новое состояние заявки",
+			"CdbrIdNotSet": "Не установлен идентификатор заявки ЦБДПН",
+			"InvalidPortDate": "Установлена неверная дата портации",
+			"RejectReasonNotSet": "Не установлена причина отказа переноса",
+			"InvalidValidationResults": "Не все поля заполнены",
+			"InvalidOrderFields": "Не все поля заполнены корректно",
+			"AllMsisdnsMustBeAccepted": "При полном переносе все номера должны быть подтверждены",
+			"ValidateReasonNotSet": "Не везде заполнена причина отказа",
+			"NoAcceptedMsisdnFound": "Не найден ни один принятый номер",
+			"NoMsisdnFound": "Не найдены портируемые номера",
+			"RejectedByDonor": "Отклонена донором",
+			"RejectedByCdb": "Отменена ЦБДПН",
+			"NotFound": "Страница не найдена",
+			"ServerError": "Внутренняя ошибка сервера",
+			"InvalidOrderId": "Некорректный идентификатор заявки",
+			"IncorrectMsisdn": "Неправильный номер",
+			"MsisdnWasNotPorted": "Номер не был портирован",
+			"RequestSuccessfullyCreated": "Заявка успешно создана",
+			"InvalidCorrectMsisdn": "Корректный номер должен состоять из 12 цифр",
+			"TempMsisdnHasWrongStatus": "Временный номер имеет неверный статус",
+			"NoTempMsisdnFound": "Временный номер не найден",
+			"failedAction": {
+				"Unknown": "Внутренняя ошибка сервера",
+				"GetSettings": "Внутренняя ошибка сервера",
+				"GetOrder": "Ошибка при получении заявки",
+				"RefreshOrder": "Ошибка при обновлении данных заявки",
+				"SaveChanges": "Ошибка при изменении статуса заявки",
+				"StartPortIn": "Ошибка запуска процесса",
+				"PrepareStartPortOut": "Ошибка сервера",
+				"StartPortOut": "Ошибка запуска процесса",
+				"GetOrdersByFilter": "Ошибка сервера",
+				"NotFound": "Заявка не найдена",
+				"GetIncorrectPortOut": "Ошибка при получении данных абонента",
+				"StartIncorrectPortOut": "Ошибка запуска процесса",
+				"StartIncorrectPortIn":  "Ошибка запуска процесса"
+			}
+		}
+	},
+	"SimpleComponents": {
+		"DarkMode": "Ночная тема"
+	},
+	"TableComponent": {
+		"noData": "Нет данных",
+		"backIconButtonText": "Предыдущая страница",
+		"labelRowsPerPage": "",
+		"nextIconButtonText": "Следующая страница",
+		"labelDisplayedRows": "{0}-{1} из {2}",
+		"filterList": "Фильтр",
+		"searchDesert": "Поиск",
+		"sort": "",
+		"selected": "{0} выбрано",
+		"add": "Добавить",
+		"delete": "Удалить"
+	}
+}
