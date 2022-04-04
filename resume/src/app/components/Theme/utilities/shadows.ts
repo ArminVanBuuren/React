@@ -7,7 +7,7 @@ export const shadowStyles = makeStyles(({ palette, ...theme }) => ({
 }));
 
 const generateShadows = (theme: Theme) => {
-    const classList:Record<string, Record<string, string>> = {};
+    const classList: Record<string, Record<string, string>> = {};
 
     theme.shadows.forEach((shadow, ind) => {
         classList[`.elevation-z${ind}`] = {

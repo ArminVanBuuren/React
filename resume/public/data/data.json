@@ -1,0 +1,211 @@
+{
+	"vkhovanskiy": {
+		"avatar": "https://sun9-76.userapi.com/impg/c858020/v858020940/1592c8/dJeCVviuMJs.jpg?size=815x752&quality=96&sign=0c87f1ae811fe832ebdd85061681b0df&type=album",
+		"localized": [
+			{
+				"langMatches": ["ru"],
+				"name": "Хованский Владимир",
+				"position": "Full-Stack Developer",
+				"contacts": {
+					"tel": ["79509487993", "375291608206"],
+					"github": ["ArminVanBuuren"],
+					"telegram": ["dwyanewade"],
+					"skype": ["dw.wade.3"],
+					"linkedin": ["vladimir-khovanskiy-1b291657"]
+				},
+				"about": "",
+				"experience": [
+					{
+						"start": "2018-01-01T00:00:00",
+						"end": null,
+						"position": "Ведущий инженер программист",
+						"name": "ITM-BEL",
+						"about": "",
+						"exercise": [
+							"Развитие CRM системы на .NET",
+							"Работа со сложной архитектурой и легаси",
+							"Разработка UI и веб приложений"
+						],
+						"succeed": [
+							"Успешно разработал решение по интеграции с системой электронного документооборота",
+							"Внедрил несколько проектов на React с использованием TypeScript, Mobx и библиотеки компонентов Material UI",
+							"Спроектировал LLD архитектуру и разработал как front-end так и back-end часть по ппроекту переносу номера Mobile Number Portability (MNP)",
+							"С"
+						]
+					},
+					{
+						"start": "2013-08-01T00:00:00",
+						"end": "2018-01-01T00:00:00",
+						"position": "Инженер программист",
+						"name": "BelNvision",
+						"about": "",
+						"exercise": [
+							"Внедрение автоматизированных систем",
+							"Настройка взаимодействия биллинговой системы с различными внешними платформами: HLR, SMSC, In-Platform, RBT"
+						],
+						"succeed": [
+							"Опыт работы с базой данных Oracle и платформой .NET",
+							"Разработал множетсво различных задач на базе Oracle",
+							"Разработал полностью универсальный и быстрый подход по поиску системной информации и логов различных подсистем",
+							"Разработка WPF и WinForm приложений на платформе .NET"
+						]
+					},
+					{
+						"start": "2008-01-01T00:00:00",
+						"end": "2013-07-01T00:00:00",
+						"position": "Инженер технической поддержки",
+						"name": "Sitronics Telecom Solutions Tashkent",
+						"about": "",
+						"exercise": [
+							"Поддержка операторов сотовой связи общего пользования",
+							"Настройка бизнес-логики и специализированных сервисов",
+							"Внедрение систем, управление проблемами",
+							"Настройка взаимодействия биллинговой системы с различными внешними платформами: HLR, SMSC, In-Platform, RBT"
+						],
+						"succeed": [
+							""
+						]
+					}
+				],
+				"education": [
+					{
+						"start": "2013-01-01T00:00:00",
+						"end": "2016-01-01T00:00:00",
+						"name": "Университет «Синергия»",
+						"about": "Информационные системы и технологии",
+						"qualification": "Бакалавр",
+						"position": "Программное обеспечение средств вычислительной техники и автоматизированных систем"
+					},
+					{
+						"start": "2007-09-03T00:00:00",
+						"end": "2010-29-06T00:00:00",
+						"name": "Ташкентский Радиотехнический профессиональный колледж",
+						"about": "",
+						"qualification": "Информационные технологии",
+						"position": "Техник по обслуживанию и ремонту компьютерной оргтехники"
+					}
+				],
+				"skills": [
+					"C#", "WCF", "LINQ", "WPF", "Oracle SQL", "ASP.NET Web API", "HTML5", "CSS3",
+					"JavaScript", "Regex", "XPath", "ReactJS", "TypeScript", "Jss", "Redux", "MobX",
+					"Material UI", "Webpack", "Git", "Figma"
+				]
+			},
+
+
+
+
+
+
+
+
+			{
+				"langMatches": ["en"],
+				"name": "Khovanskiy Vladimir",
+				"position": "Full-Stack Developer",
+				"contacts": {
+					"tel": ["79509487993", "375291608206"],
+					"github": ["ArminVanBuuren"],
+					"telegram": ["dwyanewade"],
+					"skype": ["dw.wade.3"],
+					"linkedin": ["khovanskiy"]
+				},
+				"_comment": "Software engineer with 14+ years of experience in all the aspects of the software development process.",
+				"about": "Full-stack developer with great experience in writing Back-End side with complex business logic on .NET (C#), Oracle DB modeling and optimization, designing and implementing APIs, troubleshooting, code quality assurance. And Front-End side with responsive web-design, implementing vanilla JS UI, designing and implementing SPA screens and components on React.js.\nHardworking, responsible, motivated, reliable and flexible team player. Always learning and do my best to provide a high quality of work.",
+				"experience": [
+					{
+						"start": "2020-05-01T00:00:00",
+						"end": null,
+						"name": "ITM-BEL",
+						"about": "",
+						"position": "Software Developer",
+						"exercise": [
+							"Designing CRM system on .NET",
+							"Worked a lot with complex architecture and legacy code",
+							"Implementing APIs",
+							"UI/Web application development"
+						],
+						"succeed": [
+							"Developed a solution for integration Electronic Document Management system (EDM)",
+							"Implemented several React projects using TypeScript, Mobx, Material UI, etc.",
+							"Designed LLD and developed a solution for integration Mobile Number Portability (MNP)"
+						]
+					},
+					{
+						"start": "2018-01-01T00:00:00",
+						"end": "2020-05-01T00:00:00",
+						"name": "ITM-BEL",
+						"about": "",
+						"position": "Lead Software Engineer",
+						"exercise": [
+							"Software development, testing and implementation."
+						],
+						"succeed": [
+							"Developed through a database layer (Oracle) and business logic level (C#) on a .NET frame.",
+							"Experience with Microsoft stack including .NET Framework, C#, ASP.NET, WCF, WPF, WinForm, etc."
+						]
+					},
+					{
+						"start": "2013-08-01T00:00:00",
+						"end": "2018-01-01T00:00:00",
+						"name": "BelNvision",
+						"about": "Project – Support for Foris OSS.",
+						"position": "Senior technical support engineer and software developer",
+						"exercise": [
+							"Troubleshooting and Issue Tracking.",
+							"Implementation and support of the following subsystems: Service Provisioning & Assurance, Messaging Gateway, etc."
+						],
+						"succeed": [
+							"Developed new USSD/SMS assistant system through C#, XML, MSMQ.",
+							"Launch of FORIS for \"UMS\" provider in Uzbekistan (2014)",
+							"Implemented new software modules for \"MTS Russia\", \"MTS Belarus\", \"UMS Uzbekistan\", \"MTS Ukraine\" and drove full implementation cycle of the integration of new functional services provider; from testing in the test environment to putting into operation in production environment; installation cycle of updating billing system and service pack installation. (2014-2018)",
+							"Migration to the new currency of \"MTS Belarus\" provider customers in FORIS due to denomination in Belarus"
+						]
+					},
+					{
+						"start": "2008-06-01T00:00:00",
+						"end": "2013-07-01T00:00:00",
+						"name": "Sitronics Telecom Solutions Tashkent",
+						"position": "Technical support engineer and software developer",
+						"about": "Sitronics provides converged billing, client-oriented charging and service management in fixed and mobile communication networks.",
+						"exercise": [
+							"Supports operators of cellular and public switched communication.",
+							"Server Configuration of business logic and specialized services when upgrading.",
+							"Support implementation of the current system, issues management, customer interaction management.",
+							"Service provisioning configuration interaction with the billing system the different external platforms: HLR, IN-Platform, SMSC, RBT, IVR, USSDC."
+						],
+						"succeed": [
+							"Design development, and implementation different Windows Services.",
+							"Outsourcing and development of software modules in Oracle PL/SQL.",
+							"Experienced in work with database layer (Oracle).",
+							"Supports the migration of over 8 million subscribers to new billing system."
+						]
+					}
+				],
+				"education": [
+					{
+						"start": "2012-09-01T00:00:00",
+						"end": "2016-06-01T00:00:00",
+						"name": "Moscow University for Industry and Finance «Synergy»",
+						"about": "Information systems and technologies",
+						"qualification": "Bachelor's degree",
+						"position": "Computers and Automated Systems Software"
+					},
+					{
+						"start": "2007-09-03T00:00:00",
+						"end": "2010-29-06T00:00:00",
+						"name": "Tashkent Radio Engineering Professional College",
+						"about": "",
+						"qualification": "Information Technology",
+						"position": "Maintenance of network, workstations and office equipment"
+					}
+				],
+				"skills": [
+					"C#", ".NET Core 2.2", "WCF", "LINQ", "WPF", "Oracle SQL", "ASP.NET Web API", "HTML5", "CSS3",
+					"JavaScript", "Regex", "XPath", "ReactJS", "TypeScript", "Jss", "Redux", "MobX",
+					"Material UI", "Webpack", "Git", "Figma"
+				]
+			}
+		]
+	}
+}

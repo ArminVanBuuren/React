@@ -35,7 +35,7 @@ module.exports = (env, options) => {
 	};
 
 	if (isProd) {
-		processEnv.ROUTE_PREFIX = JSON.stringify(`/${appOptions.mainPath}`);
+		processEnv.ROUTE_PREFIX = JSON.stringify(appOptions.mainPath ? `/${appOptions.mainPath}` : '');
 	}
 
 	const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
@@ -72,10 +72,13 @@ module.exports = (env, options) => {
 			new MiniCssExtractPlugin({
 				filename: filename('css')
 			}),
-			new CopyWebpackPlugin([
-				{
+			new CopyWebpackPlugin([{
 					from: paths.PUBLIC + '/locales',
 					to: paths.BUILD + '/locales'
+				},
+				{
+					from: paths.PUBLIC + '/data',
+					to: paths.BUILD + '/data'
 				}
 			]),
 			new webpack.DefinePlugin({ 'process.env': processEnv }),
@@ -131,12 +134,7 @@ module.exports = (env, options) => {
 					],
 				},
 				{
-					test: /\.(png|jpg|svg|gif)$/,
-					exclude: /node_modules/,
-					use: ['file-loader']
-				},
-				{
-					test: /\.(otf|ttf|woff|woff2|eot)$/,
+					test: /\.(png|jpg|svg|gif|otf|ttf|woff|woff2|eot)$/,
 					exclude: /node_modules/,
 					use: ['file-loader']
 				},

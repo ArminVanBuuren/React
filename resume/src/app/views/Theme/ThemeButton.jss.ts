@@ -28,8 +28,8 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	menu: {
 		'& .MuiMenu-list': {
-			minWidth: '150px',
-			maxWidth: '150px',
+			minWidth: '160px',
+			maxWidth: '160px',
 			display: 'flex',
 			justifyContent: 'space-between',
 			flexWrap: 'wrap',

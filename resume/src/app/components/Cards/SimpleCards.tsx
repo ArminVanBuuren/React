@@ -11,9 +11,16 @@ export interface SimpleCardProps {
 	mb?: number;
 }
 
-const SimpleCard = ({ children, classes, px = 3, py = 2, mt = 0, mb = 0 }: SimpleCardProps): JSX.Element => {
+const SimpleCard = ({ children, classes, px, py, mt, mb }: SimpleCardProps): JSX.Element => {
+	const cls = [
+		px ? `px-${px}` : '',
+		py ? `py-${py}` : '',
+		mt ? `mt-${mt}` : '',
+		mb ? `mb-${mb}` : '',
+	];
+
 	return (
-		<Card elevation={6} className={classNames('h-full', classes, `px-${px}`, `py-${py}`, `mt-${mt}`, `mb-${mb}`)}>
+		<Card elevation={6} className={classNames('h-full', cls, classes)}>
 			{children}
 		</Card>
 	);
