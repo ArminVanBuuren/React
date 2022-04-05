@@ -1,8 +1,17 @@
 import React, { ReactNode } from 'react';
 
+export default withLoading(() => {
+    return (
+        <div>
+
+        </div>
+    );
+});
+
 export interface WithLoadingProps {
     classes?: string;
     isReady?: boolean;
+    children?: ReactNode;
 }
 
 export function withLoading<T>(Component: React.ElementType) {
